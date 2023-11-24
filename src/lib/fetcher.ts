@@ -6,7 +6,6 @@ import Axios, {
   type InternalAxiosRequestConfig,
 } from "axios";
 import { authStore } from "../app.store/authStore";
-import { enqueueSnackbar } from "notistack";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
@@ -34,7 +33,6 @@ const errorInterceptor = (error: AxiosError | Error) => {
 
     if (response?.status === 401) {
       document.cookie = "accessToken=";
-      enqueueSnackbar("로그인 만료", { variant: "error" });
     }
   } else console.log(`⛔️ [API] Error ${error.message}`);
 };

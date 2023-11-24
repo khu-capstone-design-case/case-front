@@ -1,3 +1,4 @@
+export const GET_USER_MAIN = "/api/user/page" as const;
 export const GET_RECORD_BY_OPPONENT = (opponent: string) =>
   `/api/user/page/talker/${opponent}` as const;
 export const GET_RECORD_DETAIL = (id: number) =>

@@ -23,6 +23,8 @@ export default function UploadPage() {
   const { mutateAsync, isPending } = useUploadMutation();
 
   const onSubmit: SubmitHandler<uploadFormState> = async (data) => {
+    if (!file) return;
+
     try {
       await mutateAsync(data);
     } catch (e) {
@@ -41,15 +43,15 @@ export default function UploadPage() {
 
         <Box className="inputArea">
           <Typography>상대방</Typography>
-          <AppTextField {...register("opponent")} />
+          <AppTextField {...register("opponent", { required: true })} />
           <Spacer y={20} />
 
           <Typography>통화 명</Typography>
-          <AppTextField {...register("title")} />
+          <AppTextField {...register("title", { required: true })} />
           <Spacer y={20} />
 
           <Typography>통화자 수</Typography>
-          <AppTextField {...register("speakerNum")} />
+          <AppTextField {...register("speakerNum", { required: true })} />
           <Spacer y={20} />
 
           <Box className="voice-icon-area">

@@ -6,9 +6,12 @@ import AddIcon from "@mui/icons-material/Add";
 import { UPLOAD_PATH } from "@constant/path";
 
 import { useInternalRouter } from "@app.hooks/route";
+import { useGetUserMain } from "@app.hooks/user";
 
 function HomePage() {
   const router = useInternalRouter();
+  const { data } = useGetUserMain();
+  console.log(data);
 
   return (
     <Box sx={styles.container}>
