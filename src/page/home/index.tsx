@@ -1,59 +1,40 @@
 import { useState } from "react";
 // styles
-import { Box } from "@mui/material";
-// lib
-import { API, setSingleFile } from "@lib";
+import { Box, Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+// constants
+import { UPLOAD_PATH } from "@constant/path";
+
+import { useInternalRouter } from "@app.hooks/route";
 
 function HomePage() {
-  const [file, setFile] = useState<Blob | null>(null);
-
-  const tempBody = {
-    opponent: "김진호",
-    speakerNum: "2",
-    title: "잡담",
-  };
-
-  const onSubmit = async () => {
-    if (!file) return;
-
-    const formData = new FormData();
-    formData.append("opponent", tempBody.opponent);
-    formData.append("speakerNum", tempBody.speakerNum);
-    formData.append("title", tempBody.title);
-
-    formData.append("file", file);
-
-    const res = await API.POST(
-      "http://3.37.25.178:8080/api/record/upload",
-      formData,
-      {
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImppbmhvSWQxQG5hdmVyLmNvbSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzAwNzI1NTgyLCJleHAiOjE3MDMzMTc1ODJ9.v1HmHqXKaGecc3XIIxPCcNWQIkZuhTcc3FOkt0MuydA",
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
-
-    console.log(res);
-  };
+  const router = useInternalRouter();
 
   return (
-    <Box>
-      <input
-        type="file"
-        accept="audio/*"
-        onChange={(e) => setSingleFile(e, setFile)}
-      />
-      <button type="submit" onClick={onSubmit}>
-        버튼
-      </button>
-
-      <audio controls style={{ width: "200px", height: "200px" }}>
-        <source src="http://3.37.25.178:8080/api/record/record-1.mp3" />
-      </audio>
+    <Box sx={styles.container}>
+      Home
+      <Fab
+        className="floating-button"
+        color="primary"
+        aria-label="add"
+        onClick={() => router.push(UPLOAD_PATH)}
+      >
+        <AddIcon />
+      </Fab>
     </Box>
   );
 }
 
 export default HomePage;
+
+const styles = {
+  container: {
+    position: "relative",
+    height: "100%",
+    "& .floating-button": {
+      position: "absolute",
+      bottom: 20,
+      right: 20,
+    },
+  },
+};

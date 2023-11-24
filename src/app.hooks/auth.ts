@@ -17,7 +17,7 @@ import type {
 
 export const useLoginMutation = () =>
   useMutation({
-    mutationKey: [],
+    mutationKey: ["user/login"],
     mutationFn: async (form: LoginRequestBody) => {
       const { accessToken } = await API.POST<LoginResponse, LoginRequestBody>(
         POST_LOGIN,
@@ -33,7 +33,7 @@ export const useLoginMutation = () =>
 
 export const useSignUpMutation = () =>
   useMutation({
-    mutationKey: [],
+    mutationKey: ["user/join"],
     mutationFn: async (form: signUpRequestBody) =>
       await API.POST<signUpResponse, signUpRequestBody>(POST_SIGN_UP, form),
     onSuccess: () => (window.location.pathname = LOGIN_PATH),

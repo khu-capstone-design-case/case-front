@@ -1,5 +1,5 @@
 {
-  "name": "farfa-front",
+  "name": "case-front",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -24,6 +24,7 @@
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-router-dom": "^6.18.0",
     "zustand": "^4.4.6"
   },

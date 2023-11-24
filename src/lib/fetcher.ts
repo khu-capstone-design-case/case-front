@@ -6,6 +6,7 @@ import Axios, {
   type InternalAxiosRequestConfig,
 } from "axios";
 import { authStore } from "../app.store/authStore";
+import { enqueueSnackbar } from "notistack";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
@@ -25,11 +26,16 @@ const requestInterceptor = (request: InternalAxiosRequestConfig) => {
 
 const errorInterceptor = (error: AxiosError | Error) => {
   if (Axios.isAxiosError(error)) {
-    const { message, config } = error;
+    const { message, config, response } = error;
     const { method, url } = config as AxiosRequestConfig;
 
     console.log(`⛔️ [API] ${method?.toUpperCase()} ${url}`);
     console.log(message);
+
+    if (response?.status === 401) {
+      document.cookie = "accessToken=";
+      enqueueSnackbar("로그인 만료", { variant: "error" });
+    }
   } else console.log(`⛔️ [API] Error ${error.message}`);
 };
 
