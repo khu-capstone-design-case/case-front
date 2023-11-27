@@ -1,3 +1,4 @@
+import { AppResponse } from "./common";
 export interface Record {
   id: number;
   opponent: string;
@@ -6,8 +7,8 @@ export interface Record {
   negative: number;
 }
 
-export interface GetUserMainResponse {
+export type GetUserMainResponse = AppResponse<{
   id: string;
   name: string;
   talker: Record[];
-}
+}>;

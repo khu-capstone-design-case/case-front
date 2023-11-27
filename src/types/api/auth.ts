@@ -1,15 +1,17 @@
+import { AppResponse } from "./common";
+
 export interface LoginRequestBody {
   id: string;
   password: string;
 }
 
-export interface LoginResponse {
+export type LoginResponse = AppResponse<{
   status: number;
   accessToken: string;
-}
+}>;
 
 export interface signUpRequestBody extends LoginRequestBody {
   name: string;
 }
 
-export interface signUpResponse extends Pick<LoginResponse, "status"> {}
+export type signUpResponse = AppResponse<null>;

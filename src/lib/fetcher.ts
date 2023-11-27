@@ -34,6 +34,7 @@ const errorInterceptor = (error: AxiosError | Error) => {
     if (response?.status === 401) {
       document.cookie = "accessToken=";
     }
+    return response;
   } else console.log(`⛔️ [API] Error ${error.message}`);
 };
 
