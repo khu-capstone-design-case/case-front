@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { enqueueSnackbar } from "notistack";
 // lib
 import { API } from "../lib";
 // end points
@@ -23,9 +22,7 @@ export const useUploadMutation = () => {
         }
       );
 
-      if (res && "error" in res) {
-        enqueueSnackbar(res.message, { variant: "error" });
-      } else {
+      if (!(res && "error" in res)) {
         queryClient.invalidateQueries({ queryKey: ["user/page"] });
         window.location.href = HOME_PATH;
       }
