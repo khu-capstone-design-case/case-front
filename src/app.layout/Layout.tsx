@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 // style
 import { Container, type SxProps } from "@mui/material";
 // constant
-import { LOGIN_PATH, SIGN_UP_PATH } from "../constant/path";
+import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "../constant/path";
 // store
 import { authStore } from "@app.store/authStore";
 
@@ -17,9 +17,10 @@ function Layout({ children }: { children: React.ReactNode }) {
 
     if (accessToken) {
       setToken(accessToken);
-      if (unAuthorizedPath) window.location.href = "/";
-    } else {
-      if (!unAuthorizedPath) window.location.href = "/login";
+      if (unAuthorizedPath) window.location.href = HOME_PATH;
+    } else if (!unAuthorizedPath) {
+      setToken("");
+      window.location.replace(LOGIN_PATH);
     }
   }, [accessToken, setToken]);
 

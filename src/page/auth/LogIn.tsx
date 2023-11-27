@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCookies } from "react-cookie";
 // styles
 import { Box } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import HttpsIcon from "@mui/icons-material/Https";
 // constant
-import { SIGN_UP_PATH } from "../../constant/path";
+import { HOME_PATH, SIGN_UP_PATH } from "../../constant/path";
 // hooks
 import { useLoginMutation } from "@app.hooks/auth";
+import { useInternalRouter } from "@app.hooks/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
@@ -16,16 +18,24 @@ import AppButton from "@app.component/atom/AppButton";
 import AppLogo from "@app.component/atom/Logo";
 
 function LogInPage() {
+  const router = useInternalRouter();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
+  const [, setAccessToken] = useCookies(["accessToken"]);
   const { mutateAsync, isPending } = useLoginMutation();
 
   const login = async () => {
     if ([id, password].some((val) => val.trim() === "")) return;
 
     try {
-      await mutateAsync({ id, password });
+      const res = await mutateAsync({ id, password });
+
+      if ("accessToken" in res) {
+        setAccessToken("accessToken", res.accessToken);
+        router.replace(HOME_PATH);
+      }
     } catch (e) {
       console.log(e);
     }

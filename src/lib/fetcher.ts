@@ -5,6 +5,7 @@ import Axios, {
   type AxiosError,
   type InternalAxiosRequestConfig,
 } from "axios";
+import { enqueueSnackbar } from "notistack";
 import { authStore } from "../app.store/authStore";
 
 const { VITE_API_BASE_URL } = import.meta.env;
@@ -33,6 +34,13 @@ const errorInterceptor = (error: AxiosError | Error) => {
 
     if (response?.status === 401) {
       document.cookie = "accessToken=";
+    }
+    if (response && "error" in response.data) {
+      const { data } = response;
+
+      if ("error" in data && "message" in data && "error") {
+        enqueueSnackbar(data.message, { variant: "error" });
+      }
     }
     return response;
   } else console.log(`⛔️ [API] Error ${error.message}`);

@@ -7,8 +7,8 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 // constants
 import { LOGIN_PATH } from "@constant/path";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
 import { useSignUpMutation } from "@app.hooks/auth";
+import { useInternalRouter } from "@app.hooks/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
@@ -29,10 +29,15 @@ function SignUpPage() {
       enqueueSnackbar("유효하지 않은 필드가 있습니다", { variant: "error" });
       return;
     }
+    try {
+      const res = await mutateAsync({ id, password, name });
 
-    const { status } = await mutateAsync({ id, password, name });
-    if (status === 200) {
-      router.replace(LOGIN_PATH);
+      if (!res?.error) {
+        enqueueSnackbar("회원가입이 완료되었어요!", { variant: "success" });
+        router.replace(LOGIN_PATH);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 

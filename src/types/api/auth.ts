@@ -6,7 +6,7 @@ export interface LoginRequestBody {
 }
 
 export type LoginResponse = AppResponse<{
-  status: number;
+  id: string;
   accessToken: string;
 }>;
 
