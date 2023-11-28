@@ -1,4 +1,5 @@
 import { Global, css } from "@emotion/react";
+import "react-h5-audio-player/lib/styles.css";
 
 export function GlobalStyles() {
   return (

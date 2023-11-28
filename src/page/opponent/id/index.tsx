@@ -1,4 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
+import AudioPlayer from "react-h5-audio-player";
 // styles
 import { Box, Typography } from "@mui/material";
 import { SxStyle } from "../../../types/app/style";
@@ -65,14 +66,15 @@ export default function DetailRecordPage() {
               );
             })}
         </Box>
-        <audio src={tempAudio} controls autoPlay className="player">
+        <AudioPlayer className="player" autoPlay src={tempAudio} />
+        {/* <audio src={tempAudio} controls autoPlay className="player">
           <source type="audio/*" />
-          {/* <source
+          <source
           src={`${VITE_API_BASE_URL}${GET_RECORD_FILE(tempData.fileName)}`}
-        /> */}
+        />
           이 문장은 여러분의 브라우저가 audio 태그를 지원하지 않을 때
           표시됩니다!
-        </audio>
+        </audio> */}
       </Box>
     </PageLayout>
   );
@@ -87,13 +89,13 @@ const styles = {
     width: "100%",
     height: "100%",
     overflowY: "scroll",
-    pb: "100px",
+    pb: "130px",
     "& .title": { fontSize: "1.3rem", fontWeight: 600, pb: "80px" },
     "& .messageArea": { display: "grid", width: "100%", overflow: "scroll" },
     "& .player": {
       position: "fixed",
-      bottom: "40px",
-      width: "300px",
+      bottom: "50px",
+      maxWidth: "350px",
     },
   },
 } satisfies SxStyle;

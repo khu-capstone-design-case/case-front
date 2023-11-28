@@ -1,6 +1,6 @@
 {
   "name": "Case",
-  "short_name": "통화감정 확인",
+  "short_name": "Case",
   "start_url": "/",
   "display": "standalone",
   "icons": [

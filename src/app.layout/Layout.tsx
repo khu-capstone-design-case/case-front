@@ -34,6 +34,7 @@ function Layout({ children }: { children: React.ReactNode }) {
 export default Layout;
 
 const layoutStyle: SxProps = {
+  position: "relative",
   height: "100vh",
   overflow: "hidden",
   bgcolor: "var(--color-gray-30)",
