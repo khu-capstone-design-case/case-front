@@ -2,13 +2,14 @@ import { useMutation } from "@tanstack/react-query";
 // lib
 import { API } from "../lib";
 // end points
-import { POST_LOGIN, POST_SIGN_UP } from "../app.endpoint";
+import { POST_LOGIN, POST_LOGOUT, POST_SIGN_UP } from "../app.endpoint";
 // types
-import type {
-  LoginRequestBody,
-  LoginResponse,
-  signUpRequestBody,
-  signUpResponse,
+import {
+  LogoutResponse,
+  type LoginRequestBody,
+  type LoginResponse,
+  type signUpRequestBody,
+  type signUpResponse,
 } from "../types/api";
 
 export const useLoginMutation = () =>
@@ -23,4 +24,9 @@ export const useSignUpMutation = () =>
     mutationKey: ["user/join"],
     mutationFn: async (form: signUpRequestBody) =>
       await API.POST<signUpResponse, signUpRequestBody>(POST_SIGN_UP, form),
+  });
+
+export const useLogoutMutation = () =>
+  useMutation({
+    mutationFn: async () => await API.POST<LogoutResponse>(POST_LOGOUT),
   });

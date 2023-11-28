@@ -15,8 +15,11 @@ export function useInternalRouter() {
       replace(path: RoutePath) {
         navigate(path, { replace: true });
       },
+      pushWithState(path: RoutePath, state: Record<string, any>) {
+        navigate(path, { state });
+      },
     };
   }, [navigate]);
 }
 
-type RoutePath = `/${string}`;
+export type RoutePath = `/${string}`;

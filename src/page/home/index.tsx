@@ -1,19 +1,13 @@
-// import { useState } from "react";
 // styles
-import {
-  Box,
-  Card,
-  CardContent,
-  CardActionArea,
-  Typography,
-  Fab,
-} from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-// constants
-import { UPLOAD_PATH } from "@constant/path";
-
+import { Box } from "@mui/material";
+import { SxStyle } from "../../types/app/style";
+// hooks
 import { useInternalRouter } from "@app.hooks/route";
 import { useGetUserMain } from "@app.hooks/user";
+// components
+import CardWithFeeling from "@app.component/template/CardWithFeeling";
+import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
+import AppLogo from "@app.component/atom/Logo";
 
 function HomePage() {
   const router = useInternalRouter();
@@ -23,9 +17,9 @@ function HomePage() {
   const tempTalker = [
     {
       id: 1,
-      opponent: "경희대학교 컴퓨터공학과 행정실 직원",
-      positive: 12.23,
-      neutral: 77.76,
+      opponent: "김진호",
+      positive: 30.23,
+      neutral: 57.76,
       negative: 10.01,
     },
     {
@@ -39,33 +33,24 @@ function HomePage() {
 
   return (
     <Box sx={styles.container}>
+      <AppLogo width={100} />
+
       {tempTalker.map(({ id, opponent, positive, neutral, negative }) => (
-        <Card key={id}>
-          <CardActionArea>
-            <CardContent>
-              <Typography className="opponent">{opponent}</Typography>
-              <Box>
-                <Typography className="feeling positive">
-                  {positive}%
-                </Typography>
-                <Typography className="feeling neutral">{neutral}%</Typography>
-                <Typography className="feeling negative">
-                  {negative}%
-                </Typography>
-              </Box>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+        <CardWithFeeling
+          key={id}
+          onClick={() => {
+            router.pushWithState(`/${encodeURIComponent(opponent)}`, {
+              positive,
+              neutral,
+              negative,
+            });
+          }}
+          title={opponent}
+          feeling={{ positive, neutral, negative }}
+        />
       ))}
 
-      <Fab
-        className="floating-button"
-        color="primary"
-        aria-label="add"
-        onClick={() => router.push(UPLOAD_PATH)}
-      >
-        <AddIcon />
-      </Fab>
+      <FloatingUploadButton />
     </Box>
   );
 }
@@ -80,27 +65,5 @@ const styles = {
     position: "relative",
     width: "100%",
     height: "100%",
-    "& .floating-button": {
-      position: "absolute",
-      bottom: 20,
-      right: 20,
-    },
-    "& .MuiCard-root": {
-      marginBottom: "20px",
-    },
-    "& .MuiCardActionArea-root": {
-      width: 345,
-      minHeight: 100,
-    },
-    "& .MuiCardContent-root": {
-      display: "flex",
-      justifyContent: "space-around",
-      alignItems: "center",
-      "& .opponent": { fontSize: "0.875rem", fontWeight: 500 },
-      "& .feeling": { fontSize: "0.75rem", fontWeight: 600 },
-      "& .positive": { color: "var(--color-blue)" },
-      "& .neutral": { color: "var(--color-yellow)" },
-      "& .negative": { color: "var(--color-red)" },
-    },
   },
-};
+} satisfies SxStyle;

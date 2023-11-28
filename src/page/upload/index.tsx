@@ -1,22 +1,24 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import CheckIcon from "@mui/icons-material/Check";
+// hooks
+import { useUploadMutation } from "@app.hooks/upload";
 // types
 import type { uploadFormState } from "../../types/app";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
 import AppButton from "@app.component/atom/AppButton";
-import { useUploadMutation } from "@app.hooks/upload";
+import PageLayout from "@app.layout/PageLayout";
 
 export default function UploadPage() {
+  const { state } = useLocation();
   const { register, handleSubmit, control, watch } = useForm<uploadFormState>({
-    defaultValues: { speakerNum: 2 },
+    defaultValues: { opponent: state?.opponent ?? "", speakerNum: 2 },
   });
   const file = watch("file");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,74 +35,66 @@ export default function UploadPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Box sx={styles.container}>
-        <Link to="/">
-          <ArrowBackIosIcon />
-        </Link>
+    <PageLayout>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box sx={styles.container}>
+          <Box className="inputArea">
+            <Typography>상대방</Typography>
+            <AppTextField {...register("opponent", { required: true })} />
+            <Spacer y={20} />
 
-        <Spacer y={50} />
+            <Typography>통화 명</Typography>
+            <AppTextField {...register("title", { required: true })} />
+            <Spacer y={20} />
 
-        <Box className="inputArea">
-          <Typography>상대방</Typography>
-          <AppTextField {...register("opponent", { required: true })} />
-          <Spacer y={20} />
+            <Typography>통화자 수</Typography>
+            <AppTextField {...register("speakerNum", { required: true })} />
+            <Spacer y={20} />
 
-          <Typography>통화 명</Typography>
-          <AppTextField {...register("title", { required: true })} />
-          <Spacer y={20} />
-
-          <Typography>통화자 수</Typography>
-          <AppTextField {...register("speakerNum", { required: true })} />
-          <Spacer y={20} />
-
-          <Box className="voice-icon-area">
-            <Box
-              className="voice-icon-wrapper"
-              onClick={() => inputRef.current?.click()}
-            >
-              {file ? (
-                <CheckIcon fontSize="large" color="primary" />
-              ) : (
-                <KeyboardVoiceIcon fontSize="large" />
-              )}{" "}
+            <Box className="voice-icon-area">
+              <Box
+                className="voice-icon-wrapper"
+                onClick={() => inputRef.current?.click()}
+              >
+                {file ? (
+                  <CheckIcon fontSize="large" color="primary" />
+                ) : (
+                  <KeyboardVoiceIcon fontSize="large" />
+                )}{" "}
+              </Box>
             </Box>
+
+            <Controller
+              control={control}
+              name="file"
+              render={({ field: { onChange } }) => (
+                <input
+                  type="file"
+                  accept="audio/mp3"
+                  hidden
+                  onChange={(e) => onChange(e.target.files?.[0])}
+                  ref={inputRef}
+                />
+              )}
+            />
           </Box>
 
-          <Controller
-            control={control}
-            name="file"
-            render={({ field: { onChange } }) => (
-              <input
-                type="file"
-                accept="audio/*"
-                hidden
-                onChange={(e) => onChange(e.target.files?.[0])}
-                ref={inputRef}
-              />
-            )}
-          />
+          <Spacer y={20} />
+
+          <AppButton type="submit" sx={styles.button} loading={isPending}>
+            업로드
+          </AppButton>
         </Box>
-
-        <Spacer y={20} />
-
-        <AppButton type="submit" sx={styles.button} loading={isPending}>
-          업로드
-        </AppButton>
-      </Box>
-    </form>
+      </form>
+    </PageLayout>
   );
 }
 
 const styles = {
   container: {
-    width: "100%",
-    height: "100%",
-    padding: "20px",
     "& .inputArea": {
       display: "flex",
       flexDirection: "column",
-      "& input": { width: "100px" },
     },
     "& .voice-icon-area": {
       width: "100%",

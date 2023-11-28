@@ -5,21 +5,46 @@ import Axios, {
   type AxiosError,
   type InternalAxiosRequestConfig,
 } from "axios";
+import { Cookies } from "react-cookie";
 import { enqueueSnackbar } from "notistack";
-import { authStore } from "../app.store/authStore";
+// store
+import { authStore } from "@app.store/authStore";
+// types
+import type { UpdateTokenResponse } from "../types/api";
+// constants
+import { POST_REFRESH_TOKEN } from "@app.endpoint";
 
-const { VITE_API_BASE_URL } = import.meta.env;
+const { VITE_CLIENT_BASE_URL, VITE_API_BASE_URL } = import.meta.env;
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: VITE_API_BASE_URL,
   withCredentials: true,
 };
 
-const requestInterceptor = (request: InternalAxiosRequestConfig) => {
-  const { user } = authStore.getState();
+const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
+  const cookie = new Cookies();
+  const accessToken = cookie.get("accessToken");
+  const { setUser } = authStore.getState();
 
-  if (!request.headers["Authorization"] && user?.accessToken) {
-    request.headers["Authorization"] = `Bearer ${user.accessToken}`;
+  if (accessToken) {
+    const Authorization = `Bearer ${accessToken}`;
+    request.headers["Authorization"] = Authorization;
+    try {
+      const { data } = await Axios.post<UpdateTokenResponse>(
+        `${VITE_API_BASE_URL}${POST_REFRESH_TOKEN}`,
+        {},
+        { headers: { Authorization }, withCredentials: true }
+      );
+      if (!("error" in data) && "accessToken" in data) {
+        cookie.set("accessToken", data.accessToken, {
+          domain: VITE_CLIENT_BASE_URL,
+          path: "/",
+        });
+        setUser(data);
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
   return request;
 };
@@ -33,7 +58,7 @@ const errorInterceptor = (error: AxiosError | Error) => {
     console.log(message);
 
     if (response?.status === 401) {
-      document.cookie = "accessToken=";
+      document.cookie = "";
     }
     if (response && "error" in response.data) {
       const { data } = response;
@@ -66,7 +91,7 @@ export const API = {
 
   POST: async <T, D = unknown>(
     url: string,
-    body: D,
+    body?: D,
     config?: AxiosRequestConfig<D>
   ) => {
     const { data } = await axios.post<T, AxiosResponse<T, D>, D>(

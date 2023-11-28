@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 // styles
 import { Box } from "@mui/material";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import type { SxStyle } from "../../types/app/style";
 // constants
 import { LOGIN_PATH } from "@constant/path";
 // hooks
@@ -14,6 +13,7 @@ import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
 import AppText from "@app.component/atom/AppText";
 import AppButton from "@app.component/atom/AppButton";
+import PageLayout from "@app.layout/PageLayout";
 
 function SignUpPage() {
   const router = useInternalRouter();
@@ -42,13 +42,8 @@ function SignUpPage() {
   };
 
   return (
-    <Box sx={styles.container}>
-      <Link to="/login">
-        <ArrowBackIosIcon />
-      </Link>
-      <Spacer y={60} />
-
-      <Box className="content">
+    <PageLayout>
+      <Box className="content" sx={styles.container}>
         <Box className="inputWrapper">
           <AppText>아이디</AppText>
           <AppTextField
@@ -89,7 +84,7 @@ function SignUpPage() {
           </AppButton>
         </Box>
       </Box>
-    </Box>
+    </PageLayout>
   );
 }
 
@@ -99,7 +94,7 @@ const styles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    "& svg": { cursor: "pointer" },
+    alignItems: "center",
     "& .inputWrapper": {
       display: "flex",
       flexDirection: "column",
@@ -109,11 +104,7 @@ const styles = {
         p: "0 0 2px 5px",
       },
     },
-    "& .content": {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
+
     "& .buttonArea": {
       display: "flex",
       flexDirection: "column",
@@ -122,4 +113,4 @@ const styles = {
   },
   input: { width: "350px" },
   button: { width: "350px", height: "52px", fontSize: "1rem", fontWeight: 600 },
-};
+} satisfies SxStyle;

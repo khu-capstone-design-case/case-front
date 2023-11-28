@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+*.mp3
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +27,5 @@ dist-ssr
 # env
 .env
 
+# pwa
+dev-dist

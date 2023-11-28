@@ -15,3 +15,7 @@ export interface signUpRequestBody extends LoginRequestBody {
 }
 
 export type signUpResponse = AppResponse<null>;
+
+export type UpdateTokenResponse = LoginResponse;
+
+export type LogoutResponse = AppResponse<null>;

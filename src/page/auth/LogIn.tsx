@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { Cookies } from "react-cookie";
 // styles
 import { Box } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import HttpsIcon from "@mui/icons-material/Https";
+import type { SxStyle } from "../../types/app/style";
 // constant
 import { HOME_PATH, SIGN_UP_PATH } from "../../constant/path";
 // hooks
@@ -23,7 +24,6 @@ function LogInPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const [, setAccessToken] = useCookies(["accessToken"]);
   const { mutateAsync, isPending } = useLoginMutation();
 
   const login = async () => {
@@ -33,12 +33,18 @@ function LogInPage() {
       const res = await mutateAsync({ id, password });
 
       if ("accessToken" in res) {
-        setAccessToken("accessToken", res.accessToken);
+        new Cookies().set("accessToken", res.accessToken);
         router.replace(HOME_PATH);
       }
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const onKeyDown = async (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Enter") return;
+    e.preventDefault();
+    await login();
   };
 
   return (
@@ -56,6 +62,7 @@ function LogInPage() {
           InputProps={{
             startAdornment: <PersonIcon fontSize="small" />,
           }}
+          onKeyDown={onKeyDown}
         />
       </Box>
 
@@ -71,6 +78,7 @@ function LogInPage() {
             startAdornment: <HttpsIcon fontSize="small" />,
           }}
           type="password"
+          onKeyDown={onKeyDown}
         />
         <Link to={SIGN_UP_PATH}>회원가입</Link>
       </Box>
@@ -118,4 +126,4 @@ const styles = {
   },
   input: { width: "350px" },
   button: { width: "350px", height: "52px", fontSize: "1rem", fontWeight: 600 },
-};
+} satisfies SxStyle;
