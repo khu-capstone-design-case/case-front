@@ -10,42 +10,8 @@ import CardWithFeeling from "@app.component/template/CardWithFeeling";
 import PageLayout from "@app.layout/PageLayout";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import FeelingBox from "@app.component/molecule/FeelingBox";
-
-const tempData = {
-  opponent: "김진호",
-  record: [
-    {
-      id: 1,
-      title: "저녁약속",
-      summary: "식사 약속에 관한 얘기",
-      timestamp: 1680617659879,
-      length: 58,
-      positive: 30.23,
-      neutral: 57.76,
-      negative: 12.01,
-    },
-    {
-      id: 2,
-      title: "수강신청",
-      summary: "수강신청에 대한 질문",
-      timestamp: 1700617630312,
-      length: 51,
-      positive: 32.64,
-      neutral: 57.3,
-      negative: 9.96,
-    },
-    {
-      id: 3,
-      title: "졸업요건",
-      summary: "졸업요건에 대한 질문",
-      timestamp: 1680617659879,
-      length: 58,
-      positive: 12.23,
-      neutral: 77.76,
-      negative: 10.01,
-    },
-  ],
-};
+// TODO: DELETE
+import { tempOpponentData } from "@constant/tempData";
 
 export default function OpponentPage() {
   const router = useInternalRouter();
@@ -69,7 +35,7 @@ export default function OpponentPage() {
         </Box>
 
         <Box>
-          {tempData.record.map(
+          {tempOpponentData.record.map(
             ({ id, title, summary, positive, neutral, negative }) => {
               const feeling = { positive, neutral, negative };
 

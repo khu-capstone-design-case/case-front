@@ -8,34 +8,20 @@ import { useGetUserMain } from "@app.hooks/user";
 import CardWithFeeling from "@app.component/template/CardWithFeeling";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import AppLogo from "@app.component/atom/Logo";
+// TODO: DELETE
+import { tempTalkerData } from "@constant/tempData";
 
 function HomePage() {
   const router = useInternalRouter();
   const { data } = useGetUserMain();
 
   console.log(data);
-  const tempTalker = [
-    {
-      id: 1,
-      opponent: "김진호",
-      positive: 30.23,
-      neutral: 57.76,
-      negative: 10.01,
-    },
-    {
-      id: 2,
-      opponent: "경희대학교 LINC 사업단 직원",
-      positive: 11.12,
-      neutral: 83.75,
-      negative: 15.13,
-    },
-  ];
 
   return (
     <Box sx={styles.container}>
       <AppLogo width={100} />
 
-      {tempTalker.map(({ id, opponent, positive, neutral, negative }) => (
+      {tempTalkerData.map(({ id, opponent, positive, neutral, negative }) => (
         <CardWithFeeling
           key={id}
           onClick={() => {

@@ -79,7 +79,7 @@ export default function UploadPage() {
             />
           </Box>
 
-          <Spacer y={20} />
+          <Spacer y={50} />
 
           <AppButton type="submit" sx={styles.button} loading={isPending}>
             업로드
