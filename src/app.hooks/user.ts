@@ -20,14 +20,11 @@ export const useGetUserMain = () =>
     queryFn: async () => await API.GET<GetUserMainResponse>(GET_USER_MAIN),
   });
 
-export const useGetRecordByOpponent = (opponent?: string) =>
-  useQuery<GetRecordByOpponent | undefined>({
+export const useGetRecordByOpponent = (opponent: string) =>
+  useQuery<GetRecordByOpponent>({
     queryKey: ["user/page/talker", opponent],
-    queryFn: async () => {
-      if (opponent) {
-        await API.GET<GetRecordByOpponent>(GET_RECORD_BY_OPPONENT(opponent));
-      } else return Promise.reject();
-    },
+    queryFn: async () =>
+      await API.GET<GetRecordByOpponent>(GET_RECORD_BY_OPPONENT(opponent)),
   });
 
 export const useGetRecordDetail = (id?: number) =>

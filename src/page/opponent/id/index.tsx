@@ -8,19 +8,14 @@ import { useGetRecordDetail } from "@app.hooks/user";
 // components
 import PageLayout from "@app.layout/PageLayout";
 import AppChat from "@app.component/molecule/AppChat";
-// temp
-import tempAudio from "@Over_the_Horizon.mp3";
 import FeelingBox from "@app.component/molecule/FeelingBox";
-// TODO: DELETE
-import { tempDetailData } from "@constant/tempData";
 
 export default function DetailRecordPage() {
   const { opponent, id } = useParams();
   const { state } = useLocation();
   const { data } = useGetRecordDetail(Number(id));
-  console.log(data);
-  // const { VITE_API_BASE_URL } = import.meta.env;
 
+  const { VITE_API_BASE_URL } = import.meta.env;
   return (
     <PageLayout>
       <Box sx={styles.container}>
@@ -30,43 +25,54 @@ export default function DetailRecordPage() {
             sx={{ position: "absolute", top: 0, right: 10 }}
           />
         )}
-        <Typography className="title">{tempDetailData.title}</Typography>
-        <Box className="messageArea">
-          {tempDetailData.script
-            .reverse()
-            .map(({ seq, message, speaker, positive, neutral, negative }) => {
-              const feeling = { positive, neutral, negative };
+        {data && (
+          <>
+            <Typography className="title">{data.title}</Typography>
+            <Box className="messageArea">
+              {data.script
+                .reverse()
+                .map(
+                  ({ seq, message, speaker, positive, neutral, negative }) => {
+                    const feeling = { positive, neutral, negative };
 
-              const bestFeeling = Object.keys(feeling).reduce(
-                (acc: Record<string, number>, cur) => {
-                  const curKey = cur as keyof typeof feeling;
-                  return feeling[curKey] > Object.values(acc)[0]
-                    ? { [curKey]: feeling[curKey] }
-                    : acc;
-                },
-                { positive }
-              );
+                    const bestFeeling = Object.keys(feeling).reduce(
+                      (acc: Record<string, number>, cur) => {
+                        const curKey = cur as keyof typeof feeling;
+                        return feeling[curKey] > Object.values(acc)[0]
+                          ? { [curKey]: feeling[curKey] }
+                          : acc;
+                      },
+                      { positive }
+                    );
 
-              const color =
-                Object.keys(bestFeeling)[0] === "positive"
-                  ? "var(--color-blue)"
-                  : Object.keys(bestFeeling)[0] === "negative"
-                  ? "var(--color-red)"
-                  : "var(--color-black)";
+                    const color =
+                      Object.keys(bestFeeling)[0] === "positive"
+                        ? "var(--color-blue)"
+                        : Object.keys(bestFeeling)[0] === "negative"
+                        ? "var(--color-red)"
+                        : "var(--color-black)";
 
-              return (
-                <AppChat
-                  key={seq}
-                  name={speaker}
-                  message={message}
-                  isOpponent={speaker === opponent}
-                  percentage={Object.values(bestFeeling)[0]}
-                  color={color}
-                />
-              );
-            })}
-        </Box>
-        <AudioPlayer className="player" autoPlay src={tempAudio} />
+                    return (
+                      <AppChat
+                        key={seq}
+                        name={speaker}
+                        message={message}
+                        isOpponent={speaker === opponent}
+                        percentage={Object.values(bestFeeling)[0]}
+                        color={color}
+                      />
+                    );
+                  }
+                )}
+            </Box>
+            <AudioPlayer
+              className="player"
+              autoPlay
+              src={`${VITE_API_BASE_URL}${data.fileName}`}
+            />
+          </>
+        )}
+
         {/* <audio src={tempAudio} controls autoPlay className="player">
           <source type="audio/*" />
           <source

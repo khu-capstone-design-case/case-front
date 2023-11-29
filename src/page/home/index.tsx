@@ -8,20 +8,16 @@ import { useGetUserMain } from "@app.hooks/user";
 import CardWithFeeling from "@app.component/template/CardWithFeeling";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import AppLogo from "@app.component/atom/Logo";
-// TODO: DELETE
-import { tempTalkerData } from "@constant/tempData";
 
 function HomePage() {
   const router = useInternalRouter();
   const { data } = useGetUserMain();
 
-  console.log(data);
-
   return (
     <Box sx={styles.container}>
       <AppLogo width={100} />
 
-      {tempTalkerData.map(({ id, opponent, positive, neutral, negative }) => (
+      {data?.talker.map(({ id, opponent, positive, neutral, negative }) => (
         <CardWithFeeling
           key={id}
           onClick={() => {

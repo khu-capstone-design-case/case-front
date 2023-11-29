@@ -10,8 +10,6 @@ import CardWithFeeling from "@app.component/template/CardWithFeeling";
 import PageLayout from "@app.layout/PageLayout";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import FeelingBox from "@app.component/molecule/FeelingBox";
-// TODO: DELETE
-import { tempOpponentData } from "@constant/tempData";
 
 export default function OpponentPage() {
   const router = useInternalRouter();
@@ -20,8 +18,7 @@ export default function OpponentPage() {
     state: { positive, neutral, negative },
   } = useLocation();
 
-  const { data } = useGetRecordByOpponent(opponent);
-  console.log(data);
+  const { data } = useGetRecordByOpponent(String(opponent));
 
   return (
     <PageLayout to="/">
@@ -35,7 +32,7 @@ export default function OpponentPage() {
         </Box>
 
         <Box>
-          {tempOpponentData.record.map(
+          {data?.record.map(
             ({ id, title, summary, positive, neutral, negative }) => {
               const feeling = { positive, neutral, negative };
 
