@@ -68,7 +68,7 @@ export default function DetailRecordPage() {
         <AudioPlayer
           className="player"
           autoPlay
-          src={`${VITE_API_BASE_URL}${data.fileName}`}
+          src={`${VITE_API_BASE_URL}/api/record/${data.fileName}`}
         />
 
         {/* <audio src={tempAudio} controls autoPlay className="player">
