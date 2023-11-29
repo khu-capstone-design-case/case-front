@@ -13,11 +13,13 @@ function HomePage() {
   const router = useInternalRouter();
   const { data } = useGetUserMain();
 
+  if (!data || "error" in data) return null;
+
   return (
     <Box sx={styles.container}>
       <AppLogo width={100} />
 
-      {data?.talker.map(({ id, opponent, positive, neutral, negative }) => (
+      {data.talker.map(({ id, opponent, positive, neutral, negative }) => (
         <CardWithFeeling
           key={id}
           onClick={() => {

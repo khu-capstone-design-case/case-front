@@ -18,7 +18,9 @@ export default function OpponentPage() {
     state: { positive, neutral, negative },
   } = useLocation();
 
-  const { data } = useGetRecordByOpponent(String(opponent));
+  const { data } = useGetRecordByOpponent(opponent);
+
+  if (!data || "error" in data) return null;
 
   return (
     <PageLayout to="/">
@@ -32,7 +34,7 @@ export default function OpponentPage() {
         </Box>
 
         <Box>
-          {data?.record.map(
+          {data.record.map(
             ({ id, title, summary, positive, neutral, negative }) => {
               const feeling = { positive, neutral, negative };
 

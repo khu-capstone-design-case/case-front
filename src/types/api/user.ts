@@ -29,20 +29,20 @@ export interface RecordDetail {
   negative: number;
 }
 
-export type GetUserMainResponse = {
+export type GetUserMainResponse = AppResponse<{
   id: string;
   name: string;
   talker: RecordMain[];
-};
+}>;
 
-export type GetRecordByOpponent = {
+export type GetRecordByOpponent = AppResponse<{
   opponent: string;
   record: RecordOpponent[];
-};
+}>;
 
-export type GetRecordDetail = {
+export type GetRecordDetail = AppResponse<{
   id: number;
   title: string;
   fileName: string;
   script: RecordDetail[];
-};
+}>;
