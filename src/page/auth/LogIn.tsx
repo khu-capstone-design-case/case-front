@@ -5,7 +5,7 @@ import { Cookies } from "react-cookie";
 import { Box } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import HttpsIcon from "@mui/icons-material/Https";
-import type { SxStyle } from "../../types/app/style";
+import type { SxStyle } from "../../types/app";
 // constant
 import { HOME_PATH, SIGN_UP_PATH } from "../../constant/path";
 // hooks

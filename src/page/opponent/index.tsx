@@ -1,13 +1,13 @@
 import { useParams, useLocation } from "react-router-dom";
 // styles
 import { Box, Typography } from "@mui/material";
-import { SxStyle } from "../../types/app/style";
+import type { SxStyle } from "../../types/app";
 // hooks
 import { useGetRecordByOpponent } from "@app.hooks/user";
 import { useInternalRouter } from "@app.hooks/route";
 // components
 import CardWithFeeling from "@app.component/template/CardWithFeeling";
-import PageLayout from "@app.layout/PageLayout";
+import PageLayout from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import FeelingBox from "@app.component/molecule/FeelingBox";
 

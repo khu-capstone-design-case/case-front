@@ -37,6 +37,6 @@ const layoutStyle: SxProps = {
   position: "relative",
   height: "100vh",
   overflow: "hidden",
-  bgcolor: "var(--color-gray-30)",
+  bgcolor: "var(--color-background)",
   p: "20px",
 };

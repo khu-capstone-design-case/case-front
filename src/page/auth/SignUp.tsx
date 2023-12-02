@@ -2,7 +2,7 @@ import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 // styles
 import { Box } from "@mui/material";
-import type { SxStyle } from "../../types/app/style";
+import type { SxStyle } from "../../types/app";
 // constants
 import { LOGIN_PATH } from "@constant/path";
 // hooks
@@ -13,7 +13,7 @@ import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
 import AppText from "@app.component/atom/AppText";
 import AppButton from "@app.component/atom/AppButton";
-import PageLayout from "@app.layout/PageLayout";
+import PageLayout from "@app.layout/PageWithGoBack";
 
 function SignUpPage() {
   const router = useInternalRouter();

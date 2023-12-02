@@ -21,7 +21,7 @@ export default forwardRef(AppTextField);
 
 const style = {
   "& .MuiInputBase-root": {
-    bgcolor: "var(--color-gray-10)",
+    bgcolor: "#fff",
     borderRadius: "8px",
     "& *": { border: "none" },
   },

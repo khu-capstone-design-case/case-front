@@ -2,11 +2,11 @@ import { useLocation, useParams } from "react-router-dom";
 import AudioPlayer from "react-h5-audio-player";
 // styles
 import { Box, Typography } from "@mui/material";
-import { SxStyle } from "../../../types/app/style";
+import type { SxStyle } from "../../../types/app";
 // hooks
 import { useGetRecordDetail } from "@app.hooks/user";
 // components
-import PageLayout from "@app.layout/PageLayout";
+import PageLayout from "@app.layout/PageWithGoBack";
 import AppChat from "@app.component/molecule/AppChat";
 import FeelingBox from "@app.component/molecule/FeelingBox";
 

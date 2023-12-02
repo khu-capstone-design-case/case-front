@@ -1,6 +1,6 @@
 // styles
 import { Box } from "@mui/material";
-import { SxStyle } from "../../types/app/style";
+import type { SxStyle } from "../../types/app";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
 import { useGetUserMain } from "@app.hooks/user";

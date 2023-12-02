@@ -6,8 +6,8 @@ interface AppButtonProps extends Omit<LoadingButtonProps, "color"> {
 }
 
 export default function AppButton({
-  color = "var(--color-gray-20)",
-  bgcolor = "var(--color-blue)",
+  color = "#fff",
+  bgcolor = "var(--color-primary)",
   ...props
 }: AppButtonProps) {
   return (
@@ -18,6 +18,7 @@ export default function AppButton({
         bgcolor,
         "&:hover": { color, bgcolor },
         "& .MuiCircularProgress-root": { color: "white" },
+        "&:disabled": { bgcolor: "#EDEDED" },
         borderRadius: "8px",
         ...props.sx,
       }}

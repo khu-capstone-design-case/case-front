@@ -1,32 +1,32 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
+import Slider from "react-slick";
 // styles
-import { Box, Typography } from "@mui/material";
-import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
-import CheckIcon from "@mui/icons-material/Check";
+import { FormControl } from "@mui/material";
+import { sliderSettings } from "@constant/config";
 // hooks
 import { useUploadMutation } from "@app.hooks/upload";
 // types
-import type { uploadFormState } from "../../types/app";
+import type { uploadFormState, SxStyle } from "../../types/app";
 // components
-import AppTextField from "@app.component/atom/AppTextField";
-import Spacer from "@app.component/atom/Spacer";
-import AppButton from "@app.component/atom/AppButton";
-import PageLayout from "@app.layout/PageLayout";
+import DotsHeader from "@app.component/molecule/DotsHeader";
+import PageWithGoBack from "@app.layout/PageWithGoBack";
+import UploadVoicePage from "./component/UploadVoicePage";
+import UploadTitle from "./component/UploadTitle";
+import UploadOpponent from "./component/UploadOpponent";
 
 export default function UploadPage() {
   const { state } = useLocation();
-  const { register, handleSubmit, control, watch } = useForm<uploadFormState>({
+  const { formState, ...form } = useForm<uploadFormState>({
     defaultValues: { opponent: state?.opponent ?? "", speakerNum: 2 },
   });
-  const file = watch("file");
-  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [curPage, setCurPage] = useState(0);
+  const sliderRef = useRef<Slider>(null);
   const { mutateAsync, isPending } = useUploadMutation();
 
   const onSubmit: SubmitHandler<uploadFormState> = async (data) => {
-    if (!file) return;
-
     try {
       await mutateAsync(data);
     } catch (e) {
@@ -35,85 +35,86 @@ export default function UploadPage() {
   };
 
   return (
-    <PageLayout>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box sx={styles.container}>
-          <Box className="inputArea">
-            <Typography>상대방</Typography>
-            <AppTextField {...register("opponent", { required: true })} />
-            <Spacer y={20} />
+    <FormProvider formState={formState} {...form}>
+      <FormControl
+        sx={styles.container}
+        onSubmit={(e) => {
+          e.preventDefault();
+          form.handleSubmit(onSubmit);
+        }}
+      >
+        <DotsHeader
+          curPage={curPage}
+          maxPage={3}
+          sx={{ position: "absolute", top: 28 }}
+        />
 
-            <Typography>통화 명</Typography>
-            <AppTextField {...register("title", { required: true })} />
-            <Spacer y={20} />
+        <Slider
+          {...sliderSettings}
+          ref={sliderRef}
+          beforeChange={(_, next) => setCurPage(next)}
+        >
+          <PageWithGoBack>
+            <UploadVoicePage sliderRef={sliderRef} />
+          </PageWithGoBack>
 
-            <Typography>통화자 수</Typography>
-            <AppTextField {...register("speakerNum", { required: true })} />
-            <Spacer y={20} />
+          <PageWithGoBack onClick={() => sliderRef.current?.slickPrev()}>
+            <UploadTitle sliderRef={sliderRef} />
+          </PageWithGoBack>
 
-            <Box className="voice-icon-area">
-              <Box
-                className="voice-icon-wrapper"
-                onClick={() => inputRef.current?.click()}
-              >
-                {file ? (
-                  <CheckIcon fontSize="large" color="primary" />
-                ) : (
-                  <KeyboardVoiceIcon fontSize="large" />
-                )}{" "}
-              </Box>
-            </Box>
-
-            <Controller
-              control={control}
-              name="file"
-              render={({ field: { onChange } }) => (
-                <input
-                  type="file"
-                  accept="audio/mp3"
-                  hidden
-                  onChange={(e) => onChange(e.target.files?.[0])}
-                  ref={inputRef}
-                />
-              )}
-            />
-          </Box>
-
-          <Spacer y={50} />
-
-          <AppButton type="submit" sx={styles.button} loading={isPending}>
-            업로드
-          </AppButton>
-        </Box>
-      </form>
-    </PageLayout>
+          <PageWithGoBack onClick={() => sliderRef.current?.slickPrev()}>
+            <UploadOpponent isPending={isPending} />
+          </PageWithGoBack>
+        </Slider>
+      </FormControl>
+    </FormProvider>
   );
 }
 
 const styles = {
   container: {
-    "& .inputArea": {
-      display: "flex",
-      flexDirection: "column",
-    },
-    "& .voice-icon-area": {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-    },
-    "& .voice-icon-wrapper": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "100px",
-      height: "100px",
-      bgcolor: "#fff",
-      borderRadius: "999px",
-      cursor: "pointer",
-    },
-  },
-  button: {
+    position: "relative",
     width: "100%",
-    height: "50px",
+    height: "100%",
+    "& .slick-slider, .slick-list, .slick-track, .slick-slide, .slick-slide > div":
+      {
+        height: "100%",
+      },
+    "& .back + *": {
+      pt: "60px",
+    },
+    "& .input": {
+      width: "100%",
+      "& input::placeholder": {
+        color: "#ADADAD",
+        fontSize: "20px",
+        fontWeight: 600,
+        letterSpacing: "-1px",
+      },
+    },
+    "& .mainText": {
+      width: "100%",
+      color: "#535353",
+      fontSize: "24px",
+      fontWeight: 700,
+      lineHeight: "32px",
+      letterSpacing: "-1.2px",
+    },
+    "& .subText": {
+      color: "#ADADAD",
+      fontSize: "16px",
+      fontWeight: 500,
+      letterSpacing: "-0.8px",
+    },
+    "& .nextButton": {
+      position: "absolute",
+      bottom: 50,
+      width: "288px",
+      height: "52px",
+      borderRadius: "26px",
+      color: "#fff",
+      fontSize: "20px",
+      fontWeight: 600,
+    },
   },
-};
+} satisfies SxStyle;
