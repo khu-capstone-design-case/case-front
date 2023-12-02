@@ -1,9 +1,12 @@
-import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
+// styles
+import { Box, Typography } from "@mui/material";
+import type { SxStyle } from "../../types/app";
 // hooks
 import { useInternalRouter, type RoutePath } from "@app.hooks/route";
 // constants
 import { UPLOAD_PATH } from "@constant/path";
+// components
+import { ReactComponent as UploadIcon } from "/public/icon/UploadIcon.svg";
 
 interface FloatingUploadButtonProps {
   routeTo?: RoutePath;
@@ -17,20 +20,35 @@ export default function FloatingUploadButton({
   const router = useInternalRouter();
 
   return (
-    <Fab
+    <Box
       className="floating-button"
-      color="primary"
       aria-label="add"
       onClick={() =>
         state ? router.pushWithState(routeTo, state) : router.push(routeTo)
       }
-      sx={{
-        position: "absolute",
-        bottom: 20,
-        right: 20,
-      }}
+      sx={styles.container}
     >
-      <AddIcon />
-    </Fab>
+      <UploadIcon />
+      <Typography>New</Typography>
+    </Box>
   );
 }
+
+const styles = {
+  container: {
+    display: "flex",
+    position: "absolute",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    cursor: "pointer",
+    bottom: 20,
+    right: 20,
+    width: "56px",
+    height: "56px",
+    borderRadius: "999px",
+    bgcolor: "var(--color-primary)",
+    "& > svg": { p: "2px", "& > path": { stroke: "#fff" } },
+    "& > p": { color: "#fff", fontSize: "12px", letterSpacing: "-0.6px" },
+  },
+} satisfies SxStyle;
