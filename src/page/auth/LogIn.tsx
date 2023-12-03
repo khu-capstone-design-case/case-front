@@ -13,10 +13,9 @@ import { useInternalRouter } from "@app.hooks/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
-import AppText from "@app.component/atom/AppText";
 import AppButton from "@app.component/atom/AppButton";
 
-function LogInPage() {
+export default function LogInPage() {
   const router = useInternalRouter();
 
   const [id, setId] = useState("");
@@ -90,8 +89,6 @@ function LogInPage() {
     </Box>
   );
 }
-
-export default LogInPage;
 
 const styles = {
   container: {

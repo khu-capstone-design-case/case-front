@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 // styles
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 // constants
 import { LOGIN_PATH } from "@constant/path";
@@ -11,26 +12,32 @@ import { useInternalRouter } from "@app.hooks/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
-import AppText from "@app.component/atom/AppText";
 import AppButton from "@app.component/atom/AppButton";
-import PageLayout from "@app.layout/PageWithGoBack";
+import PageWithGoBack from "@app.layout/PageWithGoBack";
 
-function SignUpPage() {
+interface signUpForm {
+  id: string;
+  password: string;
+  name: string;
+}
+
+export default function SignUpPage() {
   const router = useInternalRouter();
 
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [checkPs, setCheckPs] = useState("");
+  const { formState, register, ...form } = useForm<signUpForm>({
+    defaultValues: { id: "", password: "", name: "" },
+  });
 
   const { mutateAsync, isPending } = useSignUpMutation();
 
-  const signUp = async () => {
-    if ([id, password, name].some((val) => val.trim() === "")) {
-      enqueueSnackbar("유효하지 않은 필드가 있습니다", { variant: "error" });
+  const signUp: SubmitHandler<signUpForm> = async (data) => {
+    if (data.password !== checkPs) {
+      enqueueSnackbar("비밀번호가 일치하지 않습니다.", { variant: "error" });
       return;
     }
     try {
-      const res = await mutateAsync({ id, password, name });
+      const res = await mutateAsync(data);
 
       if (!res?.error) {
         enqueueSnackbar("회원가입이 완료되었어요!", { variant: "success" });
@@ -42,75 +49,106 @@ function SignUpPage() {
   };
 
   return (
-    <PageLayout>
-      <Box className="content" sx={styles.container}>
-        <Box className="inputWrapper">
-          <AppText>아이디</AppText>
-          <AppTextField
-            value={id}
-            onChange={({ target: { value } }) => setId(value)}
-            sx={styles.input}
-          />
-        </Box>
+    <FormProvider formState={formState} register={register} {...form}>
+      <PageWithGoBack>
+        <form
+          style={styles.form}
+          onSubmit={(e) => {
+            form.handleSubmit(signUp)();
+            e.preventDefault();
+            return false;
+          }}
+        >
+          <Box sx={styles.container}>
+            <Typography className="joinText">JOIN US</Typography>
 
-        <Spacer y={20} />
+            <AppTextField
+              placeholder="사용할 아이디를 입력하세요!"
+              sx={styles.input}
+              {...register("id", { required: true })}
+            />
 
-        <Box className="inputWrapper">
-          <AppText>비밀번호</AppText>
-          <AppTextField
-            value={password}
-            onChange={({ target: { value } }) => setPassword(value)}
-            sx={styles.input}
-            type="password"
-          />
-        </Box>
+            <Spacer y={20} />
 
-        <Spacer y={20} />
+            <AppTextField
+              placeholder="비밀번호(영문, 숫자, 특수문자 포함)를 입력하세요!"
+              {...register("password", { required: true })}
+              sx={styles.input}
+              type="password"
+            />
 
-        <Box className="inputWrapper">
-          <AppText>이름</AppText>
-          <AppTextField
-            value={name}
-            onChange={({ target: { value } }) => setName(value)}
-            sx={styles.input}
-          />
-        </Box>
+            <Spacer y={20} />
 
-        <Spacer y={80} />
+            <AppTextField
+              value={checkPs}
+              onChange={({ target: { value } }) => setCheckPs(value)}
+              placeholder="비밀번호를 재입력하세요!"
+              sx={styles.input}
+              type="password"
+            />
+            <Spacer y={20} />
 
-        <Box className="buttonArea" onClick={signUp}>
-          <AppButton sx={styles.button} loading={isPending}>
-            회원가입
-          </AppButton>
-        </Box>
-      </Box>
-    </PageLayout>
+            <AppTextField
+              placeholder="사용자님의 이름을 입력하세요!"
+              {...register("name", { required: true })}
+              sx={styles.input}
+            />
+
+            <Spacer y={80} />
+
+            <AppButton
+              className="loginButton"
+              type="submit"
+              loading={isPending}
+              disabled={!(formState.isValid && checkPs)}
+            >
+              등록하기
+            </AppButton>
+          </Box>
+        </form>
+      </PageWithGoBack>
+    </FormProvider>
   );
 }
 
-export default SignUpPage;
-
 const styles = {
+  form: {
+    width: "100%",
+    height: "100%",
+  },
   container: {
     display: "flex",
+    position: "relative",
     flexDirection: "column",
     alignItems: "center",
-    "& .inputWrapper": {
-      display: "flex",
-      flexDirection: "column",
-      "& > p": {
-        fontSize: "0.875rem",
-        fontWeight: 600,
-        p: "0 0 2px 5px",
-      },
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    "& .joinText": {
+      position: "absolute",
+      top: 18,
+      color: "#525252",
+      fontSize: "20px",
+      fontWeight: 600,
+      letterSpacing: "-1px",
     },
-
-    "& .buttonArea": {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-end",
+    "& .loginButton": {
+      width: "288px",
+      height: "52px",
+      py: "14px",
+      fontSize: "20px",
+      fontWeight: 600,
+      borderRadius: "26px",
+      letterSpacing: "-1px",
     },
   },
-  input: { width: "350px" },
-  button: { width: "350px", height: "52px", fontSize: "1rem", fontWeight: 600 },
+  input: {
+    width: "330px",
+    "& input::placeholder": {
+      color: "#888",
+      fontSize: "16px",
+      fontWeight: 600,
+      letterSpacing: "-0.8px",
+    },
+  },
 } satisfies SxStyle;

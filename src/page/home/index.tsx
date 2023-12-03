@@ -10,7 +10,7 @@ import OpponentCard from "@app.component/template/OpponentCard";
 import Spacer from "@app.component/atom/Spacer";
 import HomeEmpty from "./component/HomeEmpty";
 
-function HomePage() {
+export default function HomePage() {
   const { data } = useGetUserMain();
 
   if (!data || "error" in data) return null;
@@ -41,8 +41,6 @@ function HomePage() {
     </Box>
   );
 }
-
-export default HomePage;
 
 const styles = {
   container: {
