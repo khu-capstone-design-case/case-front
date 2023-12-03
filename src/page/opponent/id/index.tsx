@@ -33,8 +33,7 @@ export default function DetailRecordPage() {
     if (!data?.id) return;
     const res = await mutateAsync(data.id);
     if (!(res && "error" in res)) {
-      // router.replace(`/${opponent}`);
-      router.replace("/");
+      router.replace(`/${opponent}`);
     }
   };
 

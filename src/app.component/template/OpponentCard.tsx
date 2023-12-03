@@ -23,11 +23,7 @@ export default function OpponentCard({ record }: OpponentCardProps) {
   const { id, opponent, positive, neutral, negative } = record;
 
   const goOpponentPage = () => {
-    router.pushWithState(`/${encodeURIComponent(opponent)}`, {
-      positive,
-      neutral,
-      negative,
-    });
+    router.push(`/${encodeURIComponent(opponent)}`);
   };
 
   return (

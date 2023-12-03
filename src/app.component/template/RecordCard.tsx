@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { Feeling, SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.types/app";
 import type { RecordOpponent } from "@app.types/api";
 // lib
 import { getFeelingScore } from "@lib";
@@ -13,16 +13,11 @@ import Spacer from "@app.component/atom/Spacer";
 interface RecordCardProps {
   opponent: string;
   record: RecordOpponent;
-  feeling: Feeling;
 }
-export default function RecordCard({
-  opponent,
-  record,
-  feeling,
-}: RecordCardProps) {
-  const { id, title, timestamp } = record;
+export default function RecordCard({ opponent, record }: RecordCardProps) {
+  const { id, title, timestamp, positive, neutral, negative } = record;
 
-  const result = getFeelingScore(feeling);
+  const result = getFeelingScore({ positive, neutral, negative });
   return (
     <Box sx={styles.container}>
       <Link to={`/${opponent}/${id}`} className="titleArea">
