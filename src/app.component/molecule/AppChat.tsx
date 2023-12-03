@@ -6,7 +6,7 @@ interface AppChatProps {
   message: string;
   isOpponent?: boolean;
   percentage?: number;
-  color?: string;
+  bgcolor?: string;
 }
 
 export default function AppChat({
@@ -14,16 +14,16 @@ export default function AppChat({
   message,
   isOpponent,
   percentage,
-  color = "#000",
+  bgcolor = "#E2E2E2",
 }: AppChatProps) {
   return (
     <Box sx={styles.container(!!isOpponent)}>
-      <Typography className="percentage">{name}</Typography>
-      <Typography className="message" sx={{ color }}>
+      <Typography className="name">{name}</Typography>
+      <Typography className="message" sx={{ bgcolor }}>
         {message}
       </Typography>
       {percentage && (
-        <Typography className="percentage" sx={{ color }}>
+        <Typography className="percentage" sx={{ bgcolor }}>
           {percentage}%
         </Typography>
       )}
@@ -40,10 +40,16 @@ const styles = {
     pb: "8px",
     "& p": { justifySelf: isOpponent ? "flex-start" : "flex-end" },
     "& .message": {
-      bgcolor: "var(--color-gray-50)",
-      borderRadius: "12px",
+      minHeight: "32px",
+      borderRadius: `${isOpponent ? "2px 8px" : "8px 2px"} 8px 8px`,
       p: "5px 15px",
       fontSize: "0.875rem",
+    },
+    "& .name": {
+      color: "#7D7D7D",
+      fontSize: "14px",
+      fontWeight: 500,
+      letterSpacing: "-0.8px",
     },
     "& .percentage": { fontSize: "0.75rem", px: "8px" },
   }),

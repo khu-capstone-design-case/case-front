@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AudioPlayer from "react-h5-audio-player";
 // styles
 import { Box, Typography } from "@mui/material";
@@ -6,32 +6,37 @@ import type { SxStyle } from "@app.types/app";
 // hooks
 import { useGetRecordDetail } from "@app.hooks/user";
 // components
-import PageLayout from "@app.layout/PageWithGoBack";
+import PageWithGoBack from "@app.layout/PageWithGoBack";
 import AppChat from "@app.component/molecule/AppChat";
-import FeelingBox from "@app.component/molecule/FeelingBox";
+import Spacer from "@app.component/atom/Spacer";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
 export default function DetailRecordPage() {
   const { opponent, id } = useParams();
-  const { state } = useLocation();
   const { data } = useGetRecordDetail(id);
 
   if (!data || "error" in data) return null;
+  const { title, fileName, script } = data;
 
   return (
-    <PageLayout>
+    <PageWithGoBack>
       <Box sx={styles.container}>
-        {state?.feeling && (
-          <FeelingBox
-            feeling={state.feeling}
-            sx={{ position: "absolute", top: 0, right: 10 }}
-          />
-        )}
+        <Spacer y={18} />
+        <Typography className="title">{title}</Typography>
+        <AudioPlayer
+          className="player"
+          autoPlay
+          src={`${VITE_API_BASE_URL}/api/record/${fileName}`}
+        />
 
-        <Typography className="title">{data.title}</Typography>
         <Box className="messageArea">
-          {data.script
+          <Typography className="completeText">
+            {script.length
+              ? "대화분석을 완료했습니다!"
+              : "분석된 대화가 없어요."}
+          </Typography>
+          {script
             .reverse()
             .map(({ seq, message, speaker, positive, neutral, negative }) => {
               const feeling = { positive, neutral, negative };
@@ -46,41 +51,26 @@ export default function DetailRecordPage() {
                 { positive }
               );
 
-              const color =
+              const bgcolor =
                 Object.keys(bestFeeling)[0] === "positive"
-                  ? "var(--color-blue)"
+                  ? "var(--color-blue-light)"
                   : Object.keys(bestFeeling)[0] === "negative"
-                  ? "var(--color-red)"
-                  : "var(--color-black)";
+                  ? "var(--color-red-light)"
+                  : "#E2E2E2";
 
               return (
                 <AppChat
                   key={seq}
                   name={speaker}
                   message={message}
-                  isOpponent={speaker === opponent}
-                  percentage={Object.values(bestFeeling)[0]}
-                  color={color}
+                  isOpponent={speaker !== opponent}
+                  bgcolor={bgcolor}
                 />
               );
             })}
         </Box>
-        <AudioPlayer
-          className="player"
-          autoPlay
-          src={`${VITE_API_BASE_URL}/api/record/${data.fileName}`}
-        />
-
-        {/* <audio src={tempAudio} controls autoPlay className="player">
-          <source type="audio/*" />
-          <source
-          src={`${VITE_API_BASE_URL}${GET_RECORD_FILE(tempData.fileName)}`}
-        />
-          이 문장은 여러분의 브라우저가 audio 태그를 지원하지 않을 때
-          표시됩니다!
-        </audio> */}
       </Box>
-    </PageLayout>
+    </PageWithGoBack>
   );
 }
 
@@ -93,12 +83,24 @@ const styles = {
     width: "100%",
     height: "100%",
     overflowY: "scroll",
-    pb: "130px",
-    "& .title": { fontSize: "1.3rem", fontWeight: 600, pb: "80px" },
+    "& .title": {
+      color: "#525252",
+      fontSize: "20px",
+      fontWeight: 600,
+      letterSpacing: "-1px",
+    },
+    "& .completeText": {
+      justifySelf: "center",
+      color: "#525252",
+      fontSize: "24px",
+      fontWeight: 600,
+      lineHeight: "36px",
+      letterSpacing: "-1.2px",
+    },
     "& .messageArea": { display: "grid", width: "100%", overflow: "scroll" },
     "& .player": {
-      position: "fixed",
-      bottom: "50px",
+      m: "32px 0 16px 0",
+      position: "sticky",
       maxWidth: "350px",
     },
   },

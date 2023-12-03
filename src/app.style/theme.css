@@ -5,8 +5,10 @@
   --color-primary-deep: #2d264b;
   --color-primary-light: rgba(180, 106, 254, 0.3);
   --color-red: #f44336;
+  --color-red-light: rgba(244, 64, 52, 0.4);
   --color-green: #1bca1b;
   --color-blue: #448aff;
+  --color-blue-light: rgb(66, 135, 255, 0.4);
   --color-yellow: #ffc107;
   --color-border-color: #ededed;
 
