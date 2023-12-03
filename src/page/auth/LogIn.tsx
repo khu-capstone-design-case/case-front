@@ -2,9 +2,8 @@ import { useState, KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
 import { Cookies } from "react-cookie";
 // styles
-import { Box } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
-import HttpsIcon from "@mui/icons-material/Https";
+import { Box, Divider } from "@mui/material";
+import { ReactComponent as LogoText } from "/public/image/LogoText.svg";
 import type { SxStyle } from "@app.types/app";
 // constant
 import { HOME_PATH, SIGN_UP_PATH } from "@constant/path";
@@ -16,7 +15,6 @@ import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
 import AppText from "@app.component/atom/AppText";
 import AppButton from "@app.component/atom/AppButton";
-import AppLogo from "@app.component/atom/Logo";
 
 function LogInPage() {
   const router = useInternalRouter();
@@ -49,46 +47,45 @@ function LogInPage() {
 
   return (
     <Box sx={styles.container}>
-      <Spacer y={20} />
-      <AppLogo width={120} />
-      <Spacer y={20} />
+      <Spacer y={200} />
+      <LogoText />
+      <Spacer y={50} />
 
-      <Box className="inputWrapper">
-        <AppText>아이디</AppText>
-        <AppTextField
-          value={id}
-          onChange={({ target: { value } }) => setId(value)}
-          sx={styles.input}
-          InputProps={{
-            startAdornment: <PersonIcon fontSize="small" />,
-          }}
-          onKeyDown={onKeyDown}
-        />
-      </Box>
-
-      <Spacer y={8} />
-
-      <Box className="inputWrapper">
-        <AppText>비밀번호</AppText>
-        <AppTextField
-          value={password}
-          onChange={({ target: { value } }) => setPassword(value)}
-          sx={styles.input}
-          InputProps={{
-            startAdornment: <HttpsIcon fontSize="small" />,
-          }}
-          type="password"
-          onKeyDown={onKeyDown}
-        />
-        <Link to={SIGN_UP_PATH}>회원가입</Link>
-      </Box>
+      <AppTextField
+        value={id}
+        placeholder="ID"
+        onChange={({ target: { value } }) => setId(value)}
+        sx={styles.input}
+        onKeyDown={onKeyDown}
+      />
 
       <Spacer y={20} />
 
-      <Box className="buttonArea">
-        <AppButton sx={styles.button} onClick={login} loading={isPending}>
-          로그인
-        </AppButton>
+      <AppTextField
+        value={password}
+        placeholder="PW"
+        onChange={({ target: { value } }) => setPassword(value)}
+        sx={styles.input}
+        type="password"
+        onKeyDown={onKeyDown}
+      />
+
+      <Spacer y={32} />
+
+      <AppButton className="loginButton" onClick={login} loading={isPending}>
+        LOG IN
+      </AppButton>
+
+      <Spacer y={22} />
+
+      <Box className="helpArea">
+        <Link className="helpText" to="/login">
+          비밀번호를 잊으셨나요?
+        </Link>
+        <Divider className="divider" orientation="vertical" />
+        <Link className="helpText" to={SIGN_UP_PATH}>
+          회원가입
+        </Link>
       </Box>
     </Box>
   );
@@ -101,29 +98,35 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    "& .inputWrapper": {
-      display: "flex",
-      flexDirection: "column",
-      "& svg": { fill: "var(--color-gray-70)", mr: "10px" },
-      "& > p": {
-        fontSize: "0.875rem",
-        fontWeight: 600,
-        p: "0 0 2px 5px",
-      },
-      "& > a": {
-        fontSize: "0.8rem",
-        p: "5px 3px 0 0",
-        color: "var(--color-gray-80)",
-        fontWeight: 500,
-        alignSelf: "flex-end",
-      },
+    "& .loginButton": {
+      width: "288px",
+      height: "52px",
+      py: "14px",
+      fontSize: "20px",
+      fontWeight: 600,
+      borderRadius: "26px",
+      letterSpacing: "-1px",
     },
-    "& .buttonArea": {
+    "& .helpArea": {
       display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-end",
+      alignItems: "center",
+    },
+    "& .helpText": {
+      color: "#DEDEDE",
+      fontSize: "12px",
+      fontWeight: 600,
+      letterSpacing: "-0.6px",
+      textDecoration: "underline",
+    },
+    "& .divider": { height: "10px", mx: "9px" },
+  },
+  input: {
+    width: "330px",
+    "& input::placeholder": {
+      color: "#888",
+      fontSize: "20px",
+      fontWeight: 600,
+      letterSpacing: "-1px",
     },
   },
-  input: { width: "350px" },
-  button: { width: "350px", height: "52px", fontSize: "1rem", fontWeight: 600 },
 } satisfies SxStyle;
