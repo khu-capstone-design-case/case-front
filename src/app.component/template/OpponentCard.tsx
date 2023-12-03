@@ -55,7 +55,7 @@ export default function OpponentCard({ record }: OpponentCardProps) {
 
 const styles = {
   container: {
-    width: "360px",
+    width: "95%",
     borderRadius: "8px",
     bgcolor: "#fff",
     p: "20px 20px 11px 20px",

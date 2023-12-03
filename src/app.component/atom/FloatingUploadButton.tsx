@@ -21,7 +21,6 @@ export default function FloatingUploadButton({
 
   return (
     <Box
-      className="floating-button"
       aria-label="add"
       onClick={() =>
         state ? router.pushWithState(routeTo, state) : router.push(routeTo)
@@ -38,14 +37,14 @@ const styles = {
   container: {
     display: "flex",
     position: "sticky",
+    flexShrink: 0,
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    flexShrink: 0,
     cursor: "pointer",
-    bottom: 10,
-    alignSelf: "flex-end",
-    mr: "10px",
+    bottom: 30,
+    mt: "auto",
+    ml: "auto",
     width: "56px",
     height: "56px",
     borderRadius: "999px",

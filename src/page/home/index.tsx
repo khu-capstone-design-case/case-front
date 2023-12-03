@@ -60,6 +60,12 @@ const styles = {
     "& .mainLogo": {
       flexShrink: 0,
     },
-    "& .cardArea > div:not(:last-child)": { mb: "20px" },
+    "& .cardArea": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      width: "100%",
+      "& > div:not(:last-child)": { mb: "20px" },
+    },
   },
 } satisfies SxStyle;
