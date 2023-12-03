@@ -14,8 +14,8 @@ export default function HomePage() {
   const { data } = useGetUserMain();
 
   if (!data || "error" in data) return null;
-
   const { talker } = data;
+
   return (
     <Box sx={styles.container}>
       <Spacer y={7} />

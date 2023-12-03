@@ -16,15 +16,18 @@ import AppChat from "@app.component/molecule/AppChat";
 import Spacer from "@app.component/atom/Spacer";
 import { useState } from "react";
 import AppModal from "@app.component/template/AppModal";
+import { authStore } from "@app.store/authStore";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 
 export default function DetailRecordPage() {
   const router = useInternalRouter();
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { opponent, id } = useParams();
-  const { data } = useGetRecordDetail(id);
 
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const { user } = authStore();
+
+  const { data } = useGetRecordDetail(id);
   const { mutateAsync } = DeleteRecordDetailMutation();
 
   if (!data || "error" in data) return null;
@@ -37,7 +40,7 @@ export default function DetailRecordPage() {
     }
   };
 
-  const { title, fileName, script } = tempData;
+  const { title, fileName, script } = data;
 
   return (
     <PageWithGoBack>
@@ -87,7 +90,7 @@ export default function DetailRecordPage() {
                   key={seq}
                   name={speaker}
                   message={message}
-                  isOpponent={speaker !== opponent}
+                  isOpponent={speaker !== user?.id}
                   bgcolor={bgcolor}
                 />
               );
@@ -151,101 +154,3 @@ const styles = {
     },
   },
 } satisfies SxStyle;
-
-const tempData = {
-  id: 1,
-  title: "졸업요건",
-  fileName: "record-1.m4a",
-  script: [
-    {
-      seq: 9,
-      speaker: "test",
-      message: "네 알려주셔서 감사합니다!",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 8,
-      speaker: "경희대학교 컴퓨터공학과 행정실 직원",
-      message: "TOPCIT은 안따셔도 괜찮습니다.",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 7,
-      speaker: "test",
-      message: "안녕하세요, 혹시 컴퓨터공학과 졸업 요건에 TOPCIT이 필요한가요?",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 6,
-      speaker: "test",
-      message: "네 알려주셔서 감사합니다!",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 90.45,
-    },
-    {
-      seq: 5,
-      speaker: "경희대학교 컴퓨터공학과 행정실 직원",
-      message: "TOPCIT은 안따셔도 괜찮습니다.",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 4,
-      speaker: "test",
-      message: "안녕하세요, 혹시 컴퓨터공학과 졸업 요건에 TOPCIT이 필요한가요?",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 3,
-      speaker: "test",
-      message: "네 알려주셔서 감사합니다!",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 95.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 2,
-      speaker: "경희대학교 컴퓨터공학과 행정실 직원",
-      message: "TOPCIT은 안따셔도 괜찮습니다.",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-    {
-      seq: 1,
-      speaker: "test",
-      message: "안녕하세요, 혹시 컴퓨터공학과 졸업 요건에 TOPCIT이 필요한가요?",
-      startTime: 152132141414,
-      endTime: 1241241431543,
-      positive: 35.44,
-      neutral: 64.11,
-      negative: 0.45,
-    },
-  ],
-};

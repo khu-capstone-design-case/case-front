@@ -16,36 +16,38 @@ interface RecordCardProps {
 }
 export default function RecordCard({ opponent, record }: RecordCardProps) {
   const { id, title, timestamp, positive, neutral, negative } = record;
-
   const result = getFeelingScore({ positive, neutral, negative });
+
   return (
     <Box sx={styles.container}>
-      <Link to={`/${opponent}/${id}`} className="titleArea">
-        <Typography className="title">{title}</Typography>
-        <Typography className="date">
-          {dayjs(timestamp).format("YYYY-MM-DD")}
-        </Typography>
+      <Link to={`/${opponent}/${id}`} style={{ width: "100%" }}>
+        <Box className="titleArea">
+          <Typography className="title">{title}</Typography>
+          <Typography className="date">
+            {dayjs(timestamp).format("YYYY-MM-DD")}
+          </Typography>
+        </Box>
+
+        <Spacer y={17} />
+
+        <RecordInfoProgress
+          title="통화시간"
+          chipText="45m32s"
+          value={result.score}
+          minValueText="0h"
+          maxValueText="1h"
+        />
+
+        <Spacer y={12} />
+
+        <RecordInfoProgress
+          title="호감도 점수"
+          chipText={result.feeling}
+          value={result.score}
+          minValueText="Positive"
+          maxValueText="Negative"
+        />
       </Link>
-
-      <Spacer y={17} />
-
-      <RecordInfoProgress
-        title="통화시간"
-        chipText="45m32s"
-        value={result.score}
-        minValueText="0h"
-        maxValueText="1h"
-      />
-
-      <Spacer y={12} />
-
-      <RecordInfoProgress
-        title="호감도 점수"
-        chipText={result.feeling}
-        value={result.score}
-        minValueText="Positive"
-        maxValueText="Negative"
-      />
     </Box>
   );
 }
