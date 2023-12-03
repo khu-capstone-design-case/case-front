@@ -48,3 +48,4 @@ export type GetRecordDetail = AppResponse<{
 }>;
 
 export type DelRecordDetail = AppResponse<null>;
+export type DelRecordByOpponent = AppResponse<null>;

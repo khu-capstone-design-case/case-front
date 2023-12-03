@@ -4,6 +4,7 @@ import AudioPlayer from "react-h5-audio-player";
 import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 // hooks
+import { useInternalRouter } from "@app.hooks/route";
 import {
   DeleteRecordDetailMutation,
   useGetRecordDetail,
@@ -15,7 +16,6 @@ import AppChat from "@app.component/molecule/AppChat";
 import Spacer from "@app.component/atom/Spacer";
 import { useState } from "react";
 import AppModal from "@app.component/template/AppModal";
-import { useInternalRouter } from "@app.hooks/route";
 
 const { VITE_API_BASE_URL } = import.meta.env;
 

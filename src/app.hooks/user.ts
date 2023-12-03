@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { API } from "@lib";
 // end points
 import {
+  DEL_RECORD_BY_OPPONENT,
   DEL_RECORD_DETAIL,
   GET_RECORD_BY_OPPONENT,
   GET_RECORD_DETAIL,
@@ -10,10 +11,11 @@ import {
 } from "@app.endpoint";
 // types
 import type {
-  DelRecordDetail,
+  GetUserMainResponse,
   GetRecordByOpponent,
   GetRecordDetail,
-  GetUserMainResponse,
+  DelRecordDetail,
+  DelRecordByOpponent,
 } from "@app.types/api";
 
 export const useGetUserMain = () =>
@@ -52,6 +54,18 @@ export const DeleteRecordDetailMutation = () => {
       await API.DELETE<DelRecordDetail>(DEL_RECORD_DETAIL(id)),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user/page/talker"] });
+    },
+  });
+};
+
+export const DeleteRecordByOpponentMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (opponent: string) =>
+      await API.DELETE<DelRecordByOpponent>(DEL_RECORD_BY_OPPONENT(opponent)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user/page"] });
     },
   });
 };
