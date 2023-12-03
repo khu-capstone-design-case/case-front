@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 // styles
 import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
+// lib
+import { convertSeconds } from "@lib";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
 import {
@@ -48,6 +50,12 @@ export default function OpponentPage() {
         <Spacer y={44} />
 
         <Box className="recordArea">
+          <Typography className="timeText">
+            총 {convertSeconds(length, "ko")}의 대화를 나눴습니다!
+          </Typography>
+
+          <Spacer y={32} />
+
           {data.record.length ? (
             data.record.map((data) => (
               <RecordCard key={data.id} opponent={opponent} record={data} />
@@ -100,9 +108,17 @@ const styles = {
         right: 0,
       },
     },
+    "& .timeText": {
+      color: "#525252",
+      fontSize: "24px",
+      fontWeight: 600,
+      lineHeight: "36px",
+      letterSpacing: "-1.2px",
+    },
     "& .recordArea": {
       display: "flex",
-      justifyContent: "center",
+      flexDirection: "column",
+      alignItems: "center",
       width: "100%",
       "& > div:not(:last-child)": { mb: "20px" },
     },

@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 import type { RecordOpponent } from "@app.types/api";
 // lib
-import { getFeelingScore } from "@lib";
+import { convertSeconds, getFeelingScore } from "@lib";
 // components
 import RecordInfoProgress from "@app.component/molecule/RecordInfoProgress";
 import Spacer from "@app.component/atom/Spacer";
@@ -15,8 +15,10 @@ interface RecordCardProps {
   record: RecordOpponent;
 }
 export default function RecordCard({ opponent, record }: RecordCardProps) {
-  const { id, title, timestamp, positive, neutral, negative } = record;
-  const result = getFeelingScore({ positive, neutral, negative });
+  const { id, title, timestamp, point, length } = record;
+  const result = getFeelingScore(point);
+
+  const callTime = length >= 3600 ? 100 : Math.floor(length / 60);
 
   return (
     <Box sx={styles.container}>
@@ -32,8 +34,8 @@ export default function RecordCard({ opponent, record }: RecordCardProps) {
 
         <RecordInfoProgress
           title="통화시간"
-          chipText="45m32s"
-          value={result.score}
+          chipText={convertSeconds(length)}
+          value={callTime}
           minValueText="0h"
           maxValueText="1h"
         />
@@ -43,7 +45,7 @@ export default function RecordCard({ opponent, record }: RecordCardProps) {
         <RecordInfoProgress
           title="호감도 점수"
           chipText={result.feeling}
-          value={result.score}
+          value={point}
           minValueText="Positive"
           maxValueText="Negative"
         />

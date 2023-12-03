@@ -20,7 +20,7 @@ export default function OpponentCard({ record }: OpponentCardProps) {
   const router = useInternalRouter();
 
   const [open, setOpen] = useState(false);
-  const { id, opponent, positive, neutral, negative } = record;
+  const { id, opponent, point } = record;
 
   const goOpponentPage = () => {
     router.push(`/${encodeURIComponent(opponent)}`);
@@ -33,7 +33,7 @@ export default function OpponentCard({ record }: OpponentCardProps) {
           <Typography className="name">{opponent}</Typography>
         </Box>
         <Spacer y={10} />
-        <FeelingWithProgress feeling={{ positive, neutral, negative }} />
+        <FeelingWithProgress score={point} />
       </Box>
 
       <Spacer y={20} />

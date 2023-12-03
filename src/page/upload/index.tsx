@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import Slider from "react-slick";
@@ -37,6 +37,16 @@ export default function UploadPage() {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    const preventEnter = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("keydown", preventEnter);
+  }, []);
+
   return (
     <FormProvider formState={formState} {...form}>
       <form

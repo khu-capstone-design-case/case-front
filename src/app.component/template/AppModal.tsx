@@ -47,14 +47,14 @@ export default function AppModal(props: AppModalProps) {
                 </Box>
               </Box>
             ) : (
-              <div className="dualBtnArea">
-                <Box className="button" onClick={btn1Handler}>
+              <Box className="dualBtnArea">
+                <Box className="button dual" onClick={btn1Handler}>
                   {btn1Text}
                 </Box>
-                <Box className="button" onClick={btn2Handler}>
+                <Box className="button dual" onClick={btn2Handler}>
                   {btn2Text}
                 </Box>
-              </div>
+              </Box>
             )}
           </Box>
         </Box>
@@ -103,10 +103,14 @@ const styles = {
     },
     "& .dualBtnArea": {
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "center",
     },
     "& .button": {
       cursor: "pointer",
+    },
+    "& .dual": {
+      width: "50%",
+      textAlign: "center",
     },
   },
 } satisfies SxStyle;

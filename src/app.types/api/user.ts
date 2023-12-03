@@ -2,6 +2,8 @@ import { AppResponse } from "./common";
 export interface RecordMain {
   id: number;
   opponent: string;
+  length: number;
+  point: number;
   positive: number;
   neutral: number;
   negative: number;
@@ -13,6 +15,7 @@ export interface RecordOpponent {
   summary: string;
   timestamp: number;
   length: number;
+  point: number;
   positive: number;
   neutral: number;
   negative: number;

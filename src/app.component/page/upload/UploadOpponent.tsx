@@ -36,7 +36,7 @@ export default function UploadOpponent({ isPending }: UploadOpponentProps) {
         placeholder="이름을 입력해 주세요!"
         {...register("opponent", { required: true })}
       />
-      {data?.opponent && <RecentOpponent opponents={data.opponent} />}
+      {!!data?.opponent.length && <RecentOpponent opponents={data.opponent} />}
 
       <Spacer y={32} />
 

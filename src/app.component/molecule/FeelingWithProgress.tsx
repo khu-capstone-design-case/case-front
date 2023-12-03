@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 // types
-import type { Feeling, SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.types/app";
 // lib
 import { getFeelingScore } from "@lib";
 // components
@@ -9,13 +9,13 @@ import { ReactComponent as BadSpeechBubble } from "/public/image/BadSpeechBubble
 import AppLinearProgress from "@app.component/atom/AppLinearProgress";
 
 interface FeelingWithProgressProps {
-  feeling: Feeling;
+  score: number;
 }
 
 export default function FeelingWithProgress({
-  feeling,
+  score,
 }: FeelingWithProgressProps) {
-  const result = getFeelingScore(feeling);
+  const result = getFeelingScore(score);
 
   const SpeechBubble =
     result.feeling === "good" ? GoodSpeechBubble : BadSpeechBubble;
@@ -24,12 +24,12 @@ export default function FeelingWithProgress({
     <Box sx={styles.container}>
       <SpeechBubble
         className="speechBubble"
-        style={{ left: `calc(${result.score}% - 22px)` }}
+        style={{ left: `calc(${score}% - ${score < 5 ? "20px" : "22px"})` }}
       />
       <AppLinearProgress
         className="progress"
         variant="determinate"
-        value={result.score}
+        value={score}
       />
       <Typography className="feelingText">{result.text}</Typography>
     </Box>

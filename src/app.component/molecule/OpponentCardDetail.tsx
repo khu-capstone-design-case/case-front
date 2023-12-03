@@ -2,8 +2,9 @@ import { Box, Typography } from "@mui/material";
 // types
 import type { RecordMain } from "@app.types/api";
 import type { SxStyle } from "@app.types/app";
-// components
 import Spacer from "@app.component/atom/Spacer";
+// lib
+import { convertSeconds } from "@lib";
 
 interface OpponentCardDetailProps {
   record: RecordMain;
@@ -12,25 +13,27 @@ interface OpponentCardDetailProps {
 export default function OpponentCardDetail({
   record,
 }: OpponentCardDetailProps) {
-  const { positive, negative } = record;
+  const { length, positive, negative } = record;
 
   return (
     <Box sx={styles.container}>
       <Box className="card">
-        <Typography className="cardTitle">호감도 점수</Typography>
-        <Spacer y={10} />
-        <Typography className="scoreTitle">positive</Typography>
-        <Typography className="score">{positive}</Typography>
-        <Typography className="scoreTitle">negative</Typography>
-        <Typography className="score">{negative}</Typography>
+        <Typography className="cardTitle">총 통화시간</Typography>
+        <Box marginBottom="20px">
+          <Typography className="scoreText">WOW!</Typography>
+          <Typography className="score">{convertSeconds(length)}</Typography>
+          <Typography className="scoreText">동안 통화했어요.</Typography>
+        </Box>
       </Box>
       <Box className="card">
         <Typography className="cardTitle">호감도 점수</Typography>
-        <Spacer y={10} />
-        <Typography className="scoreTitle">positive</Typography>
-        <Typography className="score">{positive}</Typography>
-        <Typography className="scoreTitle">negative</Typography>
-        <Typography className="score">{negative}</Typography>
+        <Box>
+          <Spacer y={10} />
+          <Typography className="scoreText">positive</Typography>
+          <Typography className="score">{positive}</Typography>
+          <Typography className="scoreText">negative</Typography>
+          <Typography className="score">{negative}</Typography>
+        </Box>
       </Box>
     </Box>
   );
@@ -44,7 +47,7 @@ const styles = {
     "& .card": {
       display: "flex",
       flexDirection: "column",
-      justifyContent: "center",
+      justifyContent: "space-between",
       bgcolor: "#F3F3F3",
       borderRadius: "8px",
       width: "45%",
