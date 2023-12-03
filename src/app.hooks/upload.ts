@@ -1,12 +1,22 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // lib
 import { API } from "@lib";
 // end points
-import { POST_RECORD } from "@app.endpoint";
+import { GET_OPPONENT_LIST, POST_RECORD } from "@app.endpoint";
 // constant
 import { HOME_PATH } from "@constant/path";
 // types
-import type { UploadResponse, UploadRequestBody } from "@app.types/api";
+import type {
+  UploadResponse,
+  UploadRequestBody,
+  GetOpponentResponse,
+} from "@app.types/api";
+
+export const useGetOpponentList = () =>
+  useQuery<GetOpponentResponse>({
+    queryKey: ["record/opponent"],
+    queryFn: async () => await API.GET<GetOpponentResponse>(GET_OPPONENT_LIST),
+  });
 
 export const useUploadMutation = () => {
   const queryClient = useQueryClient();

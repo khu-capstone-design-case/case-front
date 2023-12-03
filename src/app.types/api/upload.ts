@@ -8,3 +8,5 @@ export interface UploadRequestBody {
 }
 
 export type UploadResponse = AppResponse<null>;
+
+export type GetOpponentResponse = { opponent: string[] };

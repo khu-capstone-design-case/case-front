@@ -15,9 +15,7 @@ export default function AppChip(props: AppChipProps) {
         letterSpacing: "-0.36px",
         height: "auto",
         p: "3px 6px",
-        "& .MuiChip-label": {
-          p: 0,
-        },
+        "& .MuiChip-label": { p: 0 },
         ...props.sx,
       }}
     />

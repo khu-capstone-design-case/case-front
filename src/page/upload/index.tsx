@@ -31,7 +31,6 @@ export default function UploadPage() {
   const { mutateAsync, isPending } = useUploadMutation();
 
   const onSubmit: SubmitHandler<uploadFormState> = async (data) => {
-    console.log(data);
     try {
       await mutateAsync(data);
     } catch (e) {

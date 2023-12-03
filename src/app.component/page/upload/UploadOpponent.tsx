@@ -2,7 +2,10 @@ import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
 import { uploadFormState, type SxStyle } from "@app.types/app";
+// hooks
+import { useGetOpponentList } from "@app.hooks/upload";
 // components
+import RecentOpponent from "./RecentOpponent";
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
 import AppButton from "@app.component/atom/AppButton";
@@ -13,6 +16,8 @@ interface UploadOpponentProps {
 
 export default function UploadOpponent({ isPending }: UploadOpponentProps) {
   const { register, watch } = useFormContext<uploadFormState>();
+
+  const { data } = useGetOpponentList();
 
   const opponent = watch("opponent");
   const speakerNum = watch("speakerNum");
@@ -31,6 +36,7 @@ export default function UploadOpponent({ isPending }: UploadOpponentProps) {
         placeholder="이름을 입력해 주세요!"
         {...register("opponent", { required: true })}
       />
+      {data?.opponent && <RecentOpponent opponents={data.opponent} />}
 
       <Spacer y={32} />
 
