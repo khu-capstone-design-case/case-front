@@ -12,9 +12,9 @@ import type { uploadFormState, SxStyle } from "@app.types/app";
 // components
 import DotsHeader from "@app.component/molecule/DotsHeader";
 import PageWithGoBack from "@app.layout/PageWithGoBack";
-import UploadVoicePage from "./component/UploadVoicePage";
-import UploadTitle from "./component/UploadTitle";
-import UploadOpponent from "./component/UploadOpponent";
+import UploadVoicePage from "@app.component/page/upload/UploadVoicePage";
+import UploadTitle from "@app.component/page/upload/UploadTitle";
+import UploadOpponent from "@app.component/page/upload/UploadOpponent";
 
 export default function UploadPage() {
   const { state } = useLocation();

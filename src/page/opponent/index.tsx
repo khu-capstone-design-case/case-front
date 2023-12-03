@@ -9,6 +9,7 @@ import PageWithGoBack from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import RecordCard from "@app.component/template/RecordCard";
 import Spacer from "@app.component/atom/Spacer";
+import OpponentEmpty from "@app.component/page/opponent/OpponentEmpty";
 
 export default function OpponentPage() {
   const { opponent } = useParams();
@@ -25,9 +26,13 @@ export default function OpponentPage() {
         <Spacer y={44} />
 
         <Box className="recordArea">
-          {data.record.map((data) => (
-            <RecordCard key={data.id} opponent={opponent} record={data} />
-          ))}
+          {data.record.length ? (
+            data.record.map((data) => (
+              <RecordCard key={data.id} opponent={opponent} record={data} />
+            ))
+          ) : (
+            <OpponentEmpty opponent={opponent} />
+          )}
         </Box>
       </Box>
 

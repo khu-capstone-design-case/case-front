@@ -8,7 +8,7 @@ import { ReactComponent as CharacterMain } from "/public/image/CharacterMain.svg
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import OpponentCard from "@app.component/template/OpponentCard";
 import Spacer from "@app.component/atom/Spacer";
-import HomeEmpty from "./component/HomeEmpty";
+import HomeEmpty from "@app.component/page/home/HomeEmpty";
 
 export default function HomePage() {
   const { data } = useGetUserMain();
