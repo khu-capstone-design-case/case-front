@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // lib
 import { API } from "@lib";
 // end points
 import {
+  DEL_RECORD_DETAIL,
   GET_RECORD_BY_OPPONENT,
   GET_RECORD_DETAIL,
   GET_USER_MAIN,
 } from "@app.endpoint";
 // types
 import type {
+  DelRecordDetail,
   GetRecordByOpponent,
   GetRecordDetail,
   GetUserMainResponse,
@@ -41,3 +43,15 @@ export const useGetRecordDetail = (id?: string) =>
       }
     },
   });
+
+export const DeleteRecordDetailMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) =>
+      await API.DELETE<DelRecordDetail>(DEL_RECORD_DETAIL(id)),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user/page/talker"] });
+    },
+  });
+};

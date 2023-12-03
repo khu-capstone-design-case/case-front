@@ -46,3 +46,5 @@ export type GetRecordDetail = AppResponse<{
   fileName: string;
   script: RecordDetail[];
 }>;
+
+export type DelRecordDetail = AppResponse<null>;
