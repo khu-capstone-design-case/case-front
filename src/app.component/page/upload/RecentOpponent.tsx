@@ -33,7 +33,9 @@ export default function RecentOpponent({ opponents }: RecentOpponentProps) {
                     "&:hover": { bgcolor: "var(--color-primary)" },
                   }),
                 }}
-                onClick={() => setValue("opponent", name)}
+                onClick={() =>
+                  setValue("opponent", opponent === name ? "" : name)
+                }
               />
             </SwiperSlide>
           ))}
