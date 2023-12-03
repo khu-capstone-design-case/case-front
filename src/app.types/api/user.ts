@@ -1,3 +1,4 @@
+import { Feeling } from "@app.types/app";
 import { AppResponse } from "./common";
 export interface RecordMain {
   id: number;
@@ -52,3 +53,4 @@ export type GetRecordDetail = AppResponse<{
 
 export type DelRecordDetail = AppResponse<null>;
 export type DelRecordByOpponent = AppResponse<null>;
+export type PostScriptResponse = Feeling;

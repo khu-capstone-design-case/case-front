@@ -98,7 +98,7 @@ const styles = {
     },
     " & .singleBtnArea": {
       display: "flex",
-      justifyContent: "flex-end",
+      justifyContent: "center",
       fontWeight: 500,
     },
     "& .dualBtnArea": {

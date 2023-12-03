@@ -8,6 +8,7 @@ import {
   GET_RECORD_BY_OPPONENT,
   GET_RECORD_DETAIL,
   GET_USER_MAIN,
+  POST_SCRIPT,
 } from "@app.endpoint";
 // types
 import type {
@@ -16,6 +17,7 @@ import type {
   GetRecordDetail,
   DelRecordDetail,
   DelRecordByOpponent,
+  PostScriptResponse,
 } from "@app.types/api";
 
 export const useGetUserMain = () =>
@@ -69,3 +71,9 @@ export const DeleteRecordByOpponentMutation = () => {
     },
   });
 };
+
+export const useScriptAnalysisMutation = () =>
+  useMutation({
+    mutationFn: async (script: string[]) =>
+      await API.POST<PostScriptResponse, string[]>(POST_SCRIPT, script),
+  });

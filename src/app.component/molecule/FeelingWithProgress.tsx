@@ -24,7 +24,7 @@ export default function FeelingWithProgress({
     <Box sx={styles.container}>
       <SpeechBubble
         className="speechBubble"
-        style={{ left: `calc(${score}% - ${score < 5 ? "20px" : "22px"})` }}
+        style={{ left: `calc(${score}% - ${score < 5 ? "19px" : "22px"})` }}
       />
       <AppLinearProgress
         className="progress"
