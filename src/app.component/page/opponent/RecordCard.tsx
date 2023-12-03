@@ -64,7 +64,8 @@ const styles = {
     height: "200px",
     borderRadius: "8px",
     p: "20px",
-    boxShadow: 1,
+    boxShadow: 2,
+    "&:hover": { boxShadow: 3 },
     cursor: "pointer",
     "& .titleArea": {
       display: "flex",

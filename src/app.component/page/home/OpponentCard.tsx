@@ -56,6 +56,7 @@ const styles = {
     bgcolor: "#fff",
     p: "20px 20px 11px 20px",
     boxShadow: 2,
+    "&:hover": { boxShadow: 3 },
     "& .summary": {
       width: "100%",
       cursor: "pointer",

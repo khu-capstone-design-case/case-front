@@ -15,7 +15,7 @@ import {
 import PageWithGoBack from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import { ReactComponent as Delete } from "/public/icon/Delete.svg";
-import RecordCard from "@app.component/template/RecordCard";
+import RecordCard from "@app.component/page/opponent/RecordCard";
 import Spacer from "@app.component/atom/Spacer";
 import OpponentEmpty from "@app.component/page/opponent/OpponentEmpty";
 import AppModal from "@app.component/template/AppModal";

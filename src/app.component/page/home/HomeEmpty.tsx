@@ -12,10 +12,10 @@ export default function HomeEmpty() {
 
   return (
     <Box sx={styles.container}>
-      <Typography className="textMain">저장된 마음이 없어요.</Typography>
+      <Typography className="textMain">저장된 대화가 없어요.</Typography>
       <Spacer y={20} />
       <Typography className="textSub" onClick={() => router.push(UPLOAD_PATH)}>
-        클릭해서 음성파일을 올리고 대화를 분석해보세요!
+        클릭해서 음성파일을 올리고 감정을 분석해보세요!
       </Typography>
     </Box>
   );

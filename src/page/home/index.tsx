@@ -6,7 +6,7 @@ import { useGetUserMain } from "@app.hooks/user";
 // components
 import { ReactComponent as CharacterMain } from "/public/image/CharacterMain.svg";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
-import OpponentCard from "@app.component/template/OpponentCard";
+import OpponentCard from "@app.component/page/home/OpponentCard";
 import Spacer from "@app.component/atom/Spacer";
 import HomeEmpty from "@app.component/page/home/HomeEmpty";
 

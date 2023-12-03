@@ -148,9 +148,10 @@ const styles = {
     },
     "& .messageArea": { display: "grid", width: "100%", overflow: "scroll" },
     "& .player": {
+      borderRadius: "8px",
       m: "32px 0 16px 0",
       position: "sticky",
-      maxWidth: "350px",
+      width: "95%",
     },
   },
 } satisfies SxStyle;
