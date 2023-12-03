@@ -4,15 +4,13 @@ import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 // hooks
 import { useGetRecordByOpponent } from "@app.hooks/user";
-import { useInternalRouter } from "@app.hooks/route";
 // components
-import CardWithFeeling from "@app.component/template/CardWithFeeling";
-import PageLayout from "@app.layout/PageWithGoBack";
+import PageWithGoBack from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
-import FeelingBox from "@app.component/molecule/FeelingBox";
+import RecordCard from "@app.component/template/RecordCard";
+import Spacer from "@app.component/atom/Spacer";
 
 export default function OpponentPage() {
-  const router = useInternalRouter();
   const { opponent } = useParams();
   const {
     state: { positive, neutral, negative },
@@ -20,41 +18,29 @@ export default function OpponentPage() {
 
   const { data } = useGetRecordByOpponent(opponent);
 
-  if (!data || "error" in data) return null;
+  if (!opponent || !data || "error" in data) return null;
 
   return (
-    <PageLayout to="/">
+    <PageWithGoBack>
       <Box sx={styles.container}>
         <Typography className="opponent">{opponent}</Typography>
-        <Box className="feelingBox">
-          <FeelingBox feeling={{ positive, neutral, negative }} />
-          <Typography className="description">
-            숫자는 대화속 감정수치를 의미해요!
-          </Typography>
-        </Box>
 
-        <Box>
-          {data.record.map(
-            ({ id, title, summary, positive, neutral, negative }) => {
-              const feeling = { positive, neutral, negative };
+        <Spacer y={44} />
 
-              return (
-                <CardWithFeeling
-                  key={id}
-                  title={title}
-                  subTitle={summary}
-                  onClick={() =>
-                    router.pushWithState(`/${opponent}/${id}`, { feeling })
-                  }
-                  feeling={feeling}
-                />
-              );
-            }
-          )}
+        <Box className="recordArea">
+          {data.record.map((data) => (
+            <RecordCard
+              key={data.id}
+              opponent={opponent}
+              record={data}
+              feeling={{ positive, neutral, negative }}
+            />
+          ))}
         </Box>
       </Box>
+
       <FloatingUploadButton state={{ opponent }} />
-    </PageLayout>
+    </PageWithGoBack>
   );
 }
 
@@ -63,16 +49,19 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    "& .opponent": { fontSize: "1.3rem", fontWeight: "bold" },
-    "& .feelingBox": {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-      alignItems: "center",
-      py: "20px",
-      "& .description": { fontSize: "0.875rem", pt: "10px" },
+    height: "100%",
+    "& .opponent": {
+      color: "#525252",
+      fontSize: "20px",
+      fontWeight: 600,
+      letterSpacing: "-1px",
+      mt: "18px",
     },
-    "& .positive": { color: "var(--color-blue)" },
-    "& .negative": { color: "var(--color-red)" },
+    "& .recordArea": {
+      display: "flex",
+      justifyContent: "center",
+      width: "100%",
+      "& > div:not(:last-child)": { mb: "20px" },
+    },
   },
 } satisfies SxStyle;

@@ -1,4 +1,4 @@
-import { Box, Typography, LinearProgress } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 // types
 import type { Feeling, SxStyle } from "@app.types/app";
 // lib
@@ -6,6 +6,7 @@ import { getFeelingScore } from "@lib";
 // components
 import { ReactComponent as GoodSpeechBubble } from "/public/image/GoodSpeechBubble.svg";
 import { ReactComponent as BadSpeechBubble } from "/public/image/BadSpeechBubble.svg";
+import AppLinearProgress from "@app.component/atom/AppLinearProgress";
 
 interface FeelingWithProgressProps {
   feeling: Feeling;
@@ -25,7 +26,7 @@ export default function FeelingWithProgress({
         className="speechBubble"
         style={{ left: `calc(${result.score}% - 22px)` }}
       />
-      <LinearProgress
+      <AppLinearProgress
         className="progress"
         variant="determinate"
         value={result.score}
@@ -50,7 +51,6 @@ const styles = {
     "& .progress": {
       height: "8px",
       m: "55px 0 8px 0",
-      borderRadius: "8px",
     },
     "& .feelingText": {
       color: "#888",

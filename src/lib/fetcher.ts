@@ -58,8 +58,10 @@ const errorInterceptor = (error: AxiosError | Error) => {
     console.log(message);
 
     if (response?.status === 401) {
-      enqueueSnackbar("로그인이 만료되었어요.");
-      document.cookie = "accessToken=null;";
+      document.cookie = "accessToken=;";
+      setTimeout(() => {
+        enqueueSnackbar("로그인이 만료되었어요.");
+      }, 1000);
     }
     if (response && "error" in response.data) {
       const { data } = response;

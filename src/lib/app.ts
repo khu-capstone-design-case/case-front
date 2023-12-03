@@ -5,17 +5,17 @@ export function getFeelingScore(data: Feeling) {
 
   const score = 50 + positive - negative;
 
-  let feeling = "normal";
+  let feeling = "Not Bad";
   let text = "";
 
   if (score <= 40) {
-    feeling = "bad";
+    feeling = "Bad";
     text = "사용자님과 사이가 가깝지 않은거 같네요.";
   } else if (40 < score && score <= 65) {
-    feeling = "normal";
+    feeling = "Not Bad";
     text = "사용자님과 평범한 사이인 것 같아요.";
   } else {
-    feeling = "good";
+    feeling = "Good";
     text = "누군가 높은 호감도를 가지고 계신 것 같아요!";
   }
 

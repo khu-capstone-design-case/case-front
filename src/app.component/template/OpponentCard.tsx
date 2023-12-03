@@ -31,8 +31,8 @@ export default function OpponentCard({ record }: OpponentCardProps) {
   };
 
   return (
-    <Box key={id} sx={styles.container} onClick={goOpponentPage}>
-      <Box className="summary">
+    <Box key={id} sx={styles.container}>
+      <Box className="summary" onClick={goOpponentPage}>
         <Box className="nameLine">
           <Typography className="name">{opponent}</Typography>
         </Box>
