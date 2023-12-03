@@ -10,7 +10,7 @@ import { enqueueSnackbar } from "notistack";
 // store
 import { authStore } from "@app.store/authStore";
 // types
-import type { UpdateTokenResponse } from "../types/api";
+import type { UpdateTokenResponse } from "@app.types/api";
 // constants
 import { POST_REFRESH_TOKEN } from "@app.endpoint";
 
@@ -58,7 +58,8 @@ const errorInterceptor = (error: AxiosError | Error) => {
     console.log(message);
 
     if (response?.status === 401) {
-      document.cookie = "";
+      enqueueSnackbar("로그인이 만료되었어요.");
+      document.cookie = "accessToken=null;";
     }
     if (response && "error" in response.data) {
       const { data } = response;

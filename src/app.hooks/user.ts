@@ -1,18 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 // lib
-import { API } from "../lib";
+import { API } from "@lib";
 // end points
 import {
   GET_RECORD_BY_OPPONENT,
   GET_RECORD_DETAIL,
   GET_USER_MAIN,
-} from "../app.endpoint";
+} from "@app.endpoint";
 // types
 import type {
   GetRecordByOpponent,
   GetRecordDetail,
   GetUserMainResponse,
-} from "../types/api";
+} from "@app.types/api";
 
 export const useGetUserMain = () =>
   useQuery<GetUserMainResponse>({

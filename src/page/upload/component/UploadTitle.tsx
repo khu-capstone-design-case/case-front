@@ -3,7 +3,7 @@ import type Slider from "react-slick";
 import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle, uploadFormState } from "../../../types/app";
+import type { SxStyle, uploadFormState } from "@app.types/app";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";

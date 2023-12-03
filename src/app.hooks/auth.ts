@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 // lib
-import { API } from "../lib";
+import { API } from "@lib";
 // end points
-import { POST_LOGIN, POST_LOGOUT, POST_SIGN_UP } from "../app.endpoint";
+import { POST_LOGIN, POST_LOGOUT, POST_SIGN_UP } from "@app.endpoint";
 // types
 import {
   LogoutResponse,
@@ -10,7 +10,7 @@ import {
   type LoginResponse,
   type signUpRequestBody,
   type signUpResponse,
-} from "../types/api";
+} from "@app.types/api";
 
 export const useLoginMutation = () =>
   useMutation({

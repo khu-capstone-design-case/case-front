@@ -1,7 +1,7 @@
 import { useParams, useLocation } from "react-router-dom";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "../../types/app";
+import type { SxStyle } from "@app.types/app";
 // hooks
 import { useGetRecordByOpponent } from "@app.hooks/user";
 import { useInternalRouter } from "@app.hooks/route";

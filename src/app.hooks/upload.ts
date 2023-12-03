@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // lib
-import { API } from "../lib";
+import { API } from "@lib";
 // end points
-import { POST_RECORD } from "../app.endpoint";
+import { POST_RECORD } from "@app.endpoint";
 // constant
-import { HOME_PATH } from "../constant/path";
+import { HOME_PATH } from "@constant/path";
 // types
-import type { UploadResponse, UploadRequestBody } from "../types/api";
+import type { UploadResponse, UploadRequestBody } from "@app.types/api";
 
 export const useUploadMutation = () => {
   const queryClient = useQueryClient();

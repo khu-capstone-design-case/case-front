@@ -2,7 +2,7 @@ import { useState } from "react";
 import { enqueueSnackbar } from "notistack";
 // styles
 import { Box } from "@mui/material";
-import type { SxStyle } from "../../types/app";
+import type { SxStyle } from "@app.types/app";
 // constants
 import { LOGIN_PATH } from "@constant/path";
 // hooks

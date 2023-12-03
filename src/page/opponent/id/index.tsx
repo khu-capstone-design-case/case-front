@@ -2,7 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import AudioPlayer from "react-h5-audio-player";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "../../../types/app";
+import type { SxStyle } from "@app.types/app";
 // hooks
 import { useGetRecordDetail } from "@app.hooks/user";
 // components

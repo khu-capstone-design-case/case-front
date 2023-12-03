@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "../../types/app";
+import type { SxStyle } from "@app.types/app";
 
 interface AppChatProps {
   name: string;

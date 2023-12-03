@@ -33,6 +33,12 @@ export function GlobalStyles() {
           display: flex;
           justify-content: center;
         }
+        .MuiLinearProgress-root {
+          background-color: var(--color-primary-light) !important;
+          .MuiLinearProgress-bar {
+            background-color: var(--color-primary) !important;
+          }
+        }
       `}
     />
   );

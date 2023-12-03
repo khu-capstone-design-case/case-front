@@ -1,5 +1,5 @@
 import { Box, type SxProps } from "@mui/material";
-import type { SxStyle } from "../../types/app";
+import type { SxStyle } from "@app.types/app";
 
 interface DotsHeaderProps {
   curPage: number;

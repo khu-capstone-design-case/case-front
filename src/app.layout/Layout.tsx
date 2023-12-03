@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 // style
 import { Container, type SxProps } from "@mui/material";
 // constant
-import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "../constant/path";
+import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "@constant/path";
 // store
 import { authStore } from "@app.store/authStore";
 
@@ -38,5 +38,5 @@ const layoutStyle: SxProps = {
   height: "100vh",
   overflow: "hidden",
   bgcolor: "var(--color-background)",
-  p: "20px",
+  p: "25px",
 };

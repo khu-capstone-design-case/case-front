@@ -1,3 +1,5 @@
+// TODO: Delete this component
+
 // styles
 import {
   Box,

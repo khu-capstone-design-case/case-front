@@ -5,9 +5,9 @@ import type Slider from "react-slick";
 import { Box, Typography } from "@mui/material";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import CheckIcon from "@mui/icons-material/Check";
-import type { SxStyle, uploadFormState } from "../../../types/app";
+import type { SxStyle, uploadFormState } from "@app.types/app";
 // components
-import { ReactComponent as Character } from "/public/image/Character.svg";
+import { ReactComponent as CharacterUpload } from "/public/image/CharacterUpload.svg";
 import AppButton from "@app.component/atom/AppButton";
 import Spacer from "@app.component/atom/Spacer";
 
@@ -23,12 +23,13 @@ export default function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
 
   return (
     <Box sx={styles.container}>
-      <Character />
+      <CharacterUpload />
       <Spacer y={34} />
 
       <Typography className="mainText">
         상대가 어떤 마음인지 모르시겠다구요?
       </Typography>
+      <Spacer y={8} />
       <Typography className="subText">
         사용자님의 대화를 뉘앙스 AI에게도 들려주세요! 대화 속에 꼭꼭 숨겨진
         상대의 감정을 함께 알아봐요!
@@ -63,6 +64,8 @@ export default function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
         분석하고자 하는 음성 파일을 첨부해 주세요!
       </Typography>
 
+      <Spacer y={32} />
+
       <AppButton
         className="nextButton"
         onClick={() => sliderRef.current?.slickNext()}
@@ -96,6 +99,7 @@ const styles = {
       bgcolor: "#fff",
       borderRadius: "8px",
       cursor: "pointer",
+      boxShadow: 2,
     },
   },
 } satisfies SxStyle;

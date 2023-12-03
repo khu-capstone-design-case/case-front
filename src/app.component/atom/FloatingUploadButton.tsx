@@ -1,6 +1,6 @@
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "../../types/app";
+import type { SxStyle } from "@app.types/app";
 // hooks
 import { useInternalRouter, type RoutePath } from "@app.hooks/route";
 // constants
@@ -37,13 +37,15 @@ export default function FloatingUploadButton({
 const styles = {
   container: {
     display: "flex",
-    position: "absolute",
+    position: "sticky",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    flexShrink: 0,
     cursor: "pointer",
-    bottom: 20,
-    right: 20,
+    bottom: 10,
+    alignSelf: "flex-end",
+    mr: "10px",
     width: "56px",
     height: "56px",
     borderRadius: "999px",

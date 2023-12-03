@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import { uploadFormState, type SxStyle } from "../../../types/app";
+import { uploadFormState, type SxStyle } from "@app.types/app";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
