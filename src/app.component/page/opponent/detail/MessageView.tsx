@@ -1,4 +1,3 @@
-import { useCallback, type Dispatch, type SetStateAction } from "react";
 // styles
 import { Box, Typography } from "@mui/material";
 // store
@@ -12,36 +11,26 @@ interface MessageViewProps {
   script: RecordDetail[];
   selectMode: boolean;
   checkedSeq: { seq: number; msg: string }[];
-  setCheckedSeq: Dispatch<SetStateAction<{ seq: number; msg: string }[]>>;
+  toggleCheck: (
+    checked: boolean,
+    message: { seq: number; msg: string }
+  ) => void;
 }
 
 export default function MessageView({
   script,
   selectMode,
   checkedSeq,
-  setCheckedSeq,
+  toggleCheck,
 }: MessageViewProps) {
   const { user } = authStore();
-
-  const toggleCheck = useCallback(
-    (checked: boolean, message: { seq: number; msg: string }) => {
-      if (!checked) {
-        setCheckedSeq((prev) => {
-          const newValue = [...prev, message].sort((a, b) => a.seq - b.seq);
-          return newValue;
-        });
-      } else {
-        setCheckedSeq((prev) => prev.filter(({ seq }) => seq !== message.seq));
-      }
-    },
-    [setCheckedSeq]
-  );
 
   return (
     <Box className="messageArea">
       <Typography className="completeText">
         {script.length ? "대화분석을 완료했습니다!" : "분석된 대화가 없어요."}
       </Typography>
+
       {script.map((info) => {
         const { seq, speaker, positive, neutral, negative } = info;
         const feeling = { positive, neutral, negative };

@@ -18,6 +18,7 @@ import type {
   DelRecordDetail,
   DelRecordByOpponent,
   PostScriptResponse,
+  PostScriptBody,
 } from "@app.types/api";
 
 export const useGetUserMain = () =>
@@ -74,6 +75,6 @@ export const DeleteRecordByOpponentMutation = () => {
 
 export const useScriptAnalysisMutation = () =>
   useMutation({
-    mutationFn: async (script: string[]) =>
-      await API.POST<PostScriptResponse, string[]>(POST_SCRIPT, script),
+    mutationFn: async (script: PostScriptBody) =>
+      await API.POST<PostScriptResponse, PostScriptBody>(POST_SCRIPT, script),
   });

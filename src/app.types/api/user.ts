@@ -54,3 +54,4 @@ export type GetRecordDetail = AppResponse<{
 export type DelRecordDetail = AppResponse<null>;
 export type DelRecordByOpponent = AppResponse<null>;
 export type PostScriptResponse = Feeling;
+export type PostScriptBody = { script: string[] };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import AudioPlayer from "react-h5-audio-player";
 // styles
@@ -39,6 +39,20 @@ export default function DetailRecordPage() {
   const { mutateAsync: scriptAnalysis, isPending } =
     useScriptAnalysisMutation();
 
+  const toggleCheck = useCallback(
+    (checked: boolean, message: { seq: number; msg: string }) => {
+      if (!checked) {
+        setCheckedSeq((prev) => {
+          const newValue = [...prev, message].sort((a, b) => a.seq - b.seq);
+          return newValue;
+        });
+      } else {
+        setCheckedSeq((prev) => prev.filter(({ seq }) => seq !== message.seq));
+      }
+    },
+    []
+  );
+
   if (!data || "error" in data) return null;
 
   const { title, fileName, script } = data;
@@ -62,31 +76,33 @@ export default function DetailRecordPage() {
           script={script}
           selectMode={selectMode}
           checkedSeq={checkedSeq}
-          setCheckedSeq={setCheckedSeq}
+          toggleCheck={toggleCheck}
         />
 
-        <AppButton
-          className="button"
-          onClick={async () => {
-            if (selectMode) {
-              if (checkedSeq.length === 0) return;
-              setOpenScriptModal(true);
-              const msgList = checkedSeq.map(({ msg }) => msg);
-              const res = await scriptAnalysis(msgList);
-              if ("error" in res) {
-                setOpenScriptModal(false);
-              } else {
-                setScriptResult(res);
+        {!!script.length && (
+          <AppButton
+            className="button"
+            onClick={async () => {
+              if (selectMode) {
+                if (checkedSeq.length === 0) return;
+                setOpenScriptModal(true);
+                const msgList = checkedSeq.map(({ msg }) => msg);
+                const res = await scriptAnalysis({ script: msgList });
+                if ("error" in res) {
+                  setOpenScriptModal(false);
+                } else {
+                  setScriptResult(res);
+                }
               }
-            }
-            setSelectMode((prev) => {
-              if (prev) setCheckedSeq([]);
-              return !prev;
-            });
-          }}
-        >
-          {selectMode ? "하트 리더기 작동" : "대화 선택하기"}
-        </AppButton>
+              setSelectMode((prev) => {
+                if (prev) setCheckedSeq([]);
+                return !prev;
+              });
+            }}
+          >
+            {selectMode ? "하트 리더기 작동" : "대화 선택하기"}
+          </AppButton>
+        )}
       </Box>
 
       <AppModal
