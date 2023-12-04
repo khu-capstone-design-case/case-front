@@ -1,7 +1,9 @@
 export const acceptableExt = ["wav", "mp3", "m4a"];
 
 export function checkAcceptable(fname: string) {
-  const fileExt = fname.split(".")[1];
+  const fileExtIdx = fname.lastIndexOf(".");
+  const fileExt = fname.slice(fileExtIdx + 1).toLowerCase();
+
   return acceptableExt.some((ext) => ext === fileExt);
 }
 
