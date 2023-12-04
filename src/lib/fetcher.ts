@@ -12,7 +12,7 @@ import { authStore } from "@app.store/authStore";
 // types
 import type { UpdateTokenResponse } from "@app.types/api";
 // constants
-import { POST_REFRESH_TOKEN } from "@app.endpoint";
+import { POST_LOGOUT, POST_REFRESH_TOKEN } from "@app.endpoint";
 
 const { VITE_CLIENT_BASE_URL, VITE_API_BASE_URL } = import.meta.env;
 
@@ -21,20 +21,26 @@ const defaultConfig: AxiosRequestConfig = {
   withCredentials: true,
 };
 
+const cookie = new Cookies();
+
 const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
-  const cookie = new Cookies();
   const accessToken = cookie.get("accessToken");
   const { setUser } = authStore.getState();
 
   if (accessToken) {
     const Authorization = `Bearer ${accessToken}`;
     request.headers["Authorization"] = Authorization;
+    if (request.url === POST_LOGOUT) {
+      return request;
+    }
+
     try {
       const { data } = await Axios.post<UpdateTokenResponse>(
         `${VITE_API_BASE_URL}${POST_REFRESH_TOKEN}`,
         {},
         { headers: { Authorization }, withCredentials: true }
       );
+
       if (!("error" in data) && "accessToken" in data) {
         cookie.set("accessToken", data.accessToken, {
           domain: VITE_CLIENT_BASE_URL,
@@ -58,7 +64,7 @@ const errorInterceptor = (error: AxiosError | Error) => {
     console.log(message);
 
     if (response?.status === 401) {
-      document.cookie = "accessToken=;";
+      cookie.remove("accessToken");
       setTimeout(() => {
         enqueueSnackbar("로그인이 만료되었어요.");
       }, 1000);

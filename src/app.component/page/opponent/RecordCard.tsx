@@ -73,10 +73,14 @@ const styles = {
       alignItems: "center",
       justifyContent: "space-between",
       "& .title": {
+        maxWidth: "70%",
         color: "#525252",
         fontSize: "24px",
         fontWeight: 600,
         letterSpacing: "-1.2px",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
       },
       "& .date": {
         color: "#505050",

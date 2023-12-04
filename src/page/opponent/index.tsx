@@ -53,9 +53,7 @@ export default function OpponentPage() {
           <Typography className="timeText">
             총 {convertSeconds(length, "ko")}의 대화를 나눴습니다!
           </Typography>
-
           <Spacer y={32} />
-
           {data.record.length ? (
             data.record.map((data) => (
               <RecordCard key={data.id} opponent={opponent} record={data} />
@@ -64,22 +62,21 @@ export default function OpponentPage() {
             <OpponentEmpty opponent={opponent} />
           )}
         </Box>
+        <AppModal
+          open={openDeleteModal}
+          title="잠시만요!"
+          type="confirm"
+          btn1Text="확인"
+          btn1Handler={deleteOpponent}
+          btn2Text="취소"
+          btn2Handler={() => setOpenDeleteModal(false)}
+        >
+          모든 통화내역이 사라져요.
+          <br />
+          그래도 삭제하시겠어요?
+        </AppModal>
+        <FloatingUploadButton uploadState={{ opponent }} />
       </Box>
-
-      <AppModal
-        open={openDeleteModal}
-        title="잠시만요!"
-        type="confirm"
-        btn1Text="확인"
-        btn1Handler={deleteOpponent}
-        btn2Text="취소"
-        btn2Handler={() => setOpenDeleteModal(false)}
-      >
-        모든 통화내역이 사라져요.
-        <br />
-        그래도 삭제하시겠어요?
-      </AppModal>
-      <FloatingUploadButton state={{ opponent }} />
     </PageWithGoBack>
   );
 }
@@ -90,6 +87,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     height: "100%",
+    overflow: "scroll",
     "& .header": {
       display: "flex",
       width: "100%",

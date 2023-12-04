@@ -1,4 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
+import { Cookies } from "react-cookie";
 // lib
 import { API } from "@lib";
 // end points
@@ -11,6 +12,8 @@ import {
   type signUpRequestBody,
   type signUpResponse,
 } from "@app.types/api";
+
+const cookie = new Cookies();
 
 export const useLoginMutation = () =>
   useMutation({
@@ -28,5 +31,8 @@ export const useSignUpMutation = () =>
 
 export const useLogoutMutation = () =>
   useMutation({
-    mutationFn: async () => await API.POST<LogoutResponse>(POST_LOGOUT),
+    mutationFn: async () => {
+      await API.POST<LogoutResponse>(POST_LOGOUT);
+      cookie.remove("accessToken");
+    },
   });
