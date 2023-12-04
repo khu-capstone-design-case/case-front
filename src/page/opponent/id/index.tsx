@@ -175,6 +175,14 @@ const styles = {
       m: "32px 0 16px 0",
       position: "sticky",
       width: "98%",
+      "& .rhap_progress-indicator, .rhap_progress-filled, .rhap_volume-indicator":
+        {
+          bgcolor: "var(--color-primary)",
+        },
+      "& .rhap_download-progress, .rhap_volume-bar": {
+        bgcolor: "var(--color-primary-light)",
+      },
+      "& path,": { fill: "var(--color-primary)" },
     },
     "& .button": {
       width: "288px",
