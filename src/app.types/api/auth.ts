@@ -1,4 +1,4 @@
-import { AppResponse } from "./common";
+import type { AppResponse } from "./common";
 
 export interface LoginRequestBody {
   id: string;
@@ -16,6 +16,10 @@ export interface signUpRequestBody extends LoginRequestBody {
 
 export type signUpResponse = AppResponse<null>;
 
-export type UpdateTokenResponse = LoginResponse;
+export type UpdateTokenResponse = {
+  id: string;
+  name: string;
+  accessToken: string;
+};
 
 export type LogoutResponse = AppResponse<null>;

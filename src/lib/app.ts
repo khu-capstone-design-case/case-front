@@ -1,3 +1,10 @@
+export const acceptableExt = ["wav", "mp3", "m4a"];
+
+export function checkAcceptable(fname: string) {
+  const fileExt = fname.split(".")[1];
+  return acceptableExt.some((ext) => ext === fileExt);
+}
+
 export function getFeelingScore(score: number) {
   let feeling = "Not Bad";
   let text = "";
@@ -37,5 +44,5 @@ export function convertSeconds(seconds: number, locale: "en" | "ko" = "en") {
     return `${minuteString}${mT}${secondString && ` ${secondString}${sT}`}`;
   }
 
-  return secondString || `0${sT}`;
+  return `${secondString || "0"}${sT}`;
 }

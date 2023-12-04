@@ -10,11 +10,8 @@ import AppChat from "@app.component/molecule/AppChat";
 interface MessageViewProps {
   script: RecordDetail[];
   selectMode: boolean;
-  checkedSeq: { seq: number; msg: string }[];
-  toggleCheck: (
-    checked: boolean,
-    message: { seq: number; msg: string }
-  ) => void;
+  checkedSeq: number[];
+  toggleCheck: (checked: boolean, seq: number) => void;
 }
 
 export default function MessageView({
@@ -56,7 +53,7 @@ export default function MessageView({
           <AppChat
             key={seq}
             info={info}
-            isOpponent={speaker !== user?.id}
+            isOpponent={speaker !== user?.name}
             bgcolor={bgcolor}
             selectMode={selectMode}
             checkedSeq={checkedSeq}

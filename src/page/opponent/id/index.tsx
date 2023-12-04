@@ -24,38 +24,33 @@ const { VITE_API_BASE_URL } = import.meta.env;
 
 export default function DetailRecordPage() {
   const router = useInternalRouter();
-  const { opponent, id } = useParams();
+  const { opponent, id: paramId } = useParams();
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openScriptModal, setOpenScriptModal] = useState(false);
   const [selectMode, setSelectMode] = useState(false);
-  const [checkedSeq, setCheckedSeq] = useState<{ seq: number; msg: string }[]>(
-    []
-  );
+  const [checkedSeq, setCheckedSeq] = useState<number[]>([]);
   const [scriptResult, setScriptResult] = useState<Feeling | null>(null);
 
-  const { data } = useGetRecordDetail(id);
+  const { data } = useGetRecordDetail(paramId);
   const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation();
   const { mutateAsync: scriptAnalysis, isPending } =
     useScriptAnalysisMutation();
 
-  const toggleCheck = useCallback(
-    (checked: boolean, message: { seq: number; msg: string }) => {
-      if (!checked) {
-        setCheckedSeq((prev) => {
-          const newValue = [...prev, message].sort((a, b) => a.seq - b.seq);
-          return newValue;
-        });
-      } else {
-        setCheckedSeq((prev) => prev.filter(({ seq }) => seq !== message.seq));
-      }
-    },
-    []
-  );
+  const toggleCheck = useCallback((checked: boolean, seq: number) => {
+    if (!checked) {
+      setCheckedSeq((prev) => {
+        const newValue = [...prev, seq].sort();
+        return newValue;
+      });
+    } else {
+      setCheckedSeq((prev) => prev.filter((value) => value !== seq));
+    }
+  }, []);
 
   if (!data || "error" in data) return null;
 
-  const { title, fileName, script } = data;
+  const { id, title, fileName, script } = data;
 
   return (
     <PageWithGoBack>
@@ -86,8 +81,7 @@ export default function DetailRecordPage() {
               if (selectMode) {
                 if (checkedSeq.length === 0) return;
                 setOpenScriptModal(true);
-                const msgList = checkedSeq.map(({ msg }) => msg);
-                const res = await scriptAnalysis({ script: msgList });
+                const res = await scriptAnalysis({ id, seq: checkedSeq });
                 if ("error" in res) {
                   setOpenScriptModal(false);
                 } else {
@@ -188,6 +182,7 @@ const styles = {
       width: "288px",
       height: "52px",
       p: "14px 40px",
+      mt: "auto",
       borderRadius: "26px",
       fontWeight: 600,
     },

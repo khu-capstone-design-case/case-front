@@ -12,11 +12,8 @@ interface AppChatProps {
   isOpponent?: boolean;
   bgcolor?: string;
   selectMode?: boolean;
-  checkedSeq: { seq: number; msg: string }[];
-  toggleCheck?: (
-    checked: boolean,
-    message: { seq: number; msg: string }
-  ) => void;
+  checkedSeq: number[];
+  toggleCheck: (checked: boolean, seq: number) => void;
 }
 
 export default function AppChat({
@@ -29,7 +26,7 @@ export default function AppChat({
 }: AppChatProps) {
   const { seq, message, speaker } = info;
 
-  const checked = checkedSeq.some((value) => value.seq === seq);
+  const checked = checkedSeq.some((value) => value === seq);
   const Icon = checked ? CircleFill : CircleEmpty;
 
   return (
@@ -37,7 +34,7 @@ export default function AppChat({
       sx={styles.container(!!isOpponent)}
       onClick={() => {
         if (!selectMode) return;
-        toggleCheck?.(checked, { seq, msg: message });
+        toggleCheck(checked, seq);
       }}
     >
       <Typography className="name">{speaker}</Typography>

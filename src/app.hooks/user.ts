@@ -75,6 +75,6 @@ export const DeleteRecordByOpponentMutation = () => {
 
 export const useScriptAnalysisMutation = () =>
   useMutation({
-    mutationFn: async (script: PostScriptBody) =>
-      await API.POST<PostScriptResponse, PostScriptBody>(POST_SCRIPT, script),
+    mutationFn: async (seqList: PostScriptBody) =>
+      await API.POST<PostScriptResponse, PostScriptBody>(POST_SCRIPT, seqList),
   });

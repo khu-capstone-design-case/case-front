@@ -1,4 +1,4 @@
-import { AppResponse } from "./common";
+import type { AppResponse } from "./common";
 
 export interface UploadRequestBody {
   title: string;

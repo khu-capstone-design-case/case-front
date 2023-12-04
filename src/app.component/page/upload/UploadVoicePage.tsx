@@ -1,11 +1,14 @@
 import { useRef, type RefObject } from "react";
 import { useFormContext, Controller } from "react-hook-form";
+import { enqueueSnackbar } from "notistack";
 import type Slider from "react-slick";
 // styles
 import { Box, Typography } from "@mui/material";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import CheckIcon from "@mui/icons-material/Check";
 import type { SxStyle, uploadFormState } from "@app.types/app";
+// lib
+import { acceptableExt, checkAcceptable } from "@lib";
 // components
 import { ReactComponent as CharacterUpload } from "/public/image/CharacterUpload.svg";
 import AppButton from "@app.component/atom/AppButton";
@@ -49,9 +52,20 @@ export default function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
           render={({ field: { onChange } }) => (
             <input
               type="file"
-              accept="audio/mp3"
+              accept="audio/*"
               hidden
-              onChange={(e) => onChange(e.target.files?.[0])}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                if (checkAcceptable(file.name)) {
+                  onChange(file);
+                } else {
+                  enqueueSnackbar(
+                    `${acceptableExt.join(",")} 파일만 가능해요!`
+                  );
+                }
+              }}
               ref={inputRef}
             />
           )}
