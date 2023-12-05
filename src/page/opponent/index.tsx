@@ -38,6 +38,8 @@ export default function OpponentPage() {
     }
   };
 
+  const totalLength = data.record.reduce((acc, { length }) => acc + length, 0);
+
   return (
     <PageWithGoBack>
       <Box sx={styles.container}>
@@ -51,7 +53,7 @@ export default function OpponentPage() {
 
         <Box className="recordArea">
           <Typography className="timeText">
-            총 {convertSeconds(length, "ko")}의 대화를 나눴습니다!
+            총 {convertSeconds(totalLength, "ko")}의 대화를 나눴습니다!
           </Typography>
           <Spacer y={32} />
           {data.record.length ? (

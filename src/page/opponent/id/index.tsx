@@ -78,8 +78,7 @@ export default function DetailRecordPage() {
           <AppButton
             className="button"
             onClick={async () => {
-              if (selectMode) {
-                if (checkedSeq.length === 0) return;
+              if (selectMode && checkedSeq.length !== 0) {
                 setOpenScriptModal(true);
                 const res = await scriptAnalysis({ id, seq: checkedSeq });
                 if ("error" in res) {
