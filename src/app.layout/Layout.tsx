@@ -44,5 +44,5 @@ const layoutStyle: SxProps = {
   height: "100vh",
   overflow: "hidden",
   bgcolor: "var(--color-background)",
-  p: "25px",
+  p: "25px 25px 0 25px",
 };

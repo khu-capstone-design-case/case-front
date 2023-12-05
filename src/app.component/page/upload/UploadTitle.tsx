@@ -25,7 +25,7 @@ function UploadTitle({ sliderRef }: UploadTitleProps) {
       <Typography className="mainText">
         상대와의 대화를 한 단어, 한 문장으로 요약한다면 어떻게 쓰실 건가요?
       </Typography>
-
+      <Spacer y={10} />
       <Typography className="subText">
         나눴던 대화 중에 기억에 남는 이야기나 단어를 제목으로 설정하면 사용자님
         파일을 빠르게 찾을 수 있을거에요!

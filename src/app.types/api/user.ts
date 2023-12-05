@@ -20,6 +20,7 @@ export interface RecordOpponent {
   positive: number;
   neutral: number;
   negative: number;
+  seq: number;
 }
 
 export interface RecordDetail {
@@ -53,5 +54,6 @@ export type GetRecordDetail = AppResponse<{
 
 export type DelRecordDetail = AppResponse<null>;
 export type DelRecordByOpponent = AppResponse<null>;
-export type PostScriptResponse = { id: number; seq: number[] } & Feeling;
-export type PostScriptBody = { id: number; seq: number[] };
+export type PostScriptResponse = AppResponse<{ id: number; seq: number[] }> &
+  Feeling;
+export type PostScriptBody = AppResponse<{ id: number; seq: number[] }>;

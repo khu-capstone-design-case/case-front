@@ -18,15 +18,17 @@ export default function ExpandWithText({
   const Icon = open ? KeyboardArrowUpIcon : KeyboardArrowDownIcon;
 
   return (
-    <Box
-      sx={styles.container}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick?.();
-      }}
-    >
-      <Icon fontSize="small" />
-      <Typography>{text}</Typography>
+    <Box sx={styles.container}>
+      <Box
+        className="buttonWrapper"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick?.();
+        }}
+      >
+        <Icon fontSize="small" />
+        <Typography>{text}</Typography>
+      </Box>
     </Box>
   );
 }
@@ -35,9 +37,11 @@ const styles = {
   container: {
     display: "flex",
     justifyContent: "center",
-    cursor: "pointer",
-    width: "100%",
-    "& svg": { fill: "#9F9F9F" },
-    "& > p": { color: "#9F9F9F", fontSize: "12px", letterSpacing: "-0.6px" },
+    "& .buttonWrapper": {
+      display: "flex",
+      cursor: "pointer",
+      "& svg": { fill: "#9F9F9F" },
+      "& > p": { color: "#9F9F9F", fontSize: "12px", letterSpacing: "-0.6px" },
+    },
   },
 } satisfies SxStyle;

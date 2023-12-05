@@ -5,11 +5,14 @@ import Slider from "react-slick";
 // styles
 import { Box } from "@mui/material";
 import { sliderSettings } from "@constant/config";
+// constants
+import { HOME_PATH } from "@constant/path";
 // hooks
 // import {
 //   useUploadInitMutation,
 //   useUploadAnalyzeMutation,
 // } from "@app.hooks/upload";
+import { useInternalRouter } from "@app.hooks/route";
 // types
 import type { uploadFormState, SxStyle } from "@app.types/app";
 // components
@@ -20,6 +23,7 @@ import UploadTitle from "@app.component/page/upload/UploadTitle";
 import UploadOpponent from "@app.component/page/upload/UploadOpponent";
 
 export default function UploadPage() {
+  const router = useInternalRouter();
   const { state } = useLocation();
   const { formState, ...form } = useForm<uploadFormState>({
     defaultValues: {
@@ -35,13 +39,13 @@ export default function UploadPage() {
   // const { mutateAsync: mutateAnalyze } = useUploadAnalyzeMutation();
 
   const onSubmit: SubmitHandler<uploadFormState> = async () => {
-    window.location.replace("/");
-    // try {
-    //   await mutateInit(data);
-    //   await mutateAnalyze();
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    try {
+      // const res = await mutateInit(data);
+      // await mutateAnalyze(res);
+      router.replace(HOME_PATH);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -54,43 +58,50 @@ export default function UploadPage() {
   }, []);
 
   return (
-    <FormProvider formState={formState} {...form}>
-      <form
-        onSubmit={(e) => {
-          form.clearErrors();
-          form.handleSubmit(onSubmit)();
-          e.preventDefault();
-          return false;
-        }}
-        style={styles.form}
-      >
-        <Box sx={styles.container}>
-          <DotsHeader
-            curPage={curPage}
-            maxPage={3}
-            sx={{ position: "absolute", top: 28 }}
-          />
+    <PageWithGoBack
+      onClick={() => {
+        switch (curPage) {
+          case 0:
+            router.goBack();
+            break;
+          default:
+            sliderRef.current?.slickPrev();
+            break;
+        }
+      }}
+    >
+      <FormProvider formState={formState} {...form}>
+        <form
+          onSubmit={(e) => {
+            form.clearErrors();
+            form.handleSubmit(onSubmit)();
+            e.preventDefault();
+            return false;
+          }}
+          style={styles.form}
+        >
+          <Box sx={styles.container}>
+            <DotsHeader
+              curPage={curPage}
+              maxPage={3}
+              sx={{ position: "absolute", top: 28 }}
+            />
 
-          <Slider
-            {...sliderSettings}
-            ref={sliderRef}
-            beforeChange={(_, next) => setCurPage(next)}
-          >
-            <PageWithGoBack>
+            <Slider
+              {...sliderSettings}
+              ref={sliderRef}
+              beforeChange={(_, next) => setCurPage(next)}
+            >
               <UploadVoicePage sliderRef={sliderRef} />
-            </PageWithGoBack>
 
-            <PageWithGoBack onClick={() => sliderRef.current?.slickPrev()}>
               <UploadTitle sliderRef={sliderRef} />
-            </PageWithGoBack>
 
-            <PageWithGoBack onClick={() => sliderRef.current?.slickPrev()}>
-              <UploadOpponent />
-            </PageWithGoBack>
-          </Slider>
-        </Box>
-      </form>
-    </FormProvider>
+              <UploadOpponent isPending={false} />
+            </Slider>
+          </Box>
+        </form>
+      </FormProvider>
+    </PageWithGoBack>
   );
 }
 

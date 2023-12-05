@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // styles
 import { Box, Typography } from "@mui/material";
@@ -39,6 +39,7 @@ export default function OpponentPage() {
         positive: 8.1,
         neutral: 88.4,
         negative: 3.5,
+        seq: 5,
       },
       {
         id: 2,
@@ -50,12 +51,28 @@ export default function OpponentPage() {
         positive: 38.1,
         neutral: 38.4,
         negative: 23.5,
+        seq: 5,
+      },
+      {
+        id: 2,
+        title: "수강신청",
+        summary: "수강신청에 대한 질문",
+        timestamp: 1700617630312,
+        length: 207,
+        point: 64.6,
+        positive: 38.1,
+        neutral: 38.4,
+        negative: 23.5,
+        seq: 3,
       },
     ],
   };
   // const { data } = useGetRecordByOpponent(opponent);
 
   // const { mutateAsync } = DeleteRecordByOpponentMutation();
+  // const { mutateAsync: deleteRecord } = DeleteRecordByOpponentMutation();
+
+  useEffect(() => {}, []);
   if (!opponent || !data || "error" in data) return null;
 
   const deleteOpponent = async () => {
@@ -63,6 +80,15 @@ export default function OpponentPage() {
     router.replace("/");
 
     // const res = await mutateAsync(data.opponent);
+    // if (!(res && "error" in res)) {
+    //   router.replace("/");
+    // }
+    // if (data.record.some(({ seq }) => seq !== 5)) {
+    //   enqueueSnackbar("분석중엔 삭제할 수 없어요!");
+    //   setOpenDeleteModal(false);
+    //   return;
+    // }
+    // const res = await deleteRecord(data.opponent);
     // if (!(res && "error" in res)) {
     //   router.replace("/");
     // }
