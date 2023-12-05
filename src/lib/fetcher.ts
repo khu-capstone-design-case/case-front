@@ -25,15 +25,12 @@ const cookie = new Cookies();
 
 const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
   const accessToken = cookie.get("accessToken");
+  if (!accessToken) return request;
+
   const { setUser } = authStore.getState();
-
-  if (accessToken) {
-    const Authorization = `Bearer ${accessToken}`;
-    request.headers["Authorization"] = Authorization;
-    if (request.url === POST_LOGOUT) {
-      return request;
-    }
-
+  const Authorization = `Bearer ${accessToken}`;
+  request.headers["Authorization"] = Authorization;
+  if (request.url !== POST_LOGOUT) {
     try {
       const { data } = await Axios.post<UpdateTokenResponse>(
         `${VITE_API_BASE_URL}${POST_REFRESH_TOKEN}`,
@@ -49,6 +46,7 @@ const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
       console.log(e);
     }
   }
+
   return request;
 };
 

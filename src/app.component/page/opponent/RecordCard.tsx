@@ -89,6 +89,5 @@ const styles = {
         letterSpacing: "-0.8px",
       },
     },
-    "& .infoArea": {},
   },
 } satisfies SxStyle;

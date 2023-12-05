@@ -5,7 +5,6 @@ import { useCookies } from "react-cookie";
 import { Container, type SxProps } from "@mui/material";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
-import { useLogoutMutation } from "@app.hooks/auth";
 // constant
 import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "@constant/path";
 // store
@@ -15,7 +14,6 @@ function Layout() {
   const router = useInternalRouter();
   const [{ accessToken }] = useCookies(["accessToken"]);
   const { setToken } = authStore();
-  const { mutateAsync: logout } = useLogoutMutation();
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -25,10 +23,9 @@ function Layout() {
       setToken(accessToken);
       if (unAuthorizedPath) router.replace(HOME_PATH);
     } else if (!unAuthorizedPath) {
-      logout();
       router.replace(LOGIN_PATH);
     }
-  }, [accessToken, setToken, router, logout]);
+  }, [accessToken, setToken, router]);
 
   return (
     <Container fixed disableGutters maxWidth="xs" sx={layoutStyle}>
