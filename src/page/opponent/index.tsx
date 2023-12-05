@@ -36,7 +36,8 @@ export default function OpponentPage() {
   const deleteOpponent = async () => {
     if (!data?.opponent) return;
     if (data.record.some(({ seq }) => seq !== 5)) {
-      enqueueSnackbar("분석중인 대화가 있어요!", { variant: "error" });
+      enqueueSnackbar("분석중엔 삭제할 수 없어요!");
+      setOpenDeleteModal(false);
       return;
     }
     const res = await deleteRecord(data.opponent);
