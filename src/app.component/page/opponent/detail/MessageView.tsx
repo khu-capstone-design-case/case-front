@@ -54,6 +54,7 @@ export default function MessageView({
             key={seq}
             info={info}
             isOpponent={speaker !== user?.name}
+            self={user?.name}
             bgcolor={bgcolor}
             selectMode={selectMode}
             checkedSeq={checkedSeq}

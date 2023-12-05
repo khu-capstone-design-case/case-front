@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 // styles
 import { Box, Typography } from "@mui/material";
@@ -27,12 +27,14 @@ export default function OpponentPage() {
 
   const { data } = useGetRecordByOpponent(opponent);
 
-  const { mutateAsync } = DeleteRecordByOpponentMutation();
+  const { mutateAsync: deleteRecord } = DeleteRecordByOpponentMutation();
+
+  useEffect(() => {}, []);
   if (!opponent || !data || "error" in data) return null;
 
   const deleteOpponent = async () => {
     if (!data?.opponent) return;
-    const res = await mutateAsync(data.opponent);
+    const res = await deleteRecord(data.opponent);
     if (!(res && "error" in res)) {
       router.replace("/");
     }

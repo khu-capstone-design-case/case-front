@@ -22,3 +22,13 @@ export type UploadAnalyzeRequestBody = {
 };
 
 export type GetOpponentResponse = { opponent: string[] };
+
+export type GetProgressBody = {
+  recordId: number;
+  userId: string;
+};
+
+export type GetProgressResponse = {
+  id: number;
+  seq: number;
+};

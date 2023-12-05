@@ -20,6 +20,7 @@ export interface RecordOpponent {
   positive: number;
   neutral: number;
   negative: number;
+  seq: number;
 }
 
 export interface RecordDetail {

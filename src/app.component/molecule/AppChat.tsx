@@ -10,6 +10,7 @@ import { ReactComponent as CircleFill } from "/public/icon/CircleFill.svg";
 interface AppChatProps {
   info: RecordDetail;
   isOpponent?: boolean;
+  self?: string;
   bgcolor?: string;
   selectMode?: boolean;
   checkedSeq: number[];
@@ -19,6 +20,7 @@ interface AppChatProps {
 export default function AppChat({
   info,
   isOpponent,
+  self,
   bgcolor = "#E2E2E2",
   selectMode = false,
   checkedSeq,
@@ -38,7 +40,7 @@ export default function AppChat({
         toggleCheck(checked, seq);
       }}
     >
-      <Typography className="name">{speaker}</Typography>
+      <Typography className="name">{isOpponent ? speaker : self}</Typography>
 
       <Box className="messageArea" data-select-mode={selectMode}>
         {selectMode && !isOpponent && <Icon />}

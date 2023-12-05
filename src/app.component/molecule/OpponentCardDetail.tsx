@@ -30,9 +30,9 @@ function OpponentCardDetail({ record }: OpponentCardDetailProps) {
         <Box>
           <Spacer y={10} />
           <Typography className="scoreText">positive</Typography>
-          <Typography className="score">{positive}</Typography>
+          <Typography className="score">{positive.toFixed(2)}</Typography>
           <Typography className="scoreText">negative</Typography>
-          <Typography className="score">{negative}</Typography>
+          <Typography className="score">{negative.toFixed(2)}</Typography>
         </Box>
       </Box>
     </Box>
