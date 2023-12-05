@@ -53,5 +53,6 @@ export type GetRecordDetail = AppResponse<{
 
 export type DelRecordDetail = AppResponse<null>;
 export type DelRecordByOpponent = AppResponse<null>;
-export type PostScriptResponse = { id: number; seq: number[] } & Feeling;
-export type PostScriptBody = { id: number; seq: number[] };
+export type PostScriptResponse = AppResponse<{ id: number; seq: number[] }> &
+  Feeling;
+export type PostScriptBody = AppResponse<{ id: number; seq: number[] }>;

@@ -3,12 +3,11 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { API } from "@lib";
 // end points
 import { GET_OPPONENT_LIST, POST_RECORD, POST_ANALYZE } from "@app.endpoint";
-// constant
-import { HOME_PATH } from "@constant/path";
 // types
 import type {
-  UploadResponse,
-  UploadRequestBody,
+  UploadInitResponse,
+  UploadInitRequestBody,
+  UploadAnalyzeRequestBody,
   GetOpponentResponse,
 } from "@app.types/api";
 
@@ -22,25 +21,23 @@ export const useUploadInitMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (body: UploadRequestBody) => {
-      const res = await API.POST<UploadResponse, UploadRequestBody>(
+    mutationFn: async (body: UploadInitRequestBody) =>
+      await API.POST<UploadInitResponse, UploadInitRequestBody>(
         POST_RECORD,
         body,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
-      );
-
-      if (!(res && "error" in res)) {
-        queryClient.invalidateQueries({ queryKey: ["user/page"] });
-        window.location.href = HOME_PATH;
-      }
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user/page"] });
     },
   });
 };
 
 export const useUploadAnalyzeMutation = () => {
   return useMutation({
-    mutationFn: async () => await API.POST<UploadResponse>(POST_ANALYZE),
+    mutationFn: async (body: UploadAnalyzeRequestBody) =>
+      await API.POST<null, UploadAnalyzeRequestBody>(POST_ANALYZE, body),
   });
 };

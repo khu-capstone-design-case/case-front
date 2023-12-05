@@ -32,7 +32,7 @@ export default function DetailRecordPage() {
   const [checkedSeq, setCheckedSeq] = useState<number[]>([]);
   const [scriptResult, setScriptResult] = useState<Feeling | null>(null);
 
-  const { data } = useGetRecordDetail(paramId);
+  const { data } = useGetRecordDetail(Number(paramId));
   const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation();
   const { mutateAsync: scriptAnalysis, isPending } =
     useScriptAnalysisMutation();

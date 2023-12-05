@@ -19,4 +19,5 @@ export const sliderSettings: Settings = {
   infinite: false,
   dots: false,
   lazyLoad: "anticipated",
+  speed: 300,
 };

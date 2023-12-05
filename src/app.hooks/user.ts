@@ -39,14 +39,10 @@ export const useGetRecordByOpponent = (opponent?: string) =>
     },
   });
 
-export const useGetRecordDetail = (id?: string) =>
+export const useGetRecordDetail = (id: number) =>
   useQuery<GetRecordDetail | undefined>({
     queryKey: ["user/page/record", id],
-    queryFn: async () => {
-      if (id) {
-        return await API.GET<GetRecordDetail>(GET_RECORD_DETAIL(Number(id)));
-      }
-    },
+    queryFn: async () => await API.GET<GetRecordDetail>(GET_RECORD_DETAIL(id)),
   });
 
 export const DeleteRecordDetailMutation = () => {

@@ -88,7 +88,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "flex-end",
     justifyContent: "flex-end",
-    bottom: 20,
+    bottom: 50,
     alignSelf: "flex-end",
     "[data-open='false'] > button": {
       bgcolor: "var(--color-primary-light) !important",
@@ -98,11 +98,20 @@ const styles = {
       boxShadow: 0,
       "&:active": { boxShadow: 0 },
       "&:hover": { bgcolor: "var(--color-primary)" },
-      "& > svg": { fill: "#fff", "& > path": { stroke: "#fff" } },
+      "& > svg": {
+        fill: "#fff",
+        "& > path": { stroke: "#fff" },
+        height: "fit-content",
+      },
     },
     "& .MuiSpeedDialAction-staticTooltipLabel": {
       whiteSpace: "nowrap",
     },
-    "& .MuiBackdrop-root": { bgcolor: "rgba(0,0,0,0.5)", cursor: "auto" },
+    "& .MuiBackdrop-root": {
+      width: "100vw",
+      height: "100vh",
+      bgcolor: "rgba(0,0,0,0.5)",
+      cursor: "auto",
+    },
   },
 } satisfies SxStyle;

@@ -26,6 +26,7 @@ function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
 
   return (
     <Box sx={styles.container}>
+      <Spacer y={50} />
       <CharacterUpload />
       <Spacer y={34} />
 

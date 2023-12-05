@@ -34,13 +34,11 @@ export default function OpponentCard({ record }: OpponentCardProps) {
         </Box>
         <Spacer y={10} />
         <FeelingWithProgress score={point} />
+        <Spacer y={20} />
+        <Collapse sx={styles.collapse} in={open}>
+          <OpponentCardDetail record={record} />
+        </Collapse>
       </Box>
-
-      <Spacer y={20} />
-
-      <Collapse sx={styles.collapse} in={open}>
-        <OpponentCardDetail record={record} />
-      </Collapse>
 
       <Spacer y={20} />
 
