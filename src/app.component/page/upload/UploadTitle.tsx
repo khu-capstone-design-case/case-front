@@ -1,4 +1,4 @@
-import { type RefObject } from "react";
+import { memo, type RefObject } from "react";
 import type Slider from "react-slick";
 import { useFormContext } from "react-hook-form";
 // styles
@@ -13,7 +13,7 @@ interface UploadTitleProps {
   sliderRef: RefObject<Slider>;
 }
 
-export default function UploadTitle({ sliderRef }: UploadTitleProps) {
+function UploadTitle({ sliderRef }: UploadTitleProps) {
   const { register, watch } = useFormContext<uploadFormState>();
 
   const title = watch("title");
@@ -48,6 +48,8 @@ export default function UploadTitle({ sliderRef }: UploadTitleProps) {
     </Box>
   );
 }
+
+export default memo(UploadTitle);
 
 const styles = {
   container: {

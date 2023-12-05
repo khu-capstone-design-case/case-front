@@ -1,3 +1,5 @@
+import { memo } from "react";
+// styles
 import { Box, Typography } from "@mui/material";
 // types
 import type { RecordMain } from "@app.types/api";
@@ -10,9 +12,7 @@ interface OpponentCardDetailProps {
   record: RecordMain;
 }
 
-export default function OpponentCardDetail({
-  record,
-}: OpponentCardDetailProps) {
+function OpponentCardDetail({ record }: OpponentCardDetailProps) {
   const { length, positive, negative } = record;
 
   return (
@@ -38,6 +38,8 @@ export default function OpponentCardDetail({
     </Box>
   );
 }
+
+export default memo(OpponentCardDetail);
 
 const styles = {
   container: {

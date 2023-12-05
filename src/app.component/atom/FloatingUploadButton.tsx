@@ -1,12 +1,6 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 // styles
-import {
-  Box,
-  Backdrop,
-  SpeedDial,
-  SpeedDialAction,
-  SpeedDialIcon,
-} from "@mui/material";
+import { Box, Backdrop, SpeedDial, SpeedDialAction } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import type { SxStyle } from "@app.types/app";
 // hooks
@@ -16,14 +10,13 @@ import { useLogoutMutation } from "@app.hooks/auth";
 import { UPLOAD_PATH } from "@constant/path";
 // components
 import { ReactComponent as UploadIcon } from "/public/icon/UploadIcon.svg";
+import { ReactComponent as Pearl } from "/public/image/Pearl.svg";
 
 interface FloatingUploadButtonProps {
   uploadState?: Record<string, any>;
 }
 
-export default function FloatingUploadButton({
-  uploadState,
-}: FloatingUploadButtonProps) {
+function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
   const [open, setOpen] = useState(false);
 
   const router = useInternalRouter();
@@ -64,8 +57,9 @@ export default function FloatingUploadButton({
       <SpeedDial
         ariaLabel="Floating Button"
         open={open}
+        data-open={open}
         direction="up"
-        icon={<SpeedDialIcon />}
+        icon={<Pearl />}
         onClick={() => setOpen((prev) => !prev)}
       >
         {actions.map(({ icon, name }) => (
@@ -84,6 +78,8 @@ export default function FloatingUploadButton({
   );
 }
 
+export default memo(FloatingUploadButton);
+
 const styles = {
   container: {
     display: "flex",
@@ -92,9 +88,11 @@ const styles = {
     flexDirection: "column",
     alignItems: "flex-end",
     justifyContent: "flex-end",
-    cursor: "pointer",
     bottom: 20,
     alignSelf: "flex-end",
+    "[data-open='false'] > button": {
+      bgcolor: "var(--color-primary-light) !important",
+    },
     "& .MuiButtonBase-root": {
       bgcolor: "var(--color-primary)",
       boxShadow: 0,

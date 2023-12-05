@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
@@ -14,7 +15,7 @@ interface UploadOpponentProps {
   isPending?: boolean;
 }
 
-export default function UploadOpponent({ isPending }: UploadOpponentProps) {
+function UploadOpponent({ isPending }: UploadOpponentProps) {
   const { register, watch } = useFormContext<uploadFormState>();
 
   const { data } = useGetOpponentList();
@@ -63,6 +64,8 @@ export default function UploadOpponent({ isPending }: UploadOpponentProps) {
     </Box>
   );
 }
+
+export default memo(UploadOpponent);
 
 const styles = {
   container: {

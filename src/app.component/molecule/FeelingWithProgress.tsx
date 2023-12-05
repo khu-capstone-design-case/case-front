@@ -5,6 +5,7 @@ import type { SxStyle } from "@app.types/app";
 import { getFeelingScore } from "@lib";
 // components
 import { ReactComponent as GoodSpeechBubble } from "/public/image/GoodSpeechBubble.svg";
+import { ReactComponent as SosoSpeechBubble } from "/public/image/SosoSpeechBubble.svg";
 import { ReactComponent as BadSpeechBubble } from "/public/image/BadSpeechBubble.svg";
 import AppLinearProgress from "@app.component/atom/AppLinearProgress";
 
@@ -18,7 +19,11 @@ export default function FeelingWithProgress({
   const result = getFeelingScore(score);
 
   const SpeechBubble =
-    result.feeling === "good" ? GoodSpeechBubble : BadSpeechBubble;
+    result.feeling === "good"
+      ? GoodSpeechBubble
+      : result.feeling === "Not Bad"
+      ? SosoSpeechBubble
+      : BadSpeechBubble;
 
   return (
     <Box sx={styles.container}>

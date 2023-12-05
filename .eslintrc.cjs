@@ -19,5 +19,6 @@ module.exports = {
     "@typescript-eslint/no-unused-vars": "warn",
     "react/react-in-jsx-scope": "off",
     "react-refresh/only-export-components": "off",
+    "no-constant-condition": "off",
   },
 };

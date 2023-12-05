@@ -1,15 +1,21 @@
 import { useEffect } from "react";
+import { Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 // style
 import { Container, type SxProps } from "@mui/material";
+// hooks
+import { useInternalRouter } from "@app.hooks/route";
+import { useLogoutMutation } from "@app.hooks/auth";
 // constant
 import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "@constant/path";
 // store
 import { authStore } from "@app.store/authStore";
 
-function Layout({ children }: { children: React.ReactNode }) {
+function Layout() {
+  const router = useInternalRouter();
   const [{ accessToken }] = useCookies(["accessToken"]);
   const { setToken } = authStore();
+  const { mutateAsync: logout } = useLogoutMutation();
 
   useEffect(() => {
     const path = window.location.pathname;
@@ -17,16 +23,16 @@ function Layout({ children }: { children: React.ReactNode }) {
 
     if (accessToken) {
       setToken(accessToken);
-      if (unAuthorizedPath) window.location.href = HOME_PATH;
+      if (unAuthorizedPath) router.replace(HOME_PATH);
     } else if (!unAuthorizedPath) {
-      setToken("");
-      window.location.replace(LOGIN_PATH);
+      logout();
+      router.replace(LOGIN_PATH);
     }
-  }, [accessToken, setToken]);
+  }, [accessToken, setToken, router, logout]);
 
   return (
     <Container fixed disableGutters maxWidth="xs" sx={layoutStyle}>
-      {children}
+      <Outlet />
     </Container>
   );
 }

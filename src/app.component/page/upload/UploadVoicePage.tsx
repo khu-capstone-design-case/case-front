@@ -1,4 +1,4 @@
-import { useRef, type RefObject } from "react";
+import { useRef, memo, type RefObject } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { enqueueSnackbar } from "notistack";
 import type Slider from "react-slick";
@@ -18,7 +18,7 @@ interface UploadVoicePageProps {
   sliderRef: RefObject<Slider>;
 }
 
-export default function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
+function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const { watch, control } = useFormContext<uploadFormState>();
 
@@ -90,6 +90,8 @@ export default function UploadVoicePage({ sliderRef }: UploadVoicePageProps) {
     </Box>
   );
 }
+
+export default memo(UploadVoicePage);
 
 const styles = {
   container: {

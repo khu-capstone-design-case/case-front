@@ -6,7 +6,10 @@ import Slider from "react-slick";
 import { Box } from "@mui/material";
 import { sliderSettings } from "@constant/config";
 // hooks
-import { useUploadMutation } from "@app.hooks/upload";
+import {
+  useUploadInitMutation,
+  useUploadAnalyzeMutation,
+} from "@app.hooks/upload";
 // types
 import type { uploadFormState, SxStyle } from "@app.types/app";
 // components
@@ -28,11 +31,13 @@ export default function UploadPage() {
 
   const [curPage, setCurPage] = useState(0);
   const sliderRef = useRef<Slider>(null);
-  const { mutateAsync, isPending } = useUploadMutation();
+  const { mutateAsync: mutateInit, isPending } = useUploadInitMutation();
+  const { mutateAsync: mutateAnalyze } = useUploadAnalyzeMutation();
 
   const onSubmit: SubmitHandler<uploadFormState> = async (data) => {
     try {
-      await mutateAsync(data);
+      await mutateInit(data);
+      await mutateAnalyze();
     } catch (e) {
       console.log(e);
     }

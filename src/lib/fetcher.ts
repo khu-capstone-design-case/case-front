@@ -14,7 +14,7 @@ import type { UpdateTokenResponse } from "@app.types/api";
 // constants
 import { POST_LOGOUT, POST_REFRESH_TOKEN } from "@app.endpoint";
 
-const { VITE_CLIENT_BASE_URL, VITE_API_BASE_URL } = import.meta.env;
+const { VITE_API_BASE_URL } = import.meta.env;
 
 const defaultConfig: AxiosRequestConfig = {
   baseURL: VITE_API_BASE_URL,
@@ -42,10 +42,7 @@ const requestInterceptor = async (request: InternalAxiosRequestConfig) => {
       );
 
       if (!("error" in data) && "accessToken" in data) {
-        cookie.set("accessToken", data.accessToken, {
-          domain: VITE_CLIENT_BASE_URL,
-          path: "/",
-        });
+        cookie.set("accessToken", data.accessToken, { path: "/" });
         setUser(data);
       }
     } catch (e) {

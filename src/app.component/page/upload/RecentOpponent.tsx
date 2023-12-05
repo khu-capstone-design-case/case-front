@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormContext } from "react-hook-form";
 // styles
@@ -10,7 +11,7 @@ interface RecentOpponentProps {
   opponents: string[];
 }
 
-export default function RecentOpponent({ opponents }: RecentOpponentProps) {
+function RecentOpponent({ opponents }: RecentOpponentProps) {
   const { setValue, watch } = useFormContext<uploadFormState>();
 
   const opponent = watch("opponent");
@@ -44,6 +45,8 @@ export default function RecentOpponent({ opponents }: RecentOpponentProps) {
     </Box>
   );
 }
+
+export default memo(RecentOpponent);
 
 const styles = {
   container: {

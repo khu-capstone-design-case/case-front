@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {
   HOME_PATH,
   LOGIN_PATH,
@@ -12,31 +12,24 @@ import SignUpPage from "./page/auth/SignUp";
 import UploadPage from "@page/upload";
 import OpponentPage from "@page/opponent";
 import DetailRecordPage from "@page/opponent/id";
+import Layout from "@app.layout/Layout";
 
-const router = createBrowserRouter([
-  {
-    path: HOME_PATH,
-    element: <HomePage />,
-  },
-  {
-    path: LOGIN_PATH,
-    element: <LogInPage />,
-  },
-  {
-    path: SIGN_UP_PATH,
-    element: <SignUpPage />,
-  },
-  {
-    path: RECORD_OPPONENT_PATH,
-    children: [
-      { path: "", element: <OpponentPage /> },
-      { path: `${RECORD_OPPONENT_PATH}/:id`, element: <DetailRecordPage /> },
-    ],
-  },
-  {
-    path: UPLOAD_PATH,
-    element: <UploadPage />,
-  },
-]);
+export default function Router() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path={HOME_PATH} element={<HomePage />} />
+          <Route path={LOGIN_PATH} element={<LogInPage />} />
+          <Route path={SIGN_UP_PATH} element={<SignUpPage />} />
+          <Route path={RECORD_OPPONENT_PATH}>
+            <Route path="" element={<OpponentPage />} />
+            <Route path=":id" element={<DetailRecordPage />} />
+          </Route>
 
-export default router;
+          <Route path={UPLOAD_PATH} element={<UploadPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
