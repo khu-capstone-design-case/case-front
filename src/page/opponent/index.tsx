@@ -19,6 +19,7 @@ import RecordCard from "@app.component/page/opponent/RecordCard";
 import Spacer from "@app.component/atom/Spacer";
 import OpponentEmpty from "@app.component/page/opponent/OpponentEmpty";
 import AppModal from "@app.component/template/AppModal";
+import { enqueueSnackbar } from "notistack";
 
 export default function OpponentPage() {
   const router = useInternalRouter();
@@ -34,6 +35,10 @@ export default function OpponentPage() {
 
   const deleteOpponent = async () => {
     if (!data?.opponent) return;
+    if (data.record.some(({ seq }) => seq !== 5)) {
+      enqueueSnackbar("분석중인 대화가 있어요!", { variant: "error" });
+      return;
+    }
     const res = await deleteRecord(data.opponent);
     if (!(res && "error" in res)) {
       router.replace("/");
