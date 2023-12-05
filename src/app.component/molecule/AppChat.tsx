@@ -3,14 +3,14 @@ import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 // types
 import type { RecordDetail } from "@app.types/api";
+// store
+import { authStore } from "@app.store/authStore";
 // components
 import { ReactComponent as CircleEmpty } from "/public/icon/CircleEmpty.svg";
 import { ReactComponent as CircleFill } from "/public/icon/CircleFill.svg";
 
 interface AppChatProps {
   info: RecordDetail;
-  isOpponent?: boolean;
-  self?: string;
   bgcolor?: string;
   selectMode?: boolean;
   checkedSeq: number[];
@@ -19,17 +19,18 @@ interface AppChatProps {
 
 export default function AppChat({
   info,
-  isOpponent,
-  self,
   bgcolor = "#E2E2E2",
   selectMode = false,
   checkedSeq,
   toggleCheck,
 }: AppChatProps) {
   const { seq, message, speaker } = info;
+  const { user } = authStore();
 
   const checked = checkedSeq.some((value) => value === seq);
   const Icon = checked ? CircleFill : CircleEmpty;
+
+  const isOpponent = user?.name !== speaker;
 
   return (
     <Box
@@ -40,7 +41,7 @@ export default function AppChat({
         toggleCheck(checked, seq);
       }}
     >
-      <Typography className="name">{isOpponent ? speaker : self}</Typography>
+      <Typography className="name">{speaker}</Typography>
 
       <Box className="messageArea" data-select-mode={selectMode}>
         {selectMode && !isOpponent && <Icon />}

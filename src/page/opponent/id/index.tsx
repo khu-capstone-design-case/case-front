@@ -154,15 +154,6 @@ const styles = {
         right: 0,
       },
     },
-    "& .completeText": {
-      justifySelf: "center",
-      color: "#525252",
-      fontSize: "24px",
-      fontWeight: 600,
-      lineHeight: "36px",
-      letterSpacing: "-1.2px",
-    },
-    "& .messageArea": { display: "grid", width: "100%", overflow: "scroll" },
     "& .player": {
       borderRadius: "8px",
       m: "32px 0 16px 0",
@@ -182,6 +173,7 @@ const styles = {
       height: "52px",
       p: "14px 40px",
       mt: "auto",
+      mb: "20px",
       borderRadius: "26px",
       fontWeight: 600,
     },
