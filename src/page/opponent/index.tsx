@@ -7,10 +7,10 @@ import type { SxStyle } from "@app.types/app";
 import { convertSeconds } from "@lib";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
-import {
-  DeleteRecordByOpponentMutation,
-  useGetRecordByOpponent,
-} from "@app.hooks/user";
+// import {
+//   DeleteRecordByOpponentMutation,
+//   useGetRecordByOpponent,
+// } from "@app.hooks/user";
 // components
 import PageWithGoBack from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
@@ -25,18 +25,50 @@ export default function OpponentPage() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { opponent } = useParams();
 
-  const { data } = useGetRecordByOpponent(opponent);
+  const data = {
+    id: 1,
+    opponent,
+    record: [
+      {
+        id: 1,
+        title: "졸업요건",
+        summary: "졸업요건에 대한 질문",
+        timestamp: 1680617659879,
+        length: 680,
+        point: 54.6,
+        positive: 8.1,
+        neutral: 88.4,
+        negative: 3.5,
+      },
+      {
+        id: 2,
+        title: "수강신청",
+        summary: "수강신청에 대한 질문",
+        timestamp: 1700617630312,
+        length: 207,
+        point: 64.6,
+        positive: 38.1,
+        neutral: 38.4,
+        negative: 23.5,
+      },
+    ],
+  };
+  // const { data } = useGetRecordByOpponent(opponent);
 
-  const { mutateAsync } = DeleteRecordByOpponentMutation();
+  // const { mutateAsync } = DeleteRecordByOpponentMutation();
   if (!opponent || !data || "error" in data) return null;
 
   const deleteOpponent = async () => {
     if (!data?.opponent) return;
-    const res = await mutateAsync(data.opponent);
-    if (!(res && "error" in res)) {
-      router.replace("/");
-    }
+    router.replace("/");
+
+    // const res = await mutateAsync(data.opponent);
+    // if (!(res && "error" in res)) {
+    //   router.replace("/");
+    // }
   };
+
+  const totalLength = data.record.reduce((acc, { length }) => acc + length, 0);
 
   return (
     <PageWithGoBack>
@@ -51,7 +83,7 @@ export default function OpponentPage() {
 
         <Box className="recordArea">
           <Typography className="timeText">
-            총 {convertSeconds(length, "ko")}의 대화를 나눴습니다!
+            총 {convertSeconds(totalLength, "ko")}의 대화를 나눴습니다!
           </Typography>
           <Spacer y={32} />
           {data.record.length ? (

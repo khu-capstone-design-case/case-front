@@ -5,9 +5,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import type { SxStyle } from "@app.types/app";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
-import { useLogoutMutation } from "@app.hooks/auth";
+// import { useLogoutMutation } from "@app.hooks/auth";
 // constants
-import { UPLOAD_PATH } from "@constant/path";
+import { UPLOAD_PATH, LOGIN_PATH } from "@constant/path";
 // components
 import { ReactComponent as UploadIcon } from "/public/icon/UploadIcon.svg";
 import { ReactComponent as Pearl } from "/public/image/Pearl.svg";
@@ -20,7 +20,7 @@ function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
   const [open, setOpen] = useState(false);
 
   const router = useInternalRouter();
-  const { mutateAsync } = useLogoutMutation();
+  // const { mutateAsync } = useLogoutMutation();
 
   const actions = useMemo(
     () => [
@@ -37,7 +37,8 @@ function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
     async (action: string) => {
       switch (action) {
         case "로그아웃":
-          await mutateAsync();
+          router.push(LOGIN_PATH);
+          // await mutateAsync();
           break;
         case "대화 추가":
           uploadState
@@ -49,7 +50,7 @@ function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
       }
       setOpen(false);
     },
-    [router, mutateAsync, uploadState]
+    [router, uploadState]
   );
 
   return (

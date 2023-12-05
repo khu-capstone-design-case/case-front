@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Box, Typography } from "@mui/material";
 import { uploadFormState, type SxStyle } from "@app.types/app";
 // hooks
-import { useGetOpponentList } from "@app.hooks/upload";
+// import { useGetOpponentList } from "@app.hooks/upload";
 // components
 import RecentOpponent from "./RecentOpponent";
 import AppTextField from "@app.component/atom/AppTextField";
@@ -18,7 +18,8 @@ interface UploadOpponentProps {
 function UploadOpponent({ isPending }: UploadOpponentProps) {
   const { register, watch } = useFormContext<uploadFormState>();
 
-  const { data } = useGetOpponentList();
+  const data = { opponent: ["이재혁"] };
+  // const { data } = useGetOpponentList();
 
   const opponent = watch("opponent");
   const speakerNum = watch("speakerNum");

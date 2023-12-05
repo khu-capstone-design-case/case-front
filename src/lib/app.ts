@@ -14,7 +14,7 @@ export function getFeelingScore(score: number) {
   if (score <= 40) {
     feeling = "Bad";
     text = "사용자님과 사이가 가깝지 않은거 같네요.";
-  } else if (40 < score && score <= 65) {
+  } else if (40 < score && score <= 60) {
     feeling = "Not Bad";
     text = "사용자님과 평범한 사이인 것 같아요.";
   } else {

@@ -6,10 +6,10 @@ import Slider from "react-slick";
 import { Box } from "@mui/material";
 import { sliderSettings } from "@constant/config";
 // hooks
-import {
-  useUploadInitMutation,
-  useUploadAnalyzeMutation,
-} from "@app.hooks/upload";
+// import {
+//   useUploadInitMutation,
+//   useUploadAnalyzeMutation,
+// } from "@app.hooks/upload";
 // types
 import type { uploadFormState, SxStyle } from "@app.types/app";
 // components
@@ -31,16 +31,17 @@ export default function UploadPage() {
 
   const [curPage, setCurPage] = useState(0);
   const sliderRef = useRef<Slider>(null);
-  const { mutateAsync: mutateInit, isPending } = useUploadInitMutation();
-  const { mutateAsync: mutateAnalyze } = useUploadAnalyzeMutation();
+  // const { mutateAsync: mutateInit, isPending } = useUploadInitMutation();
+  // const { mutateAsync: mutateAnalyze } = useUploadAnalyzeMutation();
 
-  const onSubmit: SubmitHandler<uploadFormState> = async (data) => {
-    try {
-      await mutateInit(data);
-      await mutateAnalyze();
-    } catch (e) {
-      console.log(e);
-    }
+  const onSubmit: SubmitHandler<uploadFormState> = async () => {
+    window.location.replace("/");
+    // try {
+    //   await mutateInit(data);
+    //   await mutateAnalyze();
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   useEffect(() => {
@@ -84,7 +85,7 @@ export default function UploadPage() {
             </PageWithGoBack>
 
             <PageWithGoBack onClick={() => sliderRef.current?.slickPrev()}>
-              <UploadOpponent isPending={isPending} />
+              <UploadOpponent />
             </PageWithGoBack>
           </Slider>
         </Box>

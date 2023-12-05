@@ -1,7 +1,7 @@
 // styles
 import { Box, Typography } from "@mui/material";
 // store
-import { authStore } from "@app.store/authStore";
+// import { authStore } from "@app.store/authStore";
 // types
 import type { RecordDetail } from "@app.types/api";
 // components
@@ -20,7 +20,7 @@ export default function MessageView({
   checkedSeq,
   toggleCheck,
 }: MessageViewProps) {
-  const { user } = authStore();
+  // const { user } = authStore();
 
   return (
     <Box className="messageArea">
@@ -53,7 +53,8 @@ export default function MessageView({
           <AppChat
             key={seq}
             info={info}
-            isOpponent={speaker !== user?.name}
+            // isOpponent={speaker !== user?.name}
+            isOpponent={speaker !== "내 이름"}
             bgcolor={bgcolor}
             selectMode={selectMode}
             checkedSeq={checkedSeq}

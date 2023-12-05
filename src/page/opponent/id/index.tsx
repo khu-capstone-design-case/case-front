@@ -6,11 +6,11 @@ import { Box, Typography } from "@mui/material";
 import type { Feeling, SxStyle } from "@app.types/app";
 // hooks
 import { useInternalRouter } from "@app.hooks/route";
-import {
-  DeleteRecordDetailMutation,
-  useGetRecordDetail,
-  useScriptAnalysisMutation,
-} from "@app.hooks/user";
+// import {
+// DeleteRecordDetailMutation,
+// useGetRecordDetail,
+// useScriptAnalysisMutation,
+// } from "@app.hooks/user";
 // components
 import PageWithGoBack from "@app.layout/PageWithGoBack";
 import { ReactComponent as Delete } from "/public/icon/Delete.svg";
@@ -24,7 +24,7 @@ const { VITE_API_BASE_URL } = import.meta.env;
 
 export default function DetailRecordPage() {
   const router = useInternalRouter();
-  const { opponent, id: paramId } = useParams();
+  const { opponent } = useParams();
 
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openScriptModal, setOpenScriptModal] = useState(false);
@@ -32,10 +32,48 @@ export default function DetailRecordPage() {
   const [checkedSeq, setCheckedSeq] = useState<number[]>([]);
   const [scriptResult, setScriptResult] = useState<Feeling | null>(null);
 
-  const { data } = useGetRecordDetail(paramId);
-  const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation();
-  const { mutateAsync: scriptAnalysis, isPending } =
-    useScriptAnalysisMutation();
+  const data = {
+    id: 1,
+    title: "졸업요건",
+    fileName: "record-1.m4a",
+    script: [
+      {
+        seq: 1,
+        speaker: "내 이름",
+        message:
+          "안녕하세요, 혹시 컴퓨터공학과 졸업 요건에 TOPCIT이 필요한가요?",
+        startTime: 152132141414,
+        endTime: 1241241431543,
+        positive: 35.44,
+        neutral: 64.11,
+        negative: 0.45,
+      },
+      {
+        seq: 2,
+        speaker: String(opponent),
+        message: "TOPCIT은 안따셔도 괜찮습니다.",
+        startTime: 152132141414,
+        endTime: 1241241431543,
+        positive: 35.44,
+        neutral: 4.11,
+        negative: 60.45,
+      },
+      {
+        seq: 3,
+        speaker: "내 이름",
+        message: "네 알려주셔서 감사합니다!",
+        startTime: 152132141414,
+        endTime: 1241241431543,
+        positive: 65.44,
+        neutral: 34.11,
+        negative: 0.45,
+      },
+    ],
+  };
+  // const { data } = useGetRecordDetail(paramId);
+  // const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation();
+  // const { mutateAsync: scriptAnalysis, isPending } =
+  //   useScriptAnalysisMutation();
 
   const toggleCheck = useCallback((checked: boolean, seq: number) => {
     if (!checked) {
@@ -50,7 +88,7 @@ export default function DetailRecordPage() {
 
   if (!data || "error" in data) return null;
 
-  const { id, title, fileName, script } = data;
+  const { title, fileName, script } = data;
 
   return (
     <PageWithGoBack>
@@ -78,10 +116,16 @@ export default function DetailRecordPage() {
           <AppButton
             className="button"
             onClick={async () => {
-              if (selectMode) {
-                if (checkedSeq.length === 0) return;
+              if (selectMode && checkedSeq.length !== 0) {
                 setOpenScriptModal(true);
-                const res = await scriptAnalysis({ id, seq: checkedSeq });
+                // const res = await scriptAnalysis({ id, seq: checkedSeq });
+                const res = {
+                  id: 1,
+                  seq: [1, 2],
+                  positive: 35.33,
+                  neutral: 54.11,
+                  negative: 10.56,
+                };
                 if ("error" in res) {
                   setOpenScriptModal(false);
                 } else {
@@ -106,7 +150,7 @@ export default function DetailRecordPage() {
         btn1Text="확인"
         btn1Handler={() => setOpenScriptModal(false)}
       >
-        <ScriptResult feeling={scriptResult} isLoading={isPending} />
+        <ScriptResult feeling={scriptResult} isLoading={false} />
       </AppModal>
 
       <AppModal
@@ -115,11 +159,13 @@ export default function DetailRecordPage() {
         type="confirm"
         btn1Text="확인"
         btn1Handler={async () => {
-          if (!data?.id) return;
-          const res = await deleteRecord(data.id);
-          if (!(res && "error" in res)) {
-            router.replace(`/${opponent}`);
-          }
+          router.replace(`/${opponent}`);
+
+          // if (!data?.id) return;
+          // const res = await deleteRecord(data.id);
+          // if (!(res && "error" in res)) {
+          //   router.replace(`/${opponent}`);
+          // }
         }}
         btn2Text="취소"
         btn2Handler={() => setOpenDeleteModal(false)}

@@ -2,7 +2,7 @@
 import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
 // hooks
-import { useGetUserMain } from "@app.hooks/user";
+// import { useGetUserMain } from "@app.hooks/user";
 // components
 import { ReactComponent as CharacterMain } from "/public/image/CharacterMain.svg";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
@@ -11,9 +11,32 @@ import Spacer from "@app.component/atom/Spacer";
 import HomeEmpty from "@app.component/page/home/HomeEmpty";
 
 export default function HomePage() {
-  const { data } = useGetUserMain();
+  const data = {
+    talker: [
+      {
+        id: 1,
+        opponent: "이재혁",
+        length: 680,
+        point: 54.6,
+        positive: 8.1,
+        neutral: 88.4,
+        negative: 3.5,
+      },
+      {
+        id: 2,
+        opponent: "김법진",
+        length: 207,
+        point: 64.6,
+        positive: 38.1,
+        neutral: 38.4,
+        negative: 23.5,
+      },
+    ],
+  };
 
-  if (!data || "error" in data) return null;
+  // const { data } = useGetUserMain();
+
+  // if (!data || "error" in data) return null;
   const { talker } = data;
 
   return (

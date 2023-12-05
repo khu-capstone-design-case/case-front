@@ -19,7 +19,7 @@ export default function FeelingWithProgress({
   const result = getFeelingScore(score);
 
   const SpeechBubble =
-    result.feeling === "good"
+    result.feeling === "Good"
       ? GoodSpeechBubble
       : result.feeling === "Not Bad"
       ? SosoSpeechBubble

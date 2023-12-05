@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
-import { Cookies } from "react-cookie";
+// import { Cookies } from "react-cookie";
 // styles
 import { Box, Divider } from "@mui/material";
 import { ReactComponent as LogoText } from "/public/image/LogoText.svg";
@@ -21,21 +21,22 @@ export default function LogInPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
-  const { mutateAsync, isPending } = useLoginMutation();
+  const { isPending } = useLoginMutation();
 
   const login = async () => {
     if ([id, password].some((val) => val.trim() === "")) return;
+    router.replace(HOME_PATH);
 
-    try {
-      const res = await mutateAsync({ id, password });
+    // try {
+    //   const res = await mutateAsync({ id, password });
 
-      if ("accessToken" in res) {
-        new Cookies().set("accessToken", res.accessToken);
-        router.replace(HOME_PATH);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    //   if ("accessToken" in res) {
+    //     new Cookies().set("accessToken", res.accessToken);
+    //     router.replace(HOME_PATH);
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // }
   };
 
   const onKeyDown = async (e: KeyboardEvent<HTMLDivElement>) => {
