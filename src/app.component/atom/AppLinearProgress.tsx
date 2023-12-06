@@ -1,4 +1,4 @@
-import { LinearProgress, LinearProgressProps } from "@mui/material";
+import { LinearProgress, type LinearProgressProps } from "@mui/material";
 
 type AppLinearProgressProps = LinearProgressProps;
 

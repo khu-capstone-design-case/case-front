@@ -3,12 +3,12 @@ import { enqueueSnackbar } from "notistack";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // constants
 import { LOGIN_PATH } from "@constant/path";
 // hooks
-import { useSignUpMutation } from "@app.hooks/auth";
-import { useInternalRouter } from "@app.hooks/route";
+import { useSignUpMutation } from "@app.hook/auth";
+import { useInternalRouter } from "@app.hook/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";
@@ -31,11 +31,16 @@ export default function SignUpPage() {
 
   const { mutateAsync, isPending } = useSignUpMutation();
 
+  const regex =
+    /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]{6,}$/;
+
+  const password = form.watch("password");
+  const isValidPs = regex.test(password);
+  const isCheckPsSame = password === checkPs;
+
   const signUp: SubmitHandler<signUpForm> = async (data) => {
-    if (data.password !== checkPs) {
-      enqueueSnackbar("비밀번호가 일치하지 않습니다.", { variant: "error" });
-      return;
-    }
+    if (!isValidPs || !isCheckPsSame) return;
+
     try {
       const res = await mutateAsync(data);
 
@@ -68,7 +73,7 @@ export default function SignUpPage() {
               {...register("id", { required: true })}
             />
 
-            <Spacer y={20} />
+            <Spacer y={25} />
 
             <AppTextField
               placeholder="비밀번호(영문, 숫자, 특수문자 포함)를 입력하세요!"
@@ -77,7 +82,14 @@ export default function SignUpPage() {
               type="password"
             />
 
-            <Spacer y={20} />
+            <Typography
+              className="errorInfo"
+              visibility={!password || isValidPs ? "hidden" : "visible"}
+            >
+              영문, 숫자, 특수문자를 포함한 6자리 이상을 사용해야 합니다.
+            </Typography>
+
+            <Spacer y={10} />
 
             <AppTextField
               value={checkPs}
@@ -86,7 +98,15 @@ export default function SignUpPage() {
               sx={styles.input}
               type="password"
             />
-            <Spacer y={20} />
+
+            <Typography
+              className="errorInfo"
+              visibility={!checkPs || isCheckPsSame ? "hidden" : "visible"}
+            >
+              비밀번호가 일치하지 않습니다.
+            </Typography>
+
+            <Spacer y={10} />
 
             <AppTextField
               placeholder="사용자님의 이름을 입력하세요!"
@@ -97,10 +117,10 @@ export default function SignUpPage() {
             <Spacer y={80} />
 
             <AppButton
-              className="loginButton"
+              className="joinButton"
               type="submit"
               loading={isPending}
-              disabled={!(formState.isValid && checkPs)}
+              disabled={!(formState.isValid && isValidPs && isCheckPsSame)}
             >
               등록하기
             </AppButton>
@@ -132,7 +152,12 @@ const styles = {
       fontWeight: 600,
       letterSpacing: "-1px",
     },
-    "& .loginButton": {
+    "& .errorInfo": {
+      color: "var(--color-red)",
+      fontSize: "12px",
+      fontWeight: 500,
+    },
+    "& .joinButton": {
       width: "288px",
       height: "52px",
       py: "14px",

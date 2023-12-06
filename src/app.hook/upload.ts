@@ -9,7 +9,7 @@ import type {
   UploadInitRequestBody,
   UploadAnalyzeRequestBody,
   GetOpponentResponse,
-} from "@app.types/api";
+} from "@app.type/api";
 
 export const useGetOpponentList = () =>
   useQuery<GetOpponentResponse>({

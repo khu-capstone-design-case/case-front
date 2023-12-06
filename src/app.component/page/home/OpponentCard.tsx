@@ -2,10 +2,10 @@ import { useState } from "react";
 // styles
 import { Box, Typography, Collapse } from "@mui/material";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 // types
-import type { RecordMain } from "@app.types/api";
-import type { SxStyle } from "@app.types/app";
+import type { RecordMain } from "@app.type/api";
+import type { SxStyle } from "@app.type/app";
 // components
 import Spacer from "@app.component/atom/Spacer";
 import FeelingWithProgress from "@app.component/molecule/FeelingWithProgress";

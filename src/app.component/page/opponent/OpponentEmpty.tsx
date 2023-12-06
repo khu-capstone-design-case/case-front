@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // constants
 import { UPLOAD_PATH } from "@constant/path";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 // components
 import Spacer from "@app.component/atom/Spacer";
 

@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle, uploadFormState } from "@app.types/app";
+import type { SxStyle, uploadFormState } from "@app.type/app";
 // components
 import AppChip from "@app.component/atom/AppChip";
 

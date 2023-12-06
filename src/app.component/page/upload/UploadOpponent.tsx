@@ -2,9 +2,9 @@ import { memo } from "react";
 import { useFormContext } from "react-hook-form";
 // styles
 import { Box, Typography } from "@mui/material";
-import { uploadFormState, type SxStyle } from "@app.types/app";
+import { uploadFormState, type SxStyle } from "@app.type/app";
 // hooks
-import { useGetOpponentList } from "@app.hooks/upload";
+import { useGetOpponentList } from "@app.hook/upload";
 // components
 import RecentOpponent from "./RecentOpponent";
 import AppTextField from "@app.component/atom/AppTextField";

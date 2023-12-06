@@ -1,5 +1,5 @@
 import { forwardRef, type ForwardedRef } from "react";
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField, type TextFieldProps } from "@mui/material";
 
 type AppTextFieldProps = TextFieldProps;
 

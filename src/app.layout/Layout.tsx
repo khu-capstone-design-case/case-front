@@ -4,7 +4,7 @@ import { useCookies } from "react-cookie";
 // style
 import { Container, type SxProps } from "@mui/material";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 // constant
 import { HOME_PATH, LOGIN_PATH, SIGN_UP_PATH } from "@constant/path";
 // store

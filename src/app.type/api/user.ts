@@ -1,4 +1,4 @@
-import type { Feeling } from "@app.types/app";
+import type { Feeling } from "@app.type/app";
 import type { AppResponse } from "./common";
 export interface RecordMain {
   id: number;

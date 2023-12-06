@@ -1,8 +1,8 @@
 // styles
 import { Box, Typography } from "@mui/material";
+import type { SxStyle } from "@app.type/app";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import type { SxStyle } from "@app.types/app";
 
 interface ExpandWithTextProps {
   open: boolean;

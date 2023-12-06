@@ -8,13 +8,13 @@ import { sliderSettings } from "@constant/config";
 // constants
 import { HOME_PATH } from "@constant/path";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 import {
   useUploadInitMutation,
   useUploadAnalyzeMutation,
-} from "@app.hooks/upload";
+} from "@app.hook/upload";
 // types
-import type { uploadFormState, SxStyle } from "@app.types/app";
+import type { uploadFormState, SxStyle } from "@app.type/app";
 // components
 import DotsHeader from "@app.component/molecule/DotsHeader";
 import PageWithGoBack from "@app.layout/PageWithGoBack";
@@ -55,6 +55,7 @@ export default function UploadPage() {
       }
     };
     window.addEventListener("keydown", preventEnter);
+    return () => window.removeEventListener("keydown", preventEnter);
   }, []);
 
   return (

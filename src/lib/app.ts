@@ -48,3 +48,20 @@ export function convertSeconds(seconds: number, locale: "en" | "ko" = "en") {
 
   return `${secondString || "0"}${sT}`;
 }
+
+export function getProgressFromSeq(seq: number) {
+  switch (seq) {
+    case 0:
+      return { progress: 0, text: "파일을 변환 중이에요!" };
+    case 1:
+      return { progress: 20, text: "음성을 분리 중이에요!" };
+    case 2:
+      return { progress: 40, text: "음성인식 중이에요!" };
+    case 3:
+      return { progress: 60, text: "감정을 분석 중이에요!" };
+    case 4:
+      return { progress: 80, text: "내용을 요약 중이에요!" };
+    default:
+      return { progress: 0, text: "" };
+  }
+}

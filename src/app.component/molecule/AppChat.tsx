@@ -1,13 +1,13 @@
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // types
-import type { RecordDetail } from "@app.types/api";
+import type { RecordDetail } from "@app.type/api";
 // store
 import { authStore } from "@app.store/authStore";
 // components
-import { ReactComponent as CircleEmpty } from "/public/icon/CircleEmpty.svg";
-import { ReactComponent as CircleFill } from "/public/icon/CircleFill.svg";
+import { ReactComponent as CircleEmpty } from "@asset/icon/CircleEmpty.svg";
+import { ReactComponent as CircleFill } from "@asset/icon/CircleFill.svg";
 
 interface AppChatProps {
   info: RecordDetail;

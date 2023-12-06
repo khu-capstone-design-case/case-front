@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 // types
-import type { Feeling, SxStyle } from "@app.types/app";
+import type { Feeling, SxStyle } from "@app.type/app";
 
 interface ScriptResultProps {
   feeling?: Feeling | null;

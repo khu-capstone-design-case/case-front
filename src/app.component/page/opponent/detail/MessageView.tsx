@@ -1,9 +1,9 @@
 import { useState } from "react";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // types
-import type { RecordDetail } from "@app.types/api";
+import type { RecordDetail } from "@app.type/api";
 // components
 import AppChat from "@app.component/molecule/AppChat";
 import AppButton from "@app.component/atom/AppButton";
@@ -61,9 +61,9 @@ export default function MessageView({
 
         const bgcolor =
           Object.keys(bestFeeling)[0] === "positive"
-            ? "var(--color-blue-light)"
+            ? "#CBF8CF"
             : Object.keys(bestFeeling)[0] === "negative"
-            ? "var(--color-red-light)"
+            ? "#F8CBCB"
             : "#E2E2E2";
 
         return (

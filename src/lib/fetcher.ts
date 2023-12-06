@@ -10,7 +10,7 @@ import { enqueueSnackbar } from "notistack";
 // store
 import { authStore } from "@app.store/authStore";
 // types
-import type { UpdateTokenResponse } from "@app.types/api";
+import type { UpdateTokenResponse } from "@app.type/api";
 // constants
 import { POST_LOGOUT, POST_REFRESH_TOKEN } from "@app.endpoint";
 

@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SnackbarProvider } from "notistack";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 // styles
@@ -10,7 +10,7 @@ import { snackbarOptions } from "./constant/config";
 // route
 import Router from "./router";
 
-const isDev = process.env.NODE_ENV === "development";
+// const isDev = process.env.NODE_ENV === "development";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +23,7 @@ function App() {
           <CssBaseline />
           <GlobalStyles />
         </SnackbarProvider>
-        {isDev && <ReactQueryDevtools buttonPosition="bottom-left" />}
+        {/* {isDev && <ReactQueryDevtools buttonPosition="bottom-left" />} */}
       </ThemeProvider>
     </QueryClientProvider>
   );

@@ -13,7 +13,7 @@ import {
   type LoginResponse,
   type signUpRequestBody,
   type signUpResponse,
-} from "@app.types/api";
+} from "@app.type/api";
 
 const cookie = new Cookies();
 

@@ -1,6 +1,8 @@
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
+// lib
+import { getProgressFromSeq } from "@lib";
 // components
 import AppLinearProgress from "@app.component/atom/AppLinearProgress";
 import Spacer from "@app.component/atom/Spacer";
@@ -10,34 +12,19 @@ interface UploadProgressProps {
 }
 
 export default function UploadProgress({ seq }: UploadProgressProps) {
-  const getValue = () => {
-    switch (seq) {
-      case 0:
-        return { progress: 0, text: "파일을 변환 중이에요!" };
-      case 1:
-        return { progress: 20, text: "음성을 분리 중이에요!" };
-      case 2:
-        return { progress: 40, text: "음성인식 중이에요!" };
-      case 3:
-        return { progress: 60, text: "감정을 분석 중이에요!" };
-      case 4:
-        return { progress: 80, text: "내용을 요약 중이에요!" };
-      default:
-        return { progress: 0, text: "" };
-    }
-  };
+  const { progress, text } = getProgressFromSeq(seq);
 
   return (
     <Box sx={styles.container}>
-      <Typography className="text">{getValue().text}</Typography>
+      <Typography className="text">{text}</Typography>
       <Spacer y={20} />
       <AppLinearProgress
         className="progress"
-        value={getValue().progress}
+        value={progress}
         variant="determinate"
       />
       <Spacer y={10} />
-      <Typography className="percentage">{getValue().progress}%</Typography>
+      <Typography className="percentage">{progress}%</Typography>
     </Box>
   );
 }

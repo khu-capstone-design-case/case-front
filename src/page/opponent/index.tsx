@@ -1,21 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { enqueueSnackbar } from "notistack";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // lib
 import { convertSeconds } from "@lib";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 import {
   DeleteRecordByOpponentMutation,
   useGetRecordByOpponent,
-} from "@app.hooks/user";
+} from "@app.hook/user";
 // components
 import PageWithGoBack from "@app.layout/PageWithGoBack";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
-import { ReactComponent as Delete } from "/public/icon/Delete.svg";
+import { ReactComponent as Delete } from "@asset/icon/Delete.svg";
 import RecordCard from "@app.component/page/opponent/RecordCard";
 import Spacer from "@app.component/atom/Spacer";
 import OpponentEmpty from "@app.component/page/opponent/OpponentEmpty";
@@ -30,11 +30,10 @@ export default function OpponentPage() {
 
   const { mutateAsync: deleteRecord } = DeleteRecordByOpponentMutation();
 
-  useEffect(() => {}, []);
   if (!opponent || !data || "error" in data) return null;
 
   const deleteOpponent = async () => {
-    if (!data?.opponent) return;
+    if (!data.opponent) return;
     if (data.record.some(({ seq }) => seq !== 5)) {
       enqueueSnackbar("분석중엔 삭제할 수 없어요!");
       setOpenDeleteModal(false);

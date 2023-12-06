@@ -1,10 +1,10 @@
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // hooks
-import { useGetUserMain } from "@app.hooks/user";
+import { useGetUserMain } from "@app.hook/user";
 // components
-import { ReactComponent as CharacterMain } from "/public/image/CharacterMain.svg";
+import { ReactComponent as CharacterMain } from "@asset/image/CharacterMain.svg";
 import FloatingUploadButton from "@app.component/atom/FloatingUploadButton";
 import OpponentCard from "@app.component/page/home/OpponentCard";
 import Spacer from "@app.component/atom/Spacer";

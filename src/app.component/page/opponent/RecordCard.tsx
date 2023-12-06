@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
-import type { GetProgressResponse, RecordOpponent } from "@app.types/api";
+import type { SxStyle } from "@app.type/app";
+import type { GetProgressResponse, RecordOpponent } from "@app.type/api";
 // constants
 import { GET_PROGRESS } from "@app.endpoint";
 // lib
@@ -37,7 +37,7 @@ export default function RecordCard({
     }
 
     const interval = setInterval(async () => {
-      const res = await API.GET<GetProgressResponse>(GET_PROGRESS(id));
+      const res = await API.GET<GetProgressResponse>(GET_PROGRESS({ id }));
       setCurSec(res.seq);
     }, 3000);
 

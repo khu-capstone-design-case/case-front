@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // components
 import AppChip from "@app.component/atom/AppChip";
 import AppLinearProgress from "@app.component/atom/AppLinearProgress";

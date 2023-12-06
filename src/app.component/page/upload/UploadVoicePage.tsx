@@ -6,11 +6,11 @@ import type Slider from "react-slick";
 import { Box, Typography } from "@mui/material";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import CheckIcon from "@mui/icons-material/Check";
-import type { SxStyle, uploadFormState } from "@app.types/app";
+import type { SxStyle, uploadFormState } from "@app.type/app";
 // lib
 import { acceptableExt, checkAcceptable } from "@lib";
 // components
-import { ReactComponent as CharacterUpload } from "/public/image/CharacterUpload.svg";
+import { ReactComponent as CharacterUpload } from "@asset/image/CharacterUpload.svg";
 import AppButton from "@app.component/atom/AppButton";
 import Spacer from "@app.component/atom/Spacer";
 

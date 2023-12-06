@@ -1,9 +1,9 @@
 // hooks
-import { RoutePath, useInternalRouter } from "@app.hooks/route";
+import { RoutePath, useInternalRouter } from "@app.hook/route";
 // styles
 import { Box, type SxProps } from "@mui/material";
 // components
-import { ReactComponent as ArrowBackIcon } from "/public/icon/ArrowBack.svg";
+import { ReactComponent as ArrowBackIcon } from "@asset/icon/ArrowBack.svg";
 
 interface PageWithGoBackProps {
   onClick?: () => void;

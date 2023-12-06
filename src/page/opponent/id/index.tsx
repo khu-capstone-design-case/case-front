@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom";
 import AudioPlayer from "react-h5-audio-player";
 // styles
 import { Box, Typography } from "@mui/material";
-import type { Feeling, SxStyle } from "@app.types/app";
+import type { Feeling, SxStyle } from "@app.type/app";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
+import { useInternalRouter } from "@app.hook/route";
 import {
   DeleteRecordDetailMutation,
   useGetRecordDetail,
   useScriptAnalysisMutation,
-} from "@app.hooks/user";
+} from "@app.hook/user";
 // components
 import PageWithGoBack from "@app.layout/PageWithGoBack";
-import { ReactComponent as Delete } from "/public/icon/Delete.svg";
+import { ReactComponent as Delete } from "@asset/icon/Delete.svg";
 import Spacer from "@app.component/atom/Spacer";
 import AppModal from "@app.component/template/AppModal";
 import AppButton from "@app.component/atom/AppButton";

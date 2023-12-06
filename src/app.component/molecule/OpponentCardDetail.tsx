@@ -1,9 +1,8 @@
-import { memo } from "react";
 // styles
 import { Box, Typography } from "@mui/material";
 // types
-import type { RecordMain } from "@app.types/api";
-import type { SxStyle } from "@app.types/app";
+import type { RecordMain } from "@app.type/api";
+import type { SxStyle } from "@app.type/app";
 import Spacer from "@app.component/atom/Spacer";
 // lib
 import { convertSeconds } from "@lib";
@@ -12,7 +11,9 @@ interface OpponentCardDetailProps {
   record: RecordMain;
 }
 
-function OpponentCardDetail({ record }: OpponentCardDetailProps) {
+export default function OpponentCardDetail({
+  record,
+}: OpponentCardDetailProps) {
   const { length, positive, negative } = record;
 
   return (
@@ -38,8 +39,6 @@ function OpponentCardDetail({ record }: OpponentCardDetailProps) {
     </Box>
   );
 }
-
-export default memo(OpponentCardDetail);
 
 const styles = {
   container: {

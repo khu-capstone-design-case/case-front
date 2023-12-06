@@ -13,13 +13,7 @@ export type UploadInitResponse = {
   speakerNum: number;
 };
 
-export type UploadAnalyzeRequestBody = {
-  recordId: number;
-  talkerId: number;
-  fileName: string;
-  userId: string;
-  speakerNum: number;
-};
+export type UploadAnalyzeRequestBody = UploadInitResponse;
 
 export type GetOpponentResponse = { opponent: string[] };
 

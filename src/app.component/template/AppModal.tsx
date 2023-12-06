@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 // styles
 import { Box } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 import ModalPortal from "@app.layout/portal";
 
 interface AppModalProps {

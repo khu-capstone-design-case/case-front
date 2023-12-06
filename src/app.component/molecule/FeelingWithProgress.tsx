@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
 // types
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // lib
 import { getFeelingScore } from "@lib";
 // components
-import { ReactComponent as GoodSpeechBubble } from "/public/image/GoodSpeechBubble.svg";
-import { ReactComponent as SosoSpeechBubble } from "/public/image/SosoSpeechBubble.svg";
-import { ReactComponent as BadSpeechBubble } from "/public/image/BadSpeechBubble.svg";
+import { ReactComponent as GoodSpeechBubble } from "@asset/image/GoodSpeechBubble.svg";
+import { ReactComponent as SosoSpeechBubble } from "@asset/image/SosoSpeechBubble.svg";
+import { ReactComponent as BadSpeechBubble } from "@asset/image/BadSpeechBubble.svg";
 import AppLinearProgress from "@app.component/atom/AppLinearProgress";
 
 interface FeelingWithProgressProps {

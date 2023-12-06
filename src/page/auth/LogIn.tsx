@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { Cookies } from "react-cookie";
 // styles
 import { Box, Divider } from "@mui/material";
-import { ReactComponent as LogoText } from "/public/image/LogoText.svg";
-import type { SxStyle } from "@app.types/app";
+import { ReactComponent as LogoText } from "@asset/image/LogoText.svg";
+import type { SxStyle } from "@app.type/app";
 // constant
 import { HOME_PATH, SIGN_UP_PATH } from "@constant/path";
 // hooks
-import { useLoginMutation } from "@app.hooks/auth";
-import { useInternalRouter } from "@app.hooks/route";
+import { useLoginMutation } from "@app.hook/auth";
+import { useInternalRouter } from "@app.hook/route";
 // components
 import AppTextField from "@app.component/atom/AppTextField";
 import Spacer from "@app.component/atom/Spacer";

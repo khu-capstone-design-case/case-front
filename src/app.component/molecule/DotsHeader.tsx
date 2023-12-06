@@ -1,7 +1,6 @@
-import { memo } from "react";
 // styles
 import { Box, type SxProps } from "@mui/material";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 
 interface DotsHeaderProps {
   curPage: number;
@@ -9,7 +8,11 @@ interface DotsHeaderProps {
   sx?: SxProps;
 }
 
-function DotsHeader({ curPage, maxPage = 2, sx }: DotsHeaderProps) {
+export default function DotsHeader({
+  curPage,
+  maxPage = 2,
+  sx,
+}: DotsHeaderProps) {
   return (
     <Box sx={{ ...styles.container, ...sx }}>
       {[...new Array(maxPage)].map((_, idx) => (
@@ -22,8 +25,6 @@ function DotsHeader({ curPage, maxPage = 2, sx }: DotsHeaderProps) {
     </Box>
   );
 }
-
-export default memo(DotsHeader);
 
 const styles = {
   container: {

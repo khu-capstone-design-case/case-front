@@ -19,7 +19,7 @@ import type {
   DelRecordByOpponent,
   PostScriptResponse,
   PostScriptBody,
-} from "@app.types/api";
+} from "@app.type/api";
 
 export const useGetUserMain = () =>
   useQuery<GetUserMainResponse>({
@@ -33,7 +33,7 @@ export const useGetRecordByOpponent = (opponent?: string) =>
     queryFn: async () => {
       if (opponent) {
         return await API.GET<GetRecordByOpponent>(
-          GET_RECORD_BY_OPPONENT(opponent)
+          GET_RECORD_BY_OPPONENT({ opponent })
         );
       }
     },
@@ -42,7 +42,8 @@ export const useGetRecordByOpponent = (opponent?: string) =>
 export const useGetRecordDetail = (id: number) =>
   useQuery<GetRecordDetail | undefined>({
     queryKey: ["user/page/record", id],
-    queryFn: async () => await API.GET<GetRecordDetail>(GET_RECORD_DETAIL(id)),
+    queryFn: async () =>
+      await API.GET<GetRecordDetail>(GET_RECORD_DETAIL({ id })),
   });
 
 export const DeleteRecordDetailMutation = (opponent: string) => {
@@ -50,7 +51,7 @@ export const DeleteRecordDetailMutation = (opponent: string) => {
 
   return useMutation({
     mutationFn: async (id: number) =>
-      await API.DELETE<DelRecordDetail>(DEL_RECORD_DETAIL(id)),
+      await API.DELETE<DelRecordDetail>(DEL_RECORD_DETAIL({ id })),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["user/page/talker", opponent],
@@ -64,7 +65,9 @@ export const DeleteRecordByOpponentMutation = () => {
 
   return useMutation({
     mutationFn: async (opponent: string) =>
-      await API.DELETE<DelRecordByOpponent>(DEL_RECORD_BY_OPPONENT(opponent)),
+      await API.DELETE<DelRecordByOpponent>(
+        DEL_RECORD_BY_OPPONENT({ opponent })
+      ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user/page"] });
     },

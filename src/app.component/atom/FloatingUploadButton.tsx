@@ -1,22 +1,24 @@
-import { useState, useMemo, useCallback, memo } from "react";
+import { useState, useMemo, useCallback } from "react";
 // styles
 import { Box, Backdrop, SpeedDial, SpeedDialAction } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import type { SxStyle } from "@app.types/app";
+import type { SxStyle } from "@app.type/app";
 // hooks
-import { useInternalRouter } from "@app.hooks/route";
-import { useLogoutMutation } from "@app.hooks/auth";
+import { useInternalRouter } from "@app.hook/route";
+import { useLogoutMutation } from "@app.hook/auth";
 // constants
 import { UPLOAD_PATH } from "@constant/path";
 // components
-import { ReactComponent as UploadIcon } from "/public/icon/UploadIcon.svg";
-import { ReactComponent as Pearl } from "/public/image/Pearl.svg";
+import { ReactComponent as UploadIcon } from "@asset/icon/UploadIcon.svg";
+import { ReactComponent as Pearl } from "@asset/image/Pearl.svg";
 
 interface FloatingUploadButtonProps {
   uploadState?: Record<string, any>;
 }
 
-function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
+export default function FloatingUploadButton({
+  uploadState,
+}: FloatingUploadButtonProps) {
   const [open, setOpen] = useState(false);
 
   const router = useInternalRouter();
@@ -77,8 +79,6 @@ function FloatingUploadButton({ uploadState }: FloatingUploadButtonProps) {
     </Box>
   );
 }
-
-export default memo(FloatingUploadButton);
 
 const styles = {
   container: {
