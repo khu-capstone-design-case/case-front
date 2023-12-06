@@ -30,7 +30,7 @@ export default function AppChat({
   const checked = checkedSeq.some((value) => value === seq);
   const Icon = checked ? CircleFill : CircleEmpty;
 
-  const isOpponent = user?.name !== speaker;
+  const isOpponent = user?.id !== speaker;
 
   return (
     <Box
@@ -41,7 +41,9 @@ export default function AppChat({
         toggleCheck(checked, seq);
       }}
     >
-      <Typography className="name">{speaker}</Typography>
+      <Typography className="name">
+        {isOpponent ? speaker : user?.name}
+      </Typography>
 
       <Box className="messageArea" data-select-mode={selectMode}>
         {selectMode && !isOpponent && <Icon />}

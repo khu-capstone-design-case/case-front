@@ -45,14 +45,16 @@ export const useGetRecordDetail = (id: number) =>
     queryFn: async () => await API.GET<GetRecordDetail>(GET_RECORD_DETAIL(id)),
   });
 
-export const DeleteRecordDetailMutation = () => {
+export const DeleteRecordDetailMutation = (opponent: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (id: number) =>
       await API.DELETE<DelRecordDetail>(DEL_RECORD_DETAIL(id)),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user/page/talker"] });
+      queryClient.invalidateQueries({
+        queryKey: ["user/page/talker", opponent],
+      });
     },
   });
 };

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 // styles
 import { Box, Typography } from "@mui/material";
 import type { SxStyle } from "@app.types/app";
@@ -19,14 +20,13 @@ import RecordCard from "@app.component/page/opponent/RecordCard";
 import Spacer from "@app.component/atom/Spacer";
 import OpponentEmpty from "@app.component/page/opponent/OpponentEmpty";
 import AppModal from "@app.component/template/AppModal";
-import { enqueueSnackbar } from "notistack";
 
 export default function OpponentPage() {
   const router = useInternalRouter();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const { opponent } = useParams();
 
-  const { data } = useGetRecordByOpponent(opponent);
+  const { data, refetch } = useGetRecordByOpponent(opponent);
 
   const { mutateAsync: deleteRecord } = DeleteRecordByOpponentMutation();
 
@@ -65,8 +65,13 @@ export default function OpponentPage() {
           </Typography>
           <Spacer y={32} />
           {data.record.length ? (
-            data.record.map((data) => (
-              <RecordCard key={data.id} opponent={opponent} record={data} />
+            data.record.map((info) => (
+              <RecordCard
+                key={info.id}
+                opponent={opponent}
+                record={info}
+                refetch={refetch}
+              />
             ))
           ) : (
             <OpponentEmpty opponent={opponent} />

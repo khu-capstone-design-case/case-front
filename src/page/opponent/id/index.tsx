@@ -33,7 +33,9 @@ export default function DetailRecordPage() {
   const [scriptResult, setScriptResult] = useState<Feeling | null>(null);
 
   const { data } = useGetRecordDetail(Number(paramId));
-  const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation();
+  const { mutateAsync: deleteRecord } = DeleteRecordDetailMutation(
+    String(opponent)
+  );
   const { mutateAsync: scriptAnalysis, isPending } =
     useScriptAnalysisMutation();
 

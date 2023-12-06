@@ -1,6 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { QueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 // styles
 import { Box, Typography } from "@mui/material";
@@ -18,23 +17,22 @@ import UploadProgress from "@app.component/molecule/UploadProgress";
 interface RecordCardProps {
   opponent: string;
   record: RecordOpponent;
+  refetch?: () => void;
 }
-export default function RecordCard({ opponent, record }: RecordCardProps) {
+
+export default function RecordCard({
+  opponent,
+  record,
+  refetch,
+}: RecordCardProps) {
   const { id, title, timestamp, point, length, seq } = record;
   const [curSec, setCurSec] = useState(seq);
 
   const result = getFeelingScore(point);
 
-  const refetch = useCallback(() => {
-    const queryClient = new QueryClient();
-    queryClient.invalidateQueries({
-      queryKey: [`user/page/talker/${opponent}`],
-    });
-  }, [opponent]);
-
   useEffect(() => {
     if (curSec === 5) {
-      refetch();
+      refetch?.();
       return;
     }
 

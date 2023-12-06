@@ -26,8 +26,8 @@ export default function MessageView({
   const names = Array.from(new Set(script.map(({ speaker }) => speaker)));
 
   const toggledScript = script.map(({ speaker, ...rest }) => {
-    const newSpeaker = names.filter((name) => name !== speaker)[0];
-    return { speaker: newSpeaker, ...rest };
+    const opponent = names.filter((name) => name !== speaker)[0];
+    return { speaker: opponent, ...rest };
   });
 
   return (
@@ -37,7 +37,7 @@ export default function MessageView({
           className="toggleButton"
           onClick={() => setToggleOpponent((prev) => !prev)}
         >
-          화자 변경
+          화자를 알맞게 변경해 보세요!
         </AppButton>
       ) : (
         <Typography className="completeText">분석된 대화가 없어요.</Typography>
