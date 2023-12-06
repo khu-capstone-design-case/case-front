@@ -95,7 +95,7 @@ export default function DetailRecordPage() {
               });
             }}
           >
-            {selectMode ? "하트 리더기 작동" : "대화 선택하기"}
+            {selectMode ? "뉘앙스 판단하기" : "대화 선택하기"}
           </AppButton>
         )}
       </Box>
