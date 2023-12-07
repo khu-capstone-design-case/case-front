@@ -26,7 +26,7 @@ export default function RecordCard({
   record,
   refetch,
 }: RecordCardProps) {
-  const { id, seq, title, timestamp, tags, point, length } = record;
+  const { id, seq, title, timestamp, summary, point, length } = record;
   const [curSec, setCurSec] = useState(seq);
 
   const result = getFeelingScore(point);
@@ -65,7 +65,7 @@ export default function RecordCard({
 
         <Spacer y={4} />
 
-        {tags?.map((tag) => (
+        {summary?.slice(0, 3).map((tag) => (
           <AppChip key={tag} className="tag" label={tag} />
         ))}
 

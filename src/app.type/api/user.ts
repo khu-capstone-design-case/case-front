@@ -13,8 +13,7 @@ export interface RecordMain {
 export interface RecordOpponent {
   id: number;
   title: string;
-  summary: string;
-  tags: string[];
+  summary: string[];
   timestamp: number;
   length: number;
   point: number;
