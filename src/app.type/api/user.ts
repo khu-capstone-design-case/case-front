@@ -14,6 +14,7 @@ export interface RecordOpponent {
   id: number;
   title: string;
   summary: string;
+  tags: string[];
   timestamp: number;
   length: number;
   point: number;

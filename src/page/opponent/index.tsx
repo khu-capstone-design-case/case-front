@@ -59,10 +59,14 @@ export default function OpponentPage() {
         <Spacer y={44} />
 
         <Box className="recordArea">
-          <Typography className="timeText">
-            총 {convertSeconds(totalLength, "ko")}의 대화를 나눴습니다!
-          </Typography>
+          {totalLength !== 0 && (
+            <Typography className="timeText">
+              총 {convertSeconds(totalLength, "ko")}의 대화를 나눴습니다!
+            </Typography>
+          )}
+
           <Spacer y={32} />
+
           {data.record.length ? (
             data.record.map((info) => (
               <RecordCard
@@ -76,6 +80,7 @@ export default function OpponentPage() {
             <OpponentEmpty opponent={opponent} />
           )}
         </Box>
+
         <AppModal
           open={openDeleteModal}
           title="잠시만요!"

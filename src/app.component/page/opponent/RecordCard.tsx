@@ -13,6 +13,7 @@ import { API, convertSeconds, getFeelingScore } from "@lib";
 import RecordInfoProgress from "@app.component/molecule/RecordInfoProgress";
 import Spacer from "@app.component/atom/Spacer";
 import UploadProgress from "@app.component/molecule/UploadProgress";
+import AppChip from "@app.component/atom/AppChip";
 
 interface RecordCardProps {
   opponent: string;
@@ -25,10 +26,11 @@ export default function RecordCard({
   record,
   refetch,
 }: RecordCardProps) {
-  const { id, title, timestamp, point, length, seq } = record;
+  const { id, seq, title, timestamp, tags, point, length } = record;
   const [curSec, setCurSec] = useState(seq);
 
   const result = getFeelingScore(point);
+  const callTime = length >= 3600 ? 100 : Math.floor(length / 60);
 
   useEffect(() => {
     if (curSec === 5) {
@@ -51,8 +53,6 @@ export default function RecordCard({
       </Box>
     );
 
-  const callTime = length >= 3600 ? 100 : Math.floor(length / 60);
-
   return (
     <Box sx={styles.container}>
       <Link to={`/${opponent}/${id}`} style={{ width: "100%" }}>
@@ -62,6 +62,12 @@ export default function RecordCard({
             {dayjs(timestamp).format("YYYY-MM-DD")}
           </Typography>
         </Box>
+
+        <Spacer y={4} />
+
+        {tags?.map((tag) => (
+          <AppChip key={tag} className="tag" label={tag} />
+        ))}
 
         <Spacer y={17} />
 
@@ -94,12 +100,11 @@ const styles = {
     alignItems: "center",
     width: "95%",
     bgcolor: "#fff",
-    height: "200px",
     borderRadius: "8px",
     p: "20px",
     boxShadow: 2,
-    "&:hover": { boxShadow: 3 },
     cursor: "pointer",
+    "&:hover": { boxShadow: 3 },
     "& .titleArea": {
       display: "flex",
       width: "100%",
@@ -122,5 +127,6 @@ const styles = {
         letterSpacing: "-0.8px",
       },
     },
+    "& .tag": { mr: "10px", fontWeight: 600 },
   },
 } satisfies SxStyle;
